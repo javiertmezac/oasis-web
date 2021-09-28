@@ -1,0 +1,52 @@
+<div class='card'>
+  <div class='card-header'>
+    {{pageTitle}}
+  </div>
+  <div class='card-body'>
+    <div class='row'>
+      <div class='col-md-2'>Filtrar por:</div>
+      <div class='col-md-4'>
+        <input type='text' [(ngModel)]='listFilter'/>
+      </div>
+    </div>
+    <div class='row' *ngIf='listFilter'>
+      <div class='col-md-4'>
+        <h4>Filtrado por: {{listFilter}}</h4>
+      </div>
+    </div>
+    <div class='table-responsive'>
+      <table class='table' *ngIf='clients.length'>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Factura</th>
+            <th>RFC</th>
+            <th>Telefono</th>
+            <th>Colonia</th>
+            <th>Calle</th>
+            <th>No. Interior</th>
+            <th>No. Exterior</th>
+            <th>Código Postal</th>
+            <th>Registro</th>
+            <th>Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let client of filteredClients'>
+            <td>{{ client.clientCodigo }} </td>
+            <td>{{ client.clientFactura }} </td>
+            <td>{{ client.clientRfc }} </td>
+            <td>{{ client.clientTelefono }} </td>
+            <td>{{ client.clientColonia }} </td>
+            <td>{{ client.clientCalle }} </td>
+            <td>{{ client.clientNoInt }} </td>
+            <td>{{ client.clientNoExt }} </td>
+            <td>{{ client.clientCodigoPostal }} </td>
+            <td>{{ client.clientRegistro }} </td>
+            <td>{{ client.clientPrecio }} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
