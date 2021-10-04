@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './contacts.component.html',
@@ -7,13 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class ContactsComponent implements OnInit {
   pageTitle: string = 'Contactos'
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
   onAddClick(): void {
-    alert('not ready!')
+    this.router.navigate(['/contactos', Number(0)])
   }
 
 }

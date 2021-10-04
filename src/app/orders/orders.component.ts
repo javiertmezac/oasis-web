@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './orders.component.html',
@@ -7,13 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class OrdersComponent implements OnInit {
   pageTitle: string = 'Pedidos'
 
-  constructor() { }
+  constructor(private route: Router) { }
 
   ngOnInit(): void {
   }
 
   onAddClick(): void {
-    alert('not ready yet!')
+    this.route.navigate(['/pedidos', Number(0)])
   }
 
 }

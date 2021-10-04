@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './prices.component.html',
@@ -7,13 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class PricesComponent implements OnInit {
   pageTitle: string = 'Precio Granel';
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
   onAddClick(): void {
-    alert('not ready yet!')
+    this.router.navigate(['/precios', Number(0)])
   }
 
 }
