@@ -2,9 +2,22 @@
   <h1>
     {{title}}
   </h1>
-  ... navar ...
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/inicio">Inicio</a></li>
+          <li class="breadcrumb-item"><a routerLink="/empresas">Empresas</a></li>
+          <li class="breadcrumb-item"><a routerLink="/contactos">Contactos</a></li>
+          <li class="breadcrumb-item"><a routerLink="/pedidos">Pedidos</a></li>
+          <li class="breadcrumb-item"><a routerLink="/notas">Notas</a></li>
+          <li class="breadcrumb-item"><a routerLink="/precios">Precio Granel</a></li>
+          <li class="breadcrumb-item"><a routerLink="/empleados">Trabajadores</a></li>
+        </ol>
+      </nav>
+    </div>
+  </nav>
 
-  <div>
-    <pm-client></pm-client>
-  </div>
+  <router-outlet></router-outlet>
+
 </div>

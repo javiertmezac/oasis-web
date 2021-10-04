@@ -3,7 +3,6 @@ import { IClient } from "./client";
 import { ClientService } from "./client.service"
 
 @Component({
-  selector: 'pm-client',
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.css']
 })
