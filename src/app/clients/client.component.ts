@@ -1,13 +1,13 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { IClient } from "./client";
-import { ClientService } from "./client.service";
+import { ClientService } from "./client.service"
 
 @Component({
-  selector: 'pm-client',
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.css']
 })
-export class ClientComponent {
+
+export class ClientComponent implements OnInit {
 
   pageTitle: string = 'Empresas';
   private _listFilter = '';
