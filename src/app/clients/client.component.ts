@@ -37,4 +37,10 @@ export class ClientComponent implements OnInit {
     return this.clients.filter((client: IClient) =>
       client.clientCodigo.toLocaleLowerCase().includes(filterBy));
   }
+
+  onAddClick() : void {
+    alert(
+      'not ready yet!'
+    )
+  }
 }
