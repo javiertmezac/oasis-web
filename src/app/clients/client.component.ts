@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { IClient } from "./client";
 import { ClientService } from "./client.service"
 
@@ -24,7 +25,8 @@ export class ClientComponent implements OnInit {
     this.filteredClients = this.performFilter(value);
   } 
 
-  constructor(private clientService: ClientService) {}
+  constructor(private clientService: ClientService,
+              private router: Router) {}
 
   ngOnInit(): void {
     console.log("ngOnInit")
@@ -39,8 +41,6 @@ export class ClientComponent implements OnInit {
   }
 
   onAddClick() : void {
-    alert(
-      'not ready yet!'
-    )
+    this.router.navigate(['/empresas', Number(0)]);
   }
 }

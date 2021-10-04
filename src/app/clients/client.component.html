@@ -6,7 +6,7 @@
 
     <div class='row'>
       <div class="col-md-2">
-        <button class="btn-primary" (click)='onAddClick()'>Agregar Empresa</button>
+        <button class="btn btn-primary" (click)='onAddClick()'>Agregar Empresa</button>
       </div>
       <div class='col-md-2'>Filtrar por:</div>
       <div class='col-md-4'>
@@ -41,7 +41,11 @@
         </thead>
         <tbody>
           <tr *ngFor='let client of filteredClients'>
-            <td>{{ client.clientCodigo }} </td>
+            <td>
+              <a [routerLink]="['/empresas', client.clientId]">
+                {{ client.clientCodigo }}
+              </a>
+            </td>
             <td>{{ client.clientFactura }} </td>
             <td>{{ client.clientRfc }} </td>
             <td>{{ client.clientTelefono }} </td>
