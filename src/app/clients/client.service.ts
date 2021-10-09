@@ -3,13 +3,16 @@ import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { catchError, map, tap } from 'rxjs/operators';
 import { IClient } from "./client";
+import { environment } from "../../environments/environment"
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
 
-  private clientsUrl: string = 'http://localhost:8080/oasis-service/api/v1/clients';
+  private baseUri = environment.baseUri;
+  private clientsUrl: string = `${this.baseUri}/v1/clients`;
 
   constructor(private http: HttpClient) {}
 
