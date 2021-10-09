@@ -17,6 +17,7 @@ import { EmployeeDetailComponent } from './employees/employee-detail.component';
 import { NoteDetailComponent } from './notes/note-detail.component';
 import { OrderDetailComponent } from './orders/order-detail.component';
 import { PriceDetailComponent } from './prices/price-detail.component'
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { PriceDetailComponent } from './prices/price-detail.component'
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: 'inicio', component: HomeComponent },
       { path: 'empresas', component: ClientComponent },
