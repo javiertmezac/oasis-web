@@ -27,6 +27,7 @@
         <thead>
           <tr>
             <th>Código</th>
+            <th>Nombre</th>
             <th>Factura</th>
             <th>RFC</th>
             <th>Telefono</th>
@@ -37,25 +38,28 @@
             <th>Código Postal</th>
             <th>Registro</th>
             <th>Precio</th>
+            <th>Sig. Lavado (Tanque)</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor='let client of filteredClients'>
+            <td>{{ client.clientCode }}</td>
             <td>
               <a [routerLink]="['/empresas', client.clientId]">
-                {{ client.clientCodigo }}
+                {{ client.clientName }}
               </a>
             </td>
-            <td>{{ client.clientFactura }} </td>
+            <td>{{ client.clientInvoice }} </td>
             <td>{{ client.clientRfc }} </td>
-            <td>{{ client.clientTelefono }} </td>
-            <td>{{ client.clientColonia }} </td>
-            <td>{{ client.clientCalle }} </td>
+            <td>{{ client.clientTel }} </td>
+            <td>{{ client.clientNeighborhood }} </td>
+            <td>{{ client.clientStreet }} </td>
             <td>{{ client.clientNoInt }} </td>
-            <td>{{ client.clientNoExt }} </td>
-            <td>{{ client.clientCodigoPostal }} </td>
-            <td>{{ client.clientRegistro }} </td>
-            <td>{{ client.clientPrecio }} </td>
+            <td>{{ client.clientNoOut }} </td>
+            <td>{{ client.clientCp }} </td>
+            <td>{{ client.clientRegistration | date:'mediumDate':'':'es' }} </td>
+            <td>{{ client.clientPrice }} </td>
+            <td>{{ client.clientNextClean  | date:'mediumDate':'':'es' }} </td>
           </tr>
         </tbody>
       </table>

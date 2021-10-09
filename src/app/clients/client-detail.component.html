@@ -1,17 +1,19 @@
 <div class="card container">
 
   <div class='card-header'>
-    {{pageTitle}}
+    <strong>
+      {{pageTitle}}
+    </strong>
   </div>
 
   <div class='card-body'>
 
     <div class="row">
       <div class="col-md-2">
-        <label>Número de Tanque:</label>
+        <label>Código:</label>
       </div>
       <div class="col-md-6">
-        <input type="text">
+        <input type="text" [(ngModel)]='client.clientCode'>
       </div>
     </div>
 
@@ -21,7 +23,7 @@
         <label>Número de Factura:</label>
       </div>
       <div class="col-md-6">
-        <input type="text">
+        <input type="text" [(ngModel)]='client.clientInvoice'>
       </div>
     </div>
 
@@ -31,7 +33,7 @@
         <label>Nombre:</label>
       </div>
       <div class="col-md-6">
-        <input type="text">
+        <input type="text" [(ngModel)]='client.clientName'>
       </div>
     </div>
     
@@ -41,7 +43,7 @@
         <label>RFC:</label>
       </div>
       <div class="col-md-6">
-        <input type="text">
+        <input type="text" [(ngModel)]='client.clientRfc'>
       </div>
     </div>
 
@@ -51,7 +53,7 @@
         <label>Teléfono:</label>
       </div>
       <div class="col-md-6">
-        <input type="text">
+        <input type="text" [(ngModel)]='client.clientTel'>
       </div>
     </div>
 
@@ -61,7 +63,7 @@
         <label>Colonia:</label>
       </div>
       <div class="col-md-6">
-        <input type="text">
+        <input type="text" [(ngModel)]='client.clientNeighborhood'>
       </div>
     </div>
 
@@ -71,7 +73,7 @@
         <label>Calle:</label>
       </div>
       <div class="col-md-6">
-        <input type="text">
+        <input type="text" [(ngModel)]='client.clientStreet'>
       </div>
     </div>
 
@@ -81,7 +83,7 @@
         <label>Número de Interior:</label>
       </div>
       <div class="col-md-6">
-        <input type="text">
+        <input type="text" [(ngModel)]='client.clientNoInt'>
       </div>
     </div>
 
@@ -91,7 +93,7 @@
         <label>Número Exterior:</label>
       </div>
       <div class="col-md-6">
-        <input type="text">
+        <input type="text" [(ngModel)]='client.clientNoOut'>
       </div>
     </div>
 
@@ -101,7 +103,7 @@
         <label>Código Postal:</label>
       </div>
       <div class="col-md-6">
-        <input type="text">
+        <input type="text" [(ngModel)]='client.clientCp'>
       </div>
     </div>
 
@@ -111,7 +113,7 @@
         <label>Fecha de Registro:</label>
       </div>
       <div class="col-md-6">
-        <input type="text">
+        <input type="date" [(ngModel)]='client.clientRegistration'>
       </div>
     </div>
 
@@ -121,7 +123,7 @@
         <label>Status:</label>
       </div>
       <div class="col-md-6">
-        <input type="text">
+        <input type="checkbox" [(ngModel)]='client.clientStatus'>
       </div>
     </div>
 
@@ -131,7 +133,7 @@
         <label>Tipo de Precio:</label>
       </div>
       <div class="col-md-6">
-        <input type="text">
+        <input type="text" [(ngModel)]='client.clientPrice'>
       </div>
     </div>
 
@@ -141,7 +143,7 @@
         <label>Fecha sig. lavado (Tanque) :</label>
       </div>
       <div class="col-md-6">
-        <input type="text">
+        <input type="date" [(ngModel)]='client.clientNextClean'>
       </div>
     </div>
 

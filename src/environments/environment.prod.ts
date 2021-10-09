@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  baseUri: "http://oasis-service.com/oasis-service/api"
 };
