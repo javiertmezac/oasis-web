@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
@@ -18,6 +18,9 @@ import { NoteDetailComponent } from './notes/note-detail.component';
 import { OrderDetailComponent } from './orders/order-detail.component';
 import { PriceDetailComponent } from './prices/price-detail.component'
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './shared/auth.guard';
+import { AuthService } from './login/auth.service';
 
 @NgModule({
   declarations: [
@@ -34,24 +37,27 @@ import { HttpClientModule } from '@angular/common/http';
     NoteDetailComponent,
     OrderDetailComponent,
     PriceDetailComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: 'inicio', component: HomeComponent },
-      { path: 'empresas', component: ClientComponent },
-      { path: 'empresas/:id', component: ClientDetailComponent },
-      { path: 'contactos', component: ContactsComponent },
-      { path: 'contactos/:id', component: ContactDetailComponent },
-      { path: 'pedidos', component: OrdersComponent },
-      { path: 'pedidos/:id', component: OrderDetailComponent },
-      { path: 'notas', component: NotesComponent },
-      { path: 'precios', component: PricesComponent },
-      { path: 'precios/:id', component: PriceDetailComponent },
-      { path: 'empleados', component: EmployeesComponent },
-      { path: 'empleados/:id', component: EmployeeDetailComponent },
+      { path: 'inicio', canActivate:[AuthGuard], component: HomeComponent },
+      { path: 'empresas', canActivate:[AuthGuard], component: ClientComponent },
+      { path: 'empresas/:id', canActivate: [AuthGuard], component: ClientDetailComponent },
+      { path: 'contactos', canActivate: [AuthGuard], component: ContactsComponent },
+      { path: 'contactos/:id', canActivate:[AuthGuard], component: ContactDetailComponent },
+      { path: 'pedidos', canActivate: [AuthGuard], component: OrdersComponent },
+      { path: 'pedidos/:id', canActivate: [AuthGuard], component: OrderDetailComponent },
+      { path: 'notas', canActivate: [AuthGuard], component: NotesComponent },
+      { path: 'precios', canActivate:[AuthGuard], component: PricesComponent },
+      { path: 'precios/:id', canActivate: [AuthGuard], component: PriceDetailComponent },
+      { path: 'empleados', canActivate:[AuthGuard], component: EmployeesComponent },
+      { path: 'empleados/:id', canActivate:[AuthGuard], component: EmployeeDetailComponent },
+      { path: 'login', component: LoginComponent },
       { path:'', redirectTo: 'inicio', pathMatch:'full' },
       { path: '**', redirectTo: 'inicio', pathMatch:'full'}
     ])
