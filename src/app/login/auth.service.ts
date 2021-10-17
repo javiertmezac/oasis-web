@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http"
+import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { filter, map, tap } from "rxjs/operators";
@@ -28,6 +28,7 @@ export class AuthService {
     if (fromLocalStorage) {
       this.subject.next({ id_token : fromLocalStorage , email : '', roles : []})
     }
+
     // http.get<User>('/api/user').pipe(
     //     tap(console.log))
     //     .subscribe(user => this.subject.next(user ? user : ANONYMOUS_USER));
@@ -35,10 +36,18 @@ export class AuthService {
 
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUri}/login`, { email, password })
+
+    const httpHeader = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    } 
+
+    let body = `email=${email}&password=${password}`;
+
+    return this.http.post<any>(`${this.baseUri}/login`, body, httpHeader)
       .pipe(
         tap(data => {
-          console.log("login data: ", JSON.stringify(data))
           this.setSession(data)
           }
         )
@@ -49,5 +58,4 @@ export class AuthService {
     localStorage.setItem('id_token', authResult.id_token);
     this.subject.next(authResult)
   }
-
 }
