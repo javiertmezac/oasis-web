@@ -15,9 +15,6 @@ export class AppComponent  implements OnInit {
   constructor(private authService: AuthService){}
 
   ngOnInit() {
-
-    console.log('on init: pm-root')
     this.isLoggedIn$ = this.authService.isLoggedIn$;
-    console.log('on init: pm-root: ', this.isLoggedIn$)
   }
 }
