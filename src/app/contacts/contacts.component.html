@@ -5,26 +5,41 @@
 
   <div class="card-body">
     <div class="row">
+
       <div class="col-md-2">
         <button class="btn btn-primary" (click)='onAddClick()'>Agregar Contacto</button>
+      </div>
+
+      <div class="col-md-2">Filtar por:</div>
+      <div class="col-md-4">
+        <input type="text" [(ngModel)]='listFilter'/>
       </div>
     </div>
 
     <div class="table-responsive">
-      <table class="table">
+      <table class="table" *ngIf='contacts.length'>
         <thead>
           <tr>
-            <th>Clave</th>
             <th>Nombre</th>
-            <th>Apellidos</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
             <th>Celular</th>
             <th>Casa</th>
             <th>Email</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
+          <tr *ngFor='let contact of filteredContacts'>
+            <td>
+              <a [routerLink]="['/contactos', contact.contactId]">
+                {{ contact.contactName}}
+              </a>
+            </td>
+            <td> {{ contact.contactLastName }} </td>
+            <td> {{ contact.contactSurName }} </td>
+            <td> {{ contact.contactPhone }} </td>
+            <td> {{ contact.contactTel }} </td>
+            <td> {{ contact.contactEmail }} </td>
           </tr>
         </tbody>
       </table>

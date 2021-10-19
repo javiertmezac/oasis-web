@@ -18,10 +18,10 @@ import { NoteDetailComponent } from './notes/note-detail.component';
 import { OrderDetailComponent } from './orders/order-detail.component';
 import { PriceDetailComponent } from './prices/price-detail.component'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './shared/auth.guard';
-import { AuthService } from './login/auth.service';
 import { AuthInterceptor } from './shared/auth.interceptor';
+import { CommonModule } from '@angular/common';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   providers: [
@@ -31,23 +31,8 @@ import { AuthInterceptor } from './shared/auth.interceptor';
       multi:true
     }
   ],
-  declarations: [
-    AppComponent,
-    ClientComponent,
-    HomeComponent,
-    ContactsComponent,
-    OrdersComponent,
-    NotesComponent,
-    EmployeesComponent,
-    PricesComponent,
-    ClientDetailComponent,
-    EmployeeDetailComponent,
-    NoteDetailComponent,
-    OrderDetailComponent,
-    PriceDetailComponent,
-    LoginComponent,
-  ],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
@@ -69,6 +54,23 @@ import { AuthInterceptor } from './shared/auth.interceptor';
       { path:'', redirectTo: 'inicio', pathMatch:'full' },
       { path: '**', redirectTo: 'inicio', pathMatch:'full'}
     ])
+  ],
+  declarations: [
+    AppComponent,
+    ClientComponent,
+    HomeComponent,
+    ContactsComponent,
+    ContactDetailComponent,
+    OrdersComponent,
+    NotesComponent,
+    EmployeesComponent,
+    PricesComponent,
+    ClientDetailComponent,
+    EmployeeDetailComponent,
+    NoteDetailComponent,
+    OrderDetailComponent,
+    PriceDetailComponent,
+    LoginComponent,
   ],
   bootstrap: [AppComponent]
 })
