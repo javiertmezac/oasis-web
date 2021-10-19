@@ -30,4 +30,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 [Angular-GettingStarted](https://github.com/DeborahK/Angular-GettingStarted/tree/master/APM-Start)
 
 ## Deploy Command
-` "deploy": "aws s3 cp ./dist/oasis s3://planta-oasis --recursive" `
+1. Build project with production variables: ` ng build --configuration=production`
+2. Deploy to AWS S3 bucket: ` aws s3 cp ./dist/oasis s3://planta-oasis --recursive`

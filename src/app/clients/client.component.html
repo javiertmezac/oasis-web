@@ -2,28 +2,22 @@
   <div class='card-header'>
     {{pageTitle}}
   </div>
+
   <div class='card-body'>
+    <div class="row">
 
-    <div class='row'>
       <div class="col-md-2">
-        <button class="btn btn-primary" (click)='onAddClick()'>Agregar Empresa</button>
+        <button class="btn btn-primary" >Agregar Empresa</button>
       </div>
-      <div class='col-md-2'>Filtrar por:</div>
-      <div class='col-md-4'>
-        <input type='text' [(ngModel)]='listFilter'/>
-      </div>
-    </div>
 
-    <hr>
-
-    <div class='row' *ngIf='listFilter'>
-      <div class='col-md-4'>
-        <h4>Filtrado por: {{listFilter}}</h4>
+      <div class="col-md-2">Filtrar por:</div>
+      <div class="col-md-4">
+        <input type="text" [(ngModel)]='listFilter'/>
       </div>
     </div>
 
-    <div class='table-responsive'>
-      <table class='table' *ngIf='clients.length'>
+    <div class="table-responsive" *ngIf='clients.length'>
+      <table class="table" >
         <thead>
           <tr>
             <th>Código</th>

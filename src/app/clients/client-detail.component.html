@@ -1,149 +1,83 @@
 <div class="card container">
 
-  <div class='card-header'>
+  <div class='card-header' *ngIf="client">
     <strong>
-      {{pageTitle}}
+      {{pageTitle + ": " + client.clientName}}
     </strong>
   </div>
 
-  <div class='card-body'>
+  <div class='card-body' *ngIf="client">
 
-    <div class="row">
-      <div class="col-md-2">
-        <label>Código:</label>
-      </div>
-      <div class="col-md-6">
-        <input type="text" [(ngModel)]='client.clientCode'>
-      </div>
-    </div>
+    <div style="text-align: left;">
 
-    <br>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Número de Factura:</label>
+      <div class="row">
+        <div class="col-md-3">Código</div>
+        <div class="col-md-6">{{client.clientCode}}</div>
       </div>
-      <div class="col-md-6">
-        <input type="text" [(ngModel)]='client.clientInvoice'>
-      </div>
-    </div>
 
-    <br>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Nombre:</label>
+      <div class="row">
+        <div class="col-md-3">Número de Factura:</div>
+        <div class="col-md-6">{{client.clientInvoice}}</div>
       </div>
-      <div class="col-md-6">
-        <input type="text" [(ngModel)]='client.clientName'>
-      </div>
-    </div>
-    
-    <br>
-    <div class="row">
-      <div class="col-md-2">
-        <label>RFC:</label>
-      </div>
-      <div class="col-md-6">
-        <input type="text" [(ngModel)]='client.clientRfc'>
-      </div>
-    </div>
 
-    <br>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Teléfono:</label>
+      <div class="row">
+        <div class="col-md-3">Nombre:</div>
+        <div class="col-md-6">{{client.clientName}}</div>
       </div>
-      <div class="col-md-6">
-        <input type="text" [(ngModel)]='client.clientTel'>
-      </div>
-    </div>
 
-    <br>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Colonia:</label>
+      <div class="row">
+        <div class="col-md-3"> RFC: </div>
+        <div class="col-md-6">{{client.clientRfc}}</div>
       </div>
-      <div class="col-md-6">
-        <input type="text" [(ngModel)]='client.clientNeighborhood'>
-      </div>
-    </div>
 
-    <br>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Calle:</label>
+      <div class="row">
+        <div class="col-md-3">Teléfono:</div>
+        <div class="col-md-6">{{client.clientTel}}</div>
       </div>
-      <div class="col-md-6">
-        <input type="text" [(ngModel)]='client.clientStreet'>
-      </div>
-    </div>
 
-    <br>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Número de Interior:</label>
+      <div class="row">
+        <div class="col-md-3">Colonia: </div>
+        <div class="col-md-6">{{client.clientNeighborhood}}</div>
       </div>
-      <div class="col-md-6">
-        <input type="text" [(ngModel)]='client.clientNoInt'>
-      </div>
-    </div>
 
-    <br>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Número Exterior:</label>
+      <div class="row">
+        <div class="col-md-3">Calle:</div>
+        <div class="col-md-6">{{client.clientStreet}}</div>
       </div>
-      <div class="col-md-6">
-        <input type="text" [(ngModel)]='client.clientNoOut'>
-      </div>
-    </div>
 
-    <br>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Código Postal:</label>
+      <div class="row">
+        <div class="col-md-3">Número de Interior:</div>
+        <div class="col-md-6">{{client.clientNoInt}}</div>
       </div>
-      <div class="col-md-6">
-        <input type="text" [(ngModel)]='client.clientCp'>
-      </div>
-    </div>
 
-    <br>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Fecha de Registro:</label>
+      <div class="row">
+        <div class="col-md-3">Número Exterior:</div>
+        <div class="col-md-6">{{client.clientNoOut}}</div>
       </div>
-      <div class="col-md-6">
-        <input type="date" [(ngModel)]='client.clientRegistration'>
-      </div>
-    </div>
 
-    <br>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Status:</label>
+      <div class="row">
+        <div class="col-md-3">Código Postal:</div>
+        <div class="col-md-6">{{client.clientCp}}</div>
       </div>
-      <div class="col-md-6">
-        <input type="checkbox" [(ngModel)]='client.clientStatus'>
-      </div>
-    </div>
 
-    <br>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Tipo de Precio:</label>
+      <div class="row">
+        <div class="col-md-3">Fecha de Registro:</div>
+        <div class="col-md-6">{{client.clientRegistration | date}}</div>
       </div>
-      <div class="col-md-6">
-        <input type="text" [(ngModel)]='client.clientPrice'>
-      </div>
-    </div>
 
-    <br>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Fecha sig. lavado (Tanque) :</label>
+      <div class="row">
+        <div class="col-md-3">Status:</div>
+        <div class="col-md-6">{{client.clientStatus}}</div>
       </div>
-      <div class="col-md-6">
-        <input type="date" [(ngModel)]='client.clientNextClean'>
+
+      <div class="row">
+        <div class="col-md-3">Tipo de Precio:</div>
+        <div class="col-md-6">{{client.clientPrice}}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">Fecha sig. lavado (Tanque) :</div>
+        <div class="col-md-6">{{client.clientNextClean | date}}</div>
       </div>
     </div>
 
@@ -152,10 +86,10 @@
   <div class="card-footer">
     <div class='row'>
       <div class="col-md-2">
-        <button class="btn btn-primary" (click)='onSave()'>Guardar</button>
+        <button class="btn btn-primary" >Editar</button>
       </div>
       <div class="col-md-2">
-        <button class="btn btn-secondary" (click)='onBack()'>Regresar</button>
+        <button class="btn btn-secondary" routerLink="/empresas">Regresar</button>
       </div>
     </div>
   </div>

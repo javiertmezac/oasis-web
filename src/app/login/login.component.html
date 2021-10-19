@@ -24,7 +24,13 @@
       </fieldset>
 
       <div class="form-buttons">
-        <button class="btn btn-primary" (click)="login()">Entrar</button>
+
+        <button class="btn btn-primary"
+                [disabled]="!form.valid"
+                (click)="login()">
+          Entrar
+        </button>
+
       </div>
     </form>
   </div>

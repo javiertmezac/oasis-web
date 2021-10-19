@@ -1,78 +1,41 @@
 <div class="card container">
 
-  <div class='card-header'>
-    {{pageTitle}}
+  <div class="card-header" *ngIf="contact">
+    <strong>
+      {{pageTitle + ": " + contact.contactName}}
+    </strong>
   </div>
 
-  <div class='card-body'>
+  <div class='card-body' *ngIf="contact">
 
     <div class="row">
-      <div class="col-md-2">
-        <label>Nombre:</label>
-      </div>
-      <div class="col-md-6">
-        <input type="text">
-      </div>
+      <div class="col-md-2">Nombre:</div>
+      <div class="col-md-6"> {{contact.contactName}} </div>
     </div>
 
-    <br>
     <div class="row">
-      <div class="col-md-2">
-        <label>Apelligo Paterno:</label>
-      </div>
-      <div class="col-md-6">
-        <input type="text">
-      </div>
+      <div class="col-md-2"> Apelligo Paterno:</div>
+      <div class="col-md-6">{{contact.contactLastName}}</div>
     </div>
 
-    <br>
     <div class="row">
-      <div class="col-md-2">
-        <label>Apellido Materno:</label>
-      </div>
-      <div class="col-md-6">
-        <input type="text">
-      </div>
+      <div class="col-md-2">Apellido Materno:</div>
+      <div class="col-md-6">{{contact.contactSurName}}</div>
     </div>
 
-    <br>
     <div class="row">
-      <div class="col-md-2">
-        <label>Celular:</label>
-      </div>
-      <div class="col-md-6">
-        <input type="text">
-      </div>
+      <div class="col-md-2">Celular:</div>
+      <div class="col-md-6">{{contact.contactPhone}}</div>
     </div>
 
-    <br>
     <div class="row">
-      <div class="col-md-2">
-        <label>Número de Casa:</label>
-      </div>
-      <div class="col-md-6">
-        <input type="text">
-      </div>
+      <div class="col-md-2">Número de Casa:</div>
+      <div class="col-md-6">{{contact.contactTel}}</div>
     </div>
 
-    <br>
     <div class="row">
-      <div class="col-md-2">
-        <label>Email:</label>
-      </div>
-      <div class="col-md-6">
-        <input type="text">
-      </div>
-    </div>
-
-    <br>
-    <div class="row">
-      <div class="col-md-2">
-        <label>Status:</label>
-      </div>
-      <div class="col-md-6">
-        <input type="checkbox">
-      </div>
+      <div class="col-md-2">Email:</div>
+      <div class="col-md-6">{{contact.contactEmail}}</div>
     </div>
 
   </div>
@@ -80,12 +43,17 @@
   <div class="card-footer">
     <div class='row'>
       <div class="col-md-2">
-        <button class="btn btn-primary" (click)='onSave()'>Guardar</button>
+        <button class="btn btn-outline-primary" >Editar</button>
       </div>
       <div class="col-md-2">
-        <button class="btn btn-secondary" (click)='onBack()'>Regresar</button>
+        <button class="btn btn-outline-secondary" routerLink="/contactos">Regresar</button>
       </div>
     </div>
+  </div>
+
+
+  <div class="alert alert-danger" *ngIf="errorMessage">
+  {{errorMessage}}
   </div>
 
 </div>

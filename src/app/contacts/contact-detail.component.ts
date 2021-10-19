@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { IContact } from './contact';
+import { ContactService } from './contact.service';
 
 @Component({
   templateUrl: './contact-detail.component.html',
@@ -7,19 +9,24 @@ import { Router } from '@angular/router';
 })
 export class ContactDetailComponent implements OnInit {
 
-  pageTitle: string = 'Detalle Contacto'
+  pageTitle: string = 'Detalle Contacto';
+  contact!: IContact;
+  errorMessage = '';
 
-  constructor(private route: Router) { }
+  constructor(private route: ActivatedRoute,
+    private contactService: ContactService) {
 
-  ngOnInit(): void {
+    const contactId = Number(this.route.snapshot.paramMap.get('id'));
+    if (contactId) {
+      this.contactService.getContact(contactId).subscribe({
+        next: response => {
+          console.log(response)
+          this.contact = response
+        },
+        error: error => this.errorMessage = error
+      });
+    }
   }
 
-  onBack(): void {
-    this.route.navigate(['/contactos'])
-  }
-
-  onSave(): void {
-
-  }
-
+  ngOnInit(): void {}
 }
