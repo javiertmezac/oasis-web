@@ -22,6 +22,7 @@ import { AuthGuard } from './shared/auth.guard';
 import { AuthInterceptor } from './shared/auth.interceptor';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
+import { ContactEditComponent } from './contacts/contact-edit.component';
 
 @NgModule({
   providers: [
@@ -43,6 +44,10 @@ import { LoginComponent } from './login/login.component';
       { path: 'empresas/:id', canActivate: [AuthGuard], component: ClientDetailComponent },
       { path: 'contactos', canActivate: [AuthGuard], component: ContactsComponent },
       { path: 'contactos/:id', canActivate:[AuthGuard], component: ContactDetailComponent },
+      {
+        path: 'contactos/:id/editar',
+        component: ContactEditComponent
+      },
       { path: 'pedidos', canActivate: [AuthGuard], component: OrdersComponent },
       { path: 'pedidos/:id', canActivate: [AuthGuard], component: OrderDetailComponent },
       { path: 'notas', canActivate: [AuthGuard], component: NotesComponent },
@@ -61,6 +66,7 @@ import { LoginComponent } from './login/login.component';
     HomeComponent,
     ContactsComponent,
     ContactDetailComponent,
+    ContactEditComponent,
     OrdersComponent,
     NotesComponent,
     EmployeesComponent,

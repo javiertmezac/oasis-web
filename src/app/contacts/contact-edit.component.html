@@ -1,0 +1,74 @@
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+
+  <div class="card-body">
+    <form novalidate 
+          (ngSubmit)="saveContact()"
+          [formGroup]="contactForm">
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="contactNameId">Nombre:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="contactNameId"
+                 type="text"
+                 placeholder="Name (requerido)"
+                 formControlName="contactName"
+                 [ngClass]="{'is-invalid': displayMessage.contactName }" />
+          <span class="invalid-feedback">
+            {{displayMessage.contactName}}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="contactLastNameId">Apellido Paterno:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="contactLastNameId"
+                 type="text"
+                 placeholder="Apellido Paterno (requerido)"
+                 formControlName="contactLastName"
+                 [ngClass]="{'is-invalid': displayMessage.contactLastName}" />
+          <span class="invalid-feedback">
+            {{displayMessage.contactLastName}}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-primary mr-3"
+                  style="width:80px;"
+                  type="submit"
+                  [title]="contactForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                  [disabled]="!contactForm.valid">
+            Save
+          </button>
+          <button class="btn btn-outline-secondary mr-3"
+                  style="width:80px;"
+                  type="button"
+                  title="Cancel your edits"
+                  [routerLink]="['/contactos']">
+            Cancel
+          </button>
+          <button class="btn btn-outline-warning"
+                  style="width:80px"
+                  type="button"
+                  title="Delete this Contact"
+                  (click)="deleteContact()">
+            Delete
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="alert alert-danger" 
+      *ngIf="errorMessage">{{errorMessage}}
+  </div>
+</div>
