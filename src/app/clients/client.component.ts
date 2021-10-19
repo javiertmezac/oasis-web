@@ -59,8 +59,4 @@ export class ClientComponent implements OnInit {
     return this.clients.filter((client: IClient) =>
       client.clientName.toLocaleLowerCase().includes(filterBy) || client.clientNeighborhood.toLocaleLowerCase().includes(filterBy));
   }
-
-  onAddClick() : void {
-    this.router.navigate(['/empresas', Number(0)]);
-  }
 }

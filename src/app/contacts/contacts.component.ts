@@ -36,10 +36,6 @@ export class ContactsComponent implements OnInit {
     });
   }
 
-  onAddClick(): void {
-    this.router.navigate(['/contactos', Number(0)])
-  }
-
   onDestroy(): void {
     this.sub.unsubscribe();
   }
