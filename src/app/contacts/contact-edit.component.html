@@ -1,6 +1,8 @@
 <div class="card">
   <div class="card-header">
+    <strong>
     {{pageTitle}}
+    </strong>
   </div>
 
   <div class="card-body">
@@ -15,11 +17,16 @@
           <input class="form-control"
                  id="contactNameId"
                  type="text"
-                 placeholder="Name (requerido)"
+                 required
+                 placeholder="Nombre (requerido)"
                  formControlName="contactName"
-                 [ngClass]="{'is-invalid': displayMessage.contactName }" />
+                 [ngClass]="{'is-invalid': (contactForm.get('contactName')?.touched ||
+                                contactForm.get('contactName')?.dirty) &&
+                                !contactForm.get('contactName')?.valid }" />
           <span class="invalid-feedback">
-            {{displayMessage.contactName}}
+            <span *ngIf="contactForm.controls['contactName'].errors?.required">
+              Nombre requerido
+            </span>
           </span>
         </div>
       </div>
@@ -33,9 +40,69 @@
                  type="text"
                  placeholder="Apellido Paterno (requerido)"
                  formControlName="contactLastName"
-                 [ngClass]="{'is-invalid': displayMessage.contactLastName}" />
+                 [ngClass]="{'is-invalid': (contactForm.get('contactLastName')?.touched ||
+                                contactForm.get('contactLastName')?.dirty) &&
+                                !contactForm.get('contactLastName')?.valid }" />
           <span class="invalid-feedback">
-            {{displayMessage.contactLastName}}
+            <span *ngIf="contactForm.controls['contactLastName'].errors?.required">
+              Apellido Paterno requerido
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="contactSurNameId">Apellido Materno:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="contactSurNameId"
+                 type="text"
+                 placeholder="Apellido Materno"
+                 formControlName="contactSurName" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="contactPhoneId">Tel Cell:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="contactPhoneId"
+                 type="text"
+                 placeholder="Tel Cell"
+                 formControlName="contactPhone"/>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="contactTelId">Tel Casa:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="contactTelId"
+                 type="text"
+                 placeholder="Tel Casa"
+                 formControlName="contactTel" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="contactEmailId">Correo:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="contactEmailId"
+                 type="text"
+                 placeholder="Correo (Email)"
+                 formControlName="contactEmail"
+                 [ngClass]="{'is-invalid': (contactForm.get('contactEmail')?.touched ||
+                 contactForm.get('contactEmail')?.dirty) &&
+                 !contactForm.get('contactEmail')?.valid }"/>
+          <span class="invalid-feedback">
+            <span *ngIf="contactForm.controls['contactEmail'].errors?.email">
+              correo no válido
+            </span>
           </span>
         </div>
       </div>

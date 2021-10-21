@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { IContact } from './contact';
+import { ContactService } from './contact.service';
 
 @Component({
   templateUrl: './contact-edit.component.html',
@@ -9,19 +12,58 @@ export class ContactEditComponent implements OnInit {
   // @ViewChildren(FormControlName, { read: ElementRef }) formInputElements!: ElementRef[];
 
   contactForm! : FormGroup;
-  pageTitle = "Editar Contacto";
+  pageTitle = "Nuevo Contacto";
   errorMessage = '';
+  contact!: IContact;
 
   displayMessage : { [key: string]: string } = {};
 
-  constructor(private fb: FormBuilder) {
-    this.contactForm = this.fb.group({
-      contactName: ['', Validators.required],
-      contactLastName: ['', Validators.required]
-    });
+  constructor(private fb: FormBuilder,
+    private contactService: ContactService,
+    private route: ActivatedRoute) {
+
+      const contactId = Number(this.route.snapshot.paramMap.get('id'));
+      this.getContact(contactId);
   }
 
   ngOnInit(): void {
+    this.contactForm = this.fb.group({
+      contactName: ['', Validators.required],
+      contactLastName: ['', Validators.required],
+      contactSurName: '',
+      contactPhone: '',
+      contactTel: '',
+      contactEmail: ['', Validators.email]
+    });
+  }
+
+  getContact(id: number) {
+    if (id != 0) {
+      this.contactService.getContact(id).subscribe({
+        next: (contact: IContact) => this.displayContactData(contact),
+        error: error => this.errorMessage = error
+      });
+    }
+  }
+
+  displayContactData(contact: IContact): void {
+    if (this.contactForm) {
+      this.contactForm.reset();
+    }
+    this.contact = contact;
+
+    if(this.contact.contactId != 0) {
+      this.pageTitle = "Editar Contacto" + ": " + this.contact.contactName;
+    }
+
+    this.contactForm.patchValue({
+      contactName: this.contact.contactName,
+      contactLastName: this.contact.contactLastName,
+      contactSurName: this.contact.contactSurName,
+      contactPhone: this.contact.contactPhone,
+      contactTel: this.contact.contactTel,
+      contactEmail: this.contact.contactEmail
+    });
 
   }
 
