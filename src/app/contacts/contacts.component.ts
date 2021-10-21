@@ -44,8 +44,8 @@ export class ContactsComponent implements OnInit {
     filterBy = filterBy.toLocaleLowerCase();
     return this.contacts.filter((c: IContact) =>
       c.contactName.toLocaleLowerCase().includes(filterBy) ||
-      c.contactLastName.toLocaleLowerCase().includes(filterBy) ||
-      c.contactSurName.toLocaleLowerCase().includes(filterBy));
+      c.contactLastName.toLocaleLowerCase().includes(filterBy) ); 
+      // c.contactSurName.toLocaleLowerCase().includes(filterBy));
   }
 
 }

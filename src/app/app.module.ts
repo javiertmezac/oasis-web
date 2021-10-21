@@ -23,6 +23,7 @@ import { AuthInterceptor } from './shared/auth.interceptor';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { ContactEditComponent } from './contacts/contact-edit.component';
+import { AuthService } from './login/auth.service';
 
 @NgModule({
   providers: [
@@ -46,6 +47,7 @@ import { ContactEditComponent } from './contacts/contact-edit.component';
       { path: 'contactos/:id', canActivate:[AuthGuard], component: ContactDetailComponent },
       {
         path: 'contactos/:id/editar',
+        canActivate: [AuthGuard],
         component: ContactEditComponent
       },
       { path: 'pedidos', canActivate: [AuthGuard], component: OrdersComponent },
