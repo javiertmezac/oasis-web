@@ -20,7 +20,6 @@ export class ContactDetailComponent implements OnInit {
     if (contactId) {
       this.contactService.getContact(contactId).subscribe({
         next: response => {
-          console.log(response)
           this.contact = response
         },
         error: error => this.errorMessage = error
