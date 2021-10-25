@@ -4,16 +4,11 @@
   </div>
 
   <div class="card-body">
-    <div class="row">
-      <div class="col-md-2">
-        <button class="btn btn-primary" (click)='onAddClick()'>Agregar Pedido</button>
-      </div>
-    </div>
-
     <div class="table-responsive">
       <table class="table">
         <thead>
           <tr>
+            <th></th>
             <th>Pedido</th>
             <th>Empresa</th>
             <th>Chofer</th>
@@ -22,12 +17,34 @@
             <th>Status</th>
             <th>Prioridad</th>
             <th>Observaciones</th>
-            <th>btn eliminar</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
+          <tr *ngFor='let order of orderList'>
+            <td>
+              <button *ngIf="order.orderId > 40300"
+                      class="btn btn-outline-primary btn-sm">
+              Crear Nota </button>
+              <button *ngIf="order.orderId < 40300"
+                      class="btn btn-link btn-sm">
+              Ir Nota</button>
+            </td>
+            <td>
+              <a [routerLink]="['/pedidos',order.orderId]">
+                {{order.orderId}}
+              </a>
+            </td>
+            <td>{{order.clientName}}</td>
+            <td>{{order.employeeName}}</td>
+            <td>{{order.registration | date: 'medium' }}</td>
+            <td>{{order.delivery | date: 'mediumDate'}}</td>
+            <td>{{order.notificationDescr}}</td>
+            <td>{{order.priorityDescr}}</td>
+            <td>{{order.comments}}</td>
+            <td>
+              <button class="btn btn-danger btn-sm">Eliminar</button>
+            </td>
           </tr>
         </tbody>
       </table>

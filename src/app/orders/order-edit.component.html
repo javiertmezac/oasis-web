@@ -1,0 +1,55 @@
+<div class="card">
+  <div class="card-header">
+    <strong>
+    {{pageTitle}}
+    </strong>
+  </div>
+
+  <div class="card-body">
+    <form novalidate 
+          (ngSubmit)="saveOrder()"
+          [formGroup]="orderForm">
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="orderRegistrationId">Registro:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="orderRegistrationId"
+                 type="date"
+                 formControlName="orderRegistration" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-primary mr-3"
+                  style="width:80px;"
+                  type="submit"
+                  [title]="orderForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                  [disabled]="!orderForm.valid">
+            Save
+          </button>
+          <button class="btn btn-outline-secondary mr-3"
+                  style="width:80px;"
+                  type="button"
+                  title="Cancel your edits"
+                  [routerLink]="['/pedidos']">
+            Cancel
+          </button>
+          <button class="btn btn-outline-warning"
+                  style="width:80px"
+                  type="button"
+                  title="Delete this Contact"
+                  (click)="deleteContact()">
+            Delete
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="alert alert-danger" 
+      *ngIf="errorMessage">{{errorMessage}}
+  </div>
+</div>
