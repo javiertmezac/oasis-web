@@ -1,3 +1,5 @@
+import { Employee } from "../employees/employee";
+
 export interface IOrder{
   orderId: number;
   employeeId: number;

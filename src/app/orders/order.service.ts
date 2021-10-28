@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { Observable, of } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
 import { environment } from "../../environments/environment"
 import { HandleHttpClientError } from "../shared/handle-error";
 import { IOrder } from "./order";
@@ -25,8 +25,31 @@ export class OrderService {
   }
 
   getOrder(orderId: number): Observable<IOrder> {
+    if (orderId === 0) {
+      return of(this.newOrder());
+    }
     return this.http.get<IOrder>(`${this.ordersUri}/${orderId}`)
     .pipe(catchError(this.handleHttpClientError.handleError));
+  }
+
+  private newOrder(): IOrder {
+    return {
+      orderId: 0,
+      employeeId: 0,
+      employeeName: '',
+      clientId: 0,
+      clientName: '',
+      registrationDate : new Date(),
+      deliveryDate : new Date(),
+      delivery: 0,
+      registration: 0,
+      comments: '',
+      status: false,
+      notification: 0,
+      notificationDescr: '',
+      priority: 0,
+      priorityDescr: ''
+    }
   }
 
   insertOrder(order: IOrder): Observable<any> {
@@ -37,5 +60,15 @@ export class OrderService {
     } 
     return this.http.post<IOrder>(this.ordersUri, order, httpHeader)
     .pipe(catchError(this.handleHttpClientError.handleError))
+  }
+
+  getOrderNotifications(): Observable<any> {
+    return this.http.get("/api/order-notification.json")
+    .pipe(tap(data => console.log(data)))
+  }
+
+  getOrderPriorities(): Observable<any> {
+    return this.http.get("/api/order-priority.json")
+    .pipe(tap(data => console.log(data)))
   }
 }
