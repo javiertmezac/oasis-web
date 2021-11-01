@@ -24,6 +24,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { ContactEditComponent } from './contacts/contact-edit.component';
 import { AuthService } from './login/auth.service';
+import { OrderEditComponent } from './orders/order-edit.component';
 
 @NgModule({
   providers: [
@@ -43,6 +44,11 @@ import { AuthService } from './login/auth.service';
       { path: 'inicio', canActivate:[AuthGuard], component: HomeComponent },
       { path: 'empresas', canActivate:[AuthGuard], component: ClientComponent },
       { path: 'empresas/:id', canActivate: [AuthGuard], component: ClientDetailComponent },
+      { 
+        path: 'empresas/:idEmpresa/pedidos/:idPedido/editar',
+        canActivate: [AuthGuard],
+        component: OrderEditComponent
+      },
       { path: 'contactos', canActivate: [AuthGuard], component: ContactsComponent },
       { path: 'contactos/:id', canActivate:[AuthGuard], component: ContactDetailComponent },
       {
@@ -79,6 +85,7 @@ import { AuthService } from './login/auth.service';
     OrderDetailComponent,
     PriceDetailComponent,
     LoginComponent,
+    OrderEditComponent,
   ],
   bootstrap: [AppComponent]
 })

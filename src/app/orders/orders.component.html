@@ -1,19 +1,27 @@
 <div class="card">
   <div class="card-header">
-    {{ pageTitle }}
+    <h3>
+      {{ pageTitle }}
+    </h3>
   </div>
 
   <div class="card-body">
+
     <div class="row">
-      <div class="col-md-2">
-        <button class="btn btn-primary" (click)='onAddClick()'>Agregar Pedido</button>
+      <div class="col-md-2">Filtart por: </div>
+      <div class="col-md-4">
+        <input type="text" [(ngModel)]='listFilter'/>
       </div>
+      <span class="alert alert-danger" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </span>
     </div>
 
     <div class="table-responsive">
       <table class="table">
         <thead>
           <tr>
+            <!-- <th></th> -->
             <th>Pedido</th>
             <th>Empresa</th>
             <th>Chofer</th>
@@ -22,12 +30,36 @@
             <th>Status</th>
             <th>Prioridad</th>
             <th>Observaciones</th>
-            <th>btn eliminar</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
+          <tr *ngFor='let order of filteredOrders'>
+            <!-- <td>
+              <button *ngIf="order.orderId > 40300"
+                      class="btn btn-outline-primary btn-sm">
+              Crear Nota </button>
+              <button *ngIf="order.orderId < 40300"
+                      class="btn btn-link btn-sm">
+              Ir Nota</button>
+            </td> -->
+            <td>
+              {{order.orderId}}
+              <!-- <a [routerLink]="['/pedidos',order.orderId]"> -->
+                <!-- {{order.orderId}} -->
+              <!-- </a> -->
+            </td>
+            <td>{{order.clientName}}</td>
+            <td>{{order.employeeName}}</td>
+            <td>{{order.registration | date: 'medium' }}</td>
+            <td>{{order.delivery | date: 'mediumDate'}}</td>
+            <td>{{order.notificationDescr}}</td>
+            <td>{{order.priorityDescr}}</td>
+            <td>{{order.comments}}</td>
+            <td>
+              <button class="btn btn-danger btn-sm"
+                      (click)='deleteOrder(order.orderId)'>Eliminar</button>
+            </td>
           </tr>
         </tbody>
       </table>

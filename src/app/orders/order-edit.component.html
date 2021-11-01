@@ -1,0 +1,128 @@
+<div class="card container">
+  <div class="card-header">
+    <h3>
+      <strong>
+        {{pageTitle }}
+      </strong>
+    </h3>
+  </div>
+
+  <div class="card-body">
+    <form novalidate 
+          (ngSubmit)="saveOrder()"
+          [formGroup]="orderForm">
+
+      <div class="row" *ngIf="client">
+        <h4>{{client.clientName}}</h4>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="orderEmployeeId">Chofer:</label>
+        <div class="col-md-8">
+        <select id="orderEmployeeId"
+                formControlName="orderEmployee"
+                class="form-control">
+            <option [ngValue]='null' disabled>Seleccionar Chofer</option>
+            <option *ngFor="let e of employeeList" [ngValue]="e">
+              {{e.employeeName}}
+            </option>
+        </select>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="orderRegistrationId">Registro:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="orderRegistrationId"
+                 type="text"
+                 readonly=true
+                 formControlName="orderRegistration" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="orderDeliveryId">Entrega:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="orderDeliveryId"
+                 type="date"
+                 formControlName="orderDelivery" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="orderNotificationId">Notificación:</label>
+        <div class="col-md-8">
+          <select id="orderNotificationId"
+                  formControlName="orderNotification"
+                  class="form-control">
+            <option [ngValue]='null' disabled>Seleccionar Notificación</option>
+            <option *ngFor="let n of notificationList" [ngValue]="n">
+              {{n.description}}
+            </option>
+          </select>
+        </div>
+        </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="orderPriorityId">Prioridad:</label>
+        <div class="col-md-8">
+          <select id="orderPriorityId"
+                  formControlName="orderPriority"
+                  class="form-control">
+            <option [ngValue]='null' disabled>Seleccionar Prioridad</option>
+            <option *ngFor="let p of priorityList" [ngValue]="p">
+              {{p.description}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="orderCommentsId">Observaciones:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="orderCommentsId"
+                 type="text"
+                 formControlName="orderComments" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-primary mr-3"
+                  style="width:80px;"
+                  type="submit"
+                  [title]="orderForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                  [disabled]="!orderForm.valid">
+            Save
+          </button>
+          <button class="btn btn-outline-secondary mr-3"
+                  style="width:80px;"
+                  type="button"
+                  title="Cancel your edits"
+                  [routerLink]="['/pedidos']">
+            Cancel
+          </button>
+          <button class="btn btn-outline-warning"
+                  style="width:80px"
+                  type="button"
+                  title="Delete this Contact"
+                  (click)="deleteContact()">
+            Delete
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="alert alert-danger" 
+      *ngIf="errorMessage">{{errorMessage}}
+  </div>
+</div>

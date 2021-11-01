@@ -1,8 +1,10 @@
 <div class="card">
   <div class="card-header">
-    <strong>
-    {{pageTitle}}
-    </strong>
+    <h3>
+      <strong>
+        {{pageTitle}}
+      </strong>
+    </h3>
   </div>
 
   <div class="card-body">
@@ -17,7 +19,6 @@
           <input class="form-control"
                  id="contactNameId"
                  type="text"
-                 required
                  placeholder="Nombre (requerido)"
                  formControlName="contactName"
                  [ngClass]="{'is-invalid': (contactForm.get('contactName')?.touched ||

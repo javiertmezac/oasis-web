@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { catchError, tap } from "rxjs/operators";
 import { environment } from "../../environments/environment"
 import { HandleHttpClientError } from "../shared/handle-error";
 import { IContact } from "./contact";
@@ -63,5 +63,12 @@ export class ContactService {
     } 
     return this.http.put<IContact>(this.contactsUri, contact, httpHeader)
     .pipe(catchError(this.handleHttpClientError.handleError))
+  }
+
+  deleteContact(contact: IContact): Observable<any> {
+    return this.http.delete(`${this.contactsUri}/${contact.contactId}`)
+    .pipe(
+      catchError(this.handleHttpClientError.handleError)
+    )
   }
 }
