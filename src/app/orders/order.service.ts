@@ -62,6 +62,12 @@ export class OrderService {
     .pipe(catchError(this.handleHttpClientError.handleError))
   }
 
+  deleteOrder(orderId: number): Observable<any> {
+    return this.http.delete(`${this.ordersUri}/${orderId}`).pipe(
+      catchError(this.handleHttpClientError.handleError)
+    )
+  }
+
   getOrderNotifications(): Observable<any> {
     return this.http.get("/api/order-notification.json")
     .pipe(tap(data => console.log(data)))

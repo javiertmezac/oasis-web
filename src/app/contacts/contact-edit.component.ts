@@ -95,7 +95,16 @@ export class ContactEditComponent implements OnInit {
     }
   }
 
-  deleteContact() {}
+  deleteContact() {
+    if (this.contact.contactId === 0) {
+      this.onSaveComplete();
+    } else if (confirm(`Seguro de eliminar el registro de contacto ${this.contact.contactName} ${this.contact.contactLastName}?`)) {
+      this.contactService.deleteContact(this.contact).subscribe({
+        next: () => this.onSaveComplete(),
+        error: error => this.errorMessage = error
+      });
+    }
+  }
 
   onSaveComplete() {
     this.contactForm.reset();

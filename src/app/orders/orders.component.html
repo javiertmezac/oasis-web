@@ -1,14 +1,27 @@
 <div class="card">
   <div class="card-header">
-    {{ pageTitle }}
+    <h3>
+      {{ pageTitle }}
+    </h3>
   </div>
 
   <div class="card-body">
+
+    <div class="row">
+      <div class="col-md-2">Filtart por: </div>
+      <div class="col-md-4">
+        <input type="text" [(ngModel)]='listFilter'/>
+      </div>
+      <span class="alert alert-danger" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </span>
+    </div>
+
     <div class="table-responsive">
       <table class="table">
         <thead>
           <tr>
-            <th></th>
+            <!-- <th></th> -->
             <th>Pedido</th>
             <th>Empresa</th>
             <th>Chofer</th>
@@ -21,19 +34,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor='let order of orderList'>
-            <td>
+          <tr *ngFor='let order of filteredOrders'>
+            <!-- <td>
               <button *ngIf="order.orderId > 40300"
                       class="btn btn-outline-primary btn-sm">
               Crear Nota </button>
               <button *ngIf="order.orderId < 40300"
                       class="btn btn-link btn-sm">
               Ir Nota</button>
-            </td>
+            </td> -->
             <td>
-              <a [routerLink]="['/pedidos',order.orderId]">
-                {{order.orderId}}
-              </a>
+              {{order.orderId}}
+              <!-- <a [routerLink]="['/pedidos',order.orderId]"> -->
+                <!-- {{order.orderId}} -->
+              <!-- </a> -->
             </td>
             <td>{{order.clientName}}</td>
             <td>{{order.employeeName}}</td>
@@ -43,7 +57,8 @@
             <td>{{order.priorityDescr}}</td>
             <td>{{order.comments}}</td>
             <td>
-              <button class="btn btn-danger btn-sm">Eliminar</button>
+              <button class="btn btn-danger btn-sm"
+                      (click)='deleteOrder(order.orderId)'>Eliminar</button>
             </td>
           </tr>
         </tbody>
