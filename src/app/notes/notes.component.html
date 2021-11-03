@@ -1,6 +1,8 @@
 <div class="card">
   <div class="card-header">
+    <h3>
     {{ pageTitle }}
+    </h3>
   </div>
 
   <div class="card-body">
@@ -18,13 +20,19 @@
             <th>Total</th>
             <th>Crédito</th>
             <th>Deuda</th>
-            <th>btn eliminar</th>
-            <th>btn abonos</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
+          <tr *ngFor="let n of notesList">
+            <td>{{ n.note }}</td>
+            <td>{{ n.orderId }}</td>
+            <td>{{ n.clientName }}</td>
+            <td>{{ n.employeeName }}</td>
+            <td>{{ n.registration | date: 'medium' }}</td>
+            <td>{{ n.liters }}</td>
+            <td>{{ n.total }}</td>
+            <td>{{ n.credit }}</td>
+            <td>{{ n.debt }}</td>
           </tr>
         </tbody>
       </table>
