@@ -48,7 +48,8 @@ export class OrderService {
       notification: 0,
       notificationDescr: '',
       priority: 0,
-      priorityDescr: ''
+      priorityDescr: '',
+      note: ''
     }
   }
 
