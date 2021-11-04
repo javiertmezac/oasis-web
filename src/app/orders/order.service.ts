@@ -49,7 +49,8 @@ export class OrderService {
       notificationDescr: '',
       priority: 0,
       priorityDescr: '',
-      note: ''
+      note: '',
+      noteId: 0
     }
   }
 

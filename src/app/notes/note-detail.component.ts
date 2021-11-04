@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { INoteBase } from './note-base';
+import { NoteService } from './note.service';
 
 @Component({
   selector: 'pm-note-detail',
@@ -7,9 +11,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NoteDetailComponent implements OnInit {
 
-  constructor() { }
+  note!: INoteBase;
+  pageTitle: string = "Nota"
+  errorMessage = '';
+
+  constructor(private noteService: NoteService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    let noteId = Number(this.route.snapshot.paramMap.get("id"));
+    this.noteService.getNote(noteId).subscribe({
+      next: response => this.note = response,
+      error: err =>  {
+        console.log(err);
+        this.errorMessage = err
+      }
+    });
   }
 
 }

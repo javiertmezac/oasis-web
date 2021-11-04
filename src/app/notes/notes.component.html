@@ -24,7 +24,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let n of notesList">
-            <td>{{ n.note }}</td>
+            <td>
+              <a [routerLink]="['/notas', n.noteId]">{{ n.note }}</a>
+            </td>
             <td>{{ n.orderId }}</td>
             <td>{{ n.clientName }}</td>
             <td>{{ n.employeeName }}</td>

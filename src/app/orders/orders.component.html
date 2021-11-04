@@ -40,8 +40,9 @@
                       class="btn btn-outline-primary btn-sm">
               Crear Nota </button>
               <button *ngIf="order.note"
-                      class="btn btn-link btn-sm">
-              {{order.note}}</button>
+                      class="btn btn-link btn-sm"
+                      [routerLink]="['/notas', order.noteId]">
+              {{order.note}} </button>
             </td>
             <td>
               {{order.orderId}}

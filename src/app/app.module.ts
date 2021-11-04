@@ -59,6 +59,7 @@ import { OrderEditComponent } from './orders/order-edit.component';
       { path: 'pedidos', canActivate: [AuthGuard], component: OrdersComponent },
       { path: 'pedidos/:id', canActivate: [AuthGuard], component: OrderDetailComponent },
       { path: 'notas', canActivate: [AuthGuard], component: NotesComponent },
+      { path: 'notas/:id', canActivate: [AuthGuard], component: NoteDetailComponent },
       { path: 'precios', canActivate:[AuthGuard], component: PricesComponent },
       { path: 'precios/:id', canActivate: [AuthGuard], component: PriceDetailComponent },
       { path: 'empleados', canActivate:[AuthGuard], component: EmployeesComponent },

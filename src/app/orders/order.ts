@@ -15,4 +15,5 @@ export interface IOrder{
   priority: number;
   priorityDescr: string;
   note: string;
+  noteId: number;
 }
