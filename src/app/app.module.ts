@@ -25,6 +25,7 @@ import { LoginComponent } from './login/login.component';
 import { ContactEditComponent } from './contacts/contact-edit.component';
 import { AuthService } from './login/auth.service';
 import { OrderEditComponent } from './orders/order-edit.component';
+import { NoteEditComponent } from './notes/note-edit.component';
 
 @NgModule({
   providers: [
@@ -60,6 +61,11 @@ import { OrderEditComponent } from './orders/order-edit.component';
       { path: 'pedidos/:id', canActivate: [AuthGuard], component: OrderDetailComponent },
       { path: 'notas', canActivate: [AuthGuard], component: NotesComponent },
       { path: 'notas/:id', canActivate: [AuthGuard], component: NoteDetailComponent },
+      {
+        path: 'notas/:id/editar',
+        canActivate: [AuthGuard],
+        component: NoteEditComponent
+      },
       { path: 'precios', canActivate:[AuthGuard], component: PricesComponent },
       { path: 'precios/:id', canActivate: [AuthGuard], component: PriceDetailComponent },
       { path: 'empleados', canActivate:[AuthGuard], component: EmployeesComponent },
@@ -87,6 +93,7 @@ import { OrderEditComponent } from './orders/order-edit.component';
     PriceDetailComponent,
     LoginComponent,
     OrderEditComponent,
+    NoteEditComponent,
   ],
   bootstrap: [AppComponent]
 })

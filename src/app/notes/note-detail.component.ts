@@ -13,7 +13,7 @@ export class NoteDetailComponent implements OnInit {
 
   note!: INoteBase;
   pageTitle: string = "Nota"
-  errorMessage = '';
+  errorMessage! : string;
 
   constructor(private noteService: NoteService,
     private route: ActivatedRoute) { }

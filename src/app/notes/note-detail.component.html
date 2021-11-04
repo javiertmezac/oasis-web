@@ -1,9 +1,9 @@
-
 <div class="card container">
 
-  <div class="alert alert-danger"
-      *ngIf="errorMessage"> blah
-</div>
+  <!-- todo: for some reason the errorMessage is not shown when *ngIf="errorMessage"-->
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    Información no disponible!
+  </div>
 
   <div class='card-header' *ngIf="note">
     <h3>

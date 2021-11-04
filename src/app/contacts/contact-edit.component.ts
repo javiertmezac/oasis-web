@@ -16,8 +16,6 @@ export class ContactEditComponent implements OnInit {
   errorMessage = '';
   contact!: IContact;
 
-  displayMessage : { [key: string]: string } = {};
-
   constructor(private fb: FormBuilder,
     private contactService: ContactService,
     private route: ActivatedRoute,

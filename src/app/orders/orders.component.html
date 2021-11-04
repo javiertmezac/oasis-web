@@ -37,7 +37,8 @@
           <tr *ngFor='let order of filteredOrders'>
             <td>
               <button *ngIf="!order.note"
-                      class="btn btn-outline-primary btn-sm">
+                      class="btn btn-outline-primary btn-sm"
+                      [routerLink]="['/notas', 0, 'editar']">
               Crear Nota </button>
               <button *ngIf="order.note"
                       class="btn btn-link btn-sm"

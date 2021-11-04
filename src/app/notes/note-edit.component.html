@@ -1,0 +1,191 @@
+<div class="card container">
+  <div class="card-header">
+    <h3>
+      <strong>
+        {{pageTitle}}
+      </strong>
+    </h3>
+  </div>
+
+  <div class="card-body">
+    <form novalidate 
+          (ngSubmit)="saveNote()"
+          [formGroup]="noteForm">
+
+      <div class="row">
+        <div class="col-md-3">Nota:</div>
+        <div class="col-md-6">{{note.note}}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">Pedido:</div>
+        <div class="col-md-6">{{note.orderId}}</div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="noteEmployeeId">Chofer:</label>
+        <div class="col-md-8">
+        <select id="noteEmployeeId"
+                formControlName="noteEmployee"
+                class="form-control">
+            <option [ngValue]='null' disabled>Seleccionar Chofer</option>
+            <option *ngFor="let e of employeeList" [ngValue]="e">
+              {{e.employeeName}}
+            </option>
+        </select>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="noteRegistrationId">Registro:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="noteRegistrationId"
+                 type="date"
+                 formControlName="noteRegistration" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="noteCreditId">Crédito:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="noteCreditId"
+                 type="checkbox"
+                 formControlName="noteCredit"/>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="noteInitialDataId">Lectura Inicial:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="noteInitialDataId"
+                 type="text"
+                 placeholder="Lectura Inicial (requerido)"
+                 formControlName="noteInitialData"
+                 [ngClass]="{'is-invalid': (noteForm.get('noteInitialData')?.touched ||
+                                noteForm.get('noteInitialData')?.dirty) &&
+                                !noteForm.get('noteInitialData')?.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="noteForm.controls['noteInitialData'].errors?.required">
+              Lectura Inicial requerido
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="noteFinalDataId">Lectura Final:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="noteFinalDataId"
+                 type="text"
+                 placeholder="Lectura Final (requerido)"
+                 formControlName="noteFinalData"
+                 [ngClass]="{'is-invalid': (noteForm.get('noteFinalData')?.touched ||
+                                noteForm.get('noteFinalData')?.dirty) &&
+                                !noteForm.get('noteFinalData')?.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="noteForm.controls['noteFinalData'].errors?.required">
+              Lectura Final requerido
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <p>Mostrat galones</p>
+      <p>Mostrat Total</p>
+      <p>Mostrat PrecioGranel</p>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="noteDiscountId">Galones Descontados:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="noteDiscountId"
+                 type="text"
+                 placeholder="cuantos galones?"
+                 formControlName="noteDiscount" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="noteDiscountDescriptionId">Por qué se descuenta?:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="noteDiscountDescriptionId"
+                 type="text"
+                 formControlName="noteDiscountDescription"/>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="noteArrivalId">Llegada:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="noteArrivalId"
+                 type="text"
+                 formControlName="noteArrival" />
+        </div>
+      </div>
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="noteLoadId">Descarga:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="noteLoadId"
+                 type="text"
+                 formControlName="noteLoad" />
+        </div>
+      </div>
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="noteDepartureId">Salida:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="noteDepartureId"
+                 type="text"
+                 formControlName="noteDeparture" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-primary mr-3"
+                  style="width:80px;"
+                  type="submit"
+                  [title]="noteForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                  [disabled]="!noteForm.valid">
+            Save
+          </button>
+          <button class="btn btn-outline-secondary mr-3"
+                  style="width:80px;"
+                  type="button"
+                  title="Cancel your edits"
+                  [routerLink]="['/notas']">
+            Cancel
+          </button>
+          <!-- <button class="btn btn-outline-warning"
+                  style="width:80px"
+                  type="button"
+                  title="Delete this Note"
+                  (click)="deleteNote()">
+            Delete
+          </button> -->
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="alert alert-danger" 
+      *ngIf="errorMessage">{{errorMessage}}
+  </div>
+</div>
