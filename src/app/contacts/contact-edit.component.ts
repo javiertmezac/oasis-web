@@ -9,7 +9,6 @@ import { ContactService } from './contact.service';
   styleUrls: ['./contact-edit.component.css']
 })
 export class ContactEditComponent implements OnInit {
-  // @ViewChildren(FormControlName, { read: ElementRef }) formInputElements!: ElementRef[];
 
   contactForm! : FormGroup;
   pageTitle = "Nuevo Contacto";

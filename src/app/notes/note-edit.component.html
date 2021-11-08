@@ -13,19 +13,17 @@
           [formGroup]="noteForm">
 
       <div class="row">
-        <div class="col-md-3">Nota:</div>
-        <div class="col-md-6">{{note.note}}</div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-3">Pedido:</div>
-        <div class="col-md-6">{{note.orderId}}</div>
+          <div class="col-md-2">Pedido:</div>
+          <div class="col-md-4">{{order.orderId}}</div>
+      
+          <div class="col-md-2">Empresa:</div>
+          <div class="col-md-4">{{order.clientName}}</div>
       </div>
 
       <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"
                for="noteEmployeeId">Chofer:</label>
-        <div class="col-md-8">
+        <div class="col-md-4">
         <select id="noteEmployeeId"
                 formControlName="noteEmployee"
                 class="form-control">
@@ -35,23 +33,24 @@
             </option>
         </select>
         </div>
+
+        <div class="col-md-2">Nota:</div>
+        <div class="col-md-4">{{note.note}}</div>
       </div>
 
       <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"
                for="noteRegistrationId">Registro:</label>
-        <div class="col-md-8">
+        <div class="col-md-6">
           <input class="form-control"
                  id="noteRegistrationId"
                  type="date"
                  formControlName="noteRegistration" />
         </div>
-      </div>
 
-      <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"
                for="noteCreditId">Crédito:</label>
-        <div class="col-md-8">
+        <div class="col-md-2">
           <input class="form-control"
                  id="noteCreditId"
                  type="checkbox"
@@ -62,7 +61,7 @@
       <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"
                for="noteInitialDataId">Lectura Inicial:</label>
-        <div class="col-md-8">
+        <div class="col-md-4">
           <input class="form-control"
                  id="noteInitialDataId"
                  type="text"
@@ -77,12 +76,10 @@
             </span>
           </span>
         </div>
-      </div>
 
-      <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"
                for="noteFinalDataId">Lectura Final:</label>
-        <div class="col-md-8">
+        <div class="col-md-4">
           <input class="form-control"
                  id="noteFinalDataId"
                  type="text"
@@ -99,9 +96,12 @@
         </div>
       </div>
 
-      <p>Mostrat galones</p>
-      <p>Mostrat Total</p>
-      <p>Mostrat PrecioGranel</p>
+      <div class="row">
+      <p class="col-md-2">Mostrat galones</p>
+      <p class="col-md-2">Mostrat Total</p>
+      <p class="col-md-2">Mostrat PrecioGranel</p>
+      </div>
+
 
       <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"

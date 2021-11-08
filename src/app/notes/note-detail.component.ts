@@ -23,7 +23,6 @@ export class NoteDetailComponent implements OnInit {
     this.noteService.getNote(noteId).subscribe({
       next: response => this.note = response,
       error: err =>  {
-        console.log(err);
         this.errorMessage = err
       }
     });

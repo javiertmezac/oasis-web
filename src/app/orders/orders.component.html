@@ -38,11 +38,11 @@
             <td>
               <button *ngIf="!order.note"
                       class="btn btn-outline-primary btn-sm"
-                      [routerLink]="['/notas', 0, 'editar']">
+                      [routerLink]="['/pedidos', order.orderId, 'notas', 0, 'editar']">
               Crear Nota </button>
               <button *ngIf="order.note"
                       class="btn btn-link btn-sm"
-                      [routerLink]="['/notas', order.noteId]">
+                      [routerLink]="['/pedidos', order.orderId, 'notas', order.noteId]">
               {{order.note}} </button>
             </td>
             <td>

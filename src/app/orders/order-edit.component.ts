@@ -69,10 +69,6 @@ export class OrderEditComponent implements OnInit {
        if(this.order.orderId === 0) {
         const o = this.convertOrderFromValue(this.orderForm.value);
 
-        console.log(o)
-        console.log("registration: ", o.registrationDate)
-        console.log("delivery: ", o.orderDelivery)
-
           this.orderService.insertOrder(o)
           .subscribe({
             next: x => {
