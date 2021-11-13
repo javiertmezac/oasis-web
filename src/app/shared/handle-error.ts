@@ -16,7 +16,14 @@ export class HandleHttpClientError {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
-      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+      errorMessage = `Server returned code: ${err.status}, statusText: ${err.message}`;
+
+      if (err.error) {
+        console.log("Message:", `${err.error.message}`)
+        console.log("Type:", `${err.error.type}`)
+        errorMessage = errorMessage + `, message: ${err.error.message}, type: ${err.error.type}`;
+      }
+
     }
     console.error(errorMessage);
     return throwError(errorMessage);

@@ -72,7 +72,6 @@ export class OrderEditComponent implements OnInit {
           this.orderService.insertOrder(o)
           .subscribe({
             next: x => {
-              console.log(x);
               return this.onSaveComplete();
             }
           });
@@ -86,6 +85,7 @@ export class OrderEditComponent implements OnInit {
   }
 
   private convertOrderFromValue(o: any): any {
+    // todo: fix date time
     const newDeliveryDate = new Date(o.orderDelivery);
     newDeliveryDate.setHours(newDeliveryDate.getHours() + 7);
 

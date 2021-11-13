@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { catchError } from "rxjs/operators";
@@ -36,7 +36,9 @@ export class NoteService {
       note: '',
       orderId: 0,
       employeeId: 0,
+      noteEmployee: { employeeId : 0, employeeName: ''},
       registration: new Date(),
+      registrationDate: '',
       liters: 0,
       credit: false,
       total: 0,
@@ -51,6 +53,16 @@ export class NoteService {
       discountDescription: '',
       paid: false
     }
+  }
+
+  insertNote(note: INoteBase): Observable<any> {
+    const httpHeaders = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.post<INoteBase>(this.notesUri, note, httpHeaders)
+    .pipe(catchError(this.handleHttpClientError.handleError))
   }
 
 }

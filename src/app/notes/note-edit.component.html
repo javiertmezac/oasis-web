@@ -8,169 +8,130 @@
   </div>
 
   <div class="card-body">
-    <form novalidate 
-          (ngSubmit)="saveNote()"
-          [formGroup]="noteForm">
+    <form novalidate (ngSubmit)="saveNote()" [formGroup]="noteForm" >
 
-      <div class="row">
-          <div class="col-md-2">Pedido:</div>
-          <div class="col-md-4">{{order.orderId}}</div>
-      
-          <div class="col-md-2">Empresa:</div>
-          <div class="col-md-4">{{order.clientName}}</div>
-      </div>
-
-      <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label"
-               for="noteEmployeeId">Chofer:</label>
-        <div class="col-md-4">
-        <select id="noteEmployeeId"
-                formControlName="noteEmployee"
-                class="form-control">
-            <option [ngValue]='null' disabled>Seleccionar Chofer</option>
-            <option *ngFor="let e of employeeList" [ngValue]="e">
-              {{e.employeeName}}
-            </option>
-        </select>
+      <div *ngIf="client">
+        <div class="row align-items-center mb-2">
+          <h5 class="col">Pedido:{{order.orderId}}</h5>
+          <h5 class="col">Empresa: {{client.clientName}}</h5>
         </div>
 
-        <div class="col-md-2">Nota:</div>
-        <div class="col-md-4">{{note.note}}</div>
-      </div>
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteEmployeeId">Chofer:</label>
+          <div class="col-md-4">
+            <select id="noteEmployeeId" formControlName="noteEmployee" class="form-control">
+              <option [ngValue]='null' disabled>Seleccionar Chofer</option>
+              <option *ngFor="let e of employeeList" [ngValue]="e">
+                {{e.employeeName}}
+              </option>
+            </select>
+          </div>
 
-      <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label"
-               for="noteRegistrationId">Registro:</label>
-        <div class="col-md-6">
-          <input class="form-control"
-                 id="noteRegistrationId"
-                 type="date"
-                 formControlName="noteRegistration" />
+          <div class="col-md-2">Nota Secuencia:</div>
+          <div class="col-md-4">something here</div>
         </div>
 
-        <label class="col-md-2 col-form-label"
-               for="noteCreditId">Crédito:</label>
-        <div class="col-md-2">
-          <input class="form-control"
-                 id="noteCreditId"
-                 type="checkbox"
-                 formControlName="noteCredit"/>
-        </div>
-      </div>
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteRegistrationId">Registro:</label>
+          <div class="col-md-6">
+            <input class="form-control" id="noteRegistrationId" type="date" formControlName="registrationDate" />
+          </div>
 
-      <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label"
-               for="noteInitialDataId">Lectura Inicial:</label>
-        <div class="col-md-4">
-          <input class="form-control"
-                 id="noteInitialDataId"
-                 type="text"
-                 placeholder="Lectura Inicial (requerido)"
-                 formControlName="noteInitialData"
-                 [ngClass]="{'is-invalid': (noteForm.get('noteInitialData')?.touched ||
-                                noteForm.get('noteInitialData')?.dirty) &&
-                                !noteForm.get('noteInitialData')?.valid }" />
-          <span class="invalid-feedback">
-            <span *ngIf="noteForm.controls['noteInitialData'].errors?.required">
-              Lectura Inicial requerido
+          <div class="col-md-2">
+            <div class="form-check form-switch">
+              <input class="form-check-input form-control" type="checkbox" formControlName="credit" id="noteCreditId">
+              <label class="form-check-label" for="noteCreditId">
+                Crédito
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteInitialDataId">Lectura Inicial:</label>
+          <div class="col-md-4">
+            <input class="form-control" id="noteInitialDataId" type="text" placeholder="Lectura Inicial (requerido)"
+              (change)="onInitialData()" formControlName="initialData" [ngClass]="{'is-invalid': (noteForm.get('initialData')?.touched ||
+                                noteForm.get('initialData')?.dirty) &&
+                                !noteForm.get('initialData')?.valid }" />
+            <span class="invalid-feedback">
+              <span *ngIf="noteForm.controls['initialData'].errors?.required">
+                Lectura Inicial requerido
+              </span>
+              <span *ngIf="noteForm.controls['initialData'].errors?.number">
+                Solo numeros
+              </span>
+              <span *ngIf="noteForm.controls['initialData'].errors?.invalidinitialdata">
+                Lectura inicial no puede ser mayor que la final
+              </span>
             </span>
-          </span>
-        </div>
+          </div>
 
-        <label class="col-md-2 col-form-label"
-               for="noteFinalDataId">Lectura Final:</label>
-        <div class="col-md-4">
-          <input class="form-control"
-                 id="noteFinalDataId"
-                 type="text"
-                 placeholder="Lectura Final (requerido)"
-                 formControlName="noteFinalData"
-                 [ngClass]="{'is-invalid': (noteForm.get('noteFinalData')?.touched ||
-                                noteForm.get('noteFinalData')?.dirty) &&
-                                !noteForm.get('noteFinalData')?.valid }" />
-          <span class="invalid-feedback">
-            <span *ngIf="noteForm.controls['noteFinalData'].errors?.required">
-              Lectura Final requerido
+          <label class="col-md-2 col-form-label" for="noteFinalDataId">Lectura Final:</label>
+          <div class="col-md-4">
+            <input class="form-control" id="noteFinalDataId" type="text" placeholder="Lectura Final (requerido)"
+              formControlName="finalData" (change)="onFinalData()" [ngClass]="{'is-invalid': (noteForm.get('finalData')?.touched ||
+                                noteForm.get('finalData')?.dirty) &&
+                                !noteForm.get('finalData')?.valid }" />
+            <span class="invalid-feedback">
+              <span *ngIf="noteForm.controls['finalData'].errors?.required">
+                Lectura Final requerido
+              </span>
             </span>
-          </span>
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-      <p class="col-md-2">Mostrat galones</p>
-      <p class="col-md-2">Mostrat Total</p>
-      <p class="col-md-2">Mostrat PrecioGranel</p>
-      </div>
-
-
-      <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label"
-               for="noteDiscountId">Galones Descontados:</label>
-        <div class="col-md-8">
-          <input class="form-control"
-                 id="noteDiscountId"
-                 type="text"
-                 placeholder="cuantos galones?"
-                 formControlName="noteDiscount" />
+        <div class="row mb-2 align-items-center">
+          <p class="col">Galones: {{totalData == null ? 0 : totalData}}</p>
+          <p class="col">Total: {{total == null ? 0 : total}}</p>
+          <div class="col">Empresa Precio: {{client.clientPrice}}</div>
         </div>
-      </div>
 
-      <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label"
-               for="noteDiscountDescriptionId">Por qué se descuenta?:</label>
-        <div class="col-md-8">
-          <input class="form-control"
-                 id="noteDiscountDescriptionId"
-                 type="text"
-                 formControlName="noteDiscountDescription"/>
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteDiscountId">Galones Descontados:</label>
+          <div class="col-md-8">
+            <input class="form-control" id="noteDiscountId" type="text" placeholder="cuantos galones?"
+              (change)="onNoteDiscount()" formControlName="discount" />
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label"
-               for="noteArrivalId">Llegada:</label>
-        <div class="col-md-8">
-          <input class="form-control"
-                 id="noteArrivalId"
-                 type="text"
-                 formControlName="noteArrival" />
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteDiscountDescriptionId">Por qué se descuenta?:</label>
+          <div class="col-md-8">
+            <input class="form-control" id="noteDiscountDescriptionId" type="text"
+              formControlName="discountDescription" />
+          </div>
         </div>
-      </div>
-      <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label"
-               for="noteLoadId">Descarga:</label>
-        <div class="col-md-8">
-          <input class="form-control"
-                 id="noteLoadId"
-                 type="text"
-                 formControlName="noteLoad" />
+
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteArrivalId">Llegada:</label>
+          <div class="col-md-8">
+            <input class="form-control" id="noteArrivalId" type="text" formControlName="arrival" />
+          </div>
         </div>
-      </div>
-      <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label"
-               for="noteDepartureId">Salida:</label>
-        <div class="col-md-8">
-          <input class="form-control"
-                 id="noteDepartureId"
-                 type="text"
-                 formControlName="noteDeparture" />
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteLoadId">Descarga:</label>
+          <div class="col-md-8">
+            <input class="form-control" id="noteLoadId" type="text" formControlName="load" />
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteDepartureId">Salida:</label>
+          <div class="col-md-8">
+            <input class="form-control" id="noteDepartureId" type="text" formControlName="departure" />
+          </div>
         </div>
       </div>
 
       <div class="form-group row mb-2">
         <div class="offset-md-2 col-md-4">
-          <button class="btn btn-primary mr-3"
-                  style="width:80px;"
-                  type="submit"
-                  [title]="noteForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
-                  [disabled]="!noteForm.valid">
+          <button class="btn btn-primary mr-3" style="width:80px;" type="submit"
+            [title]="noteForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+            [disabled]="!noteForm.valid">
             Save
           </button>
-          <button class="btn btn-outline-secondary mr-3"
-                  style="width:80px;"
-                  type="button"
-                  title="Cancel your edits"
-                  [routerLink]="['/notas']">
+          <button class="btn btn-outline-secondary mr-3" style="width:80px;" type="button" title="Cancel your edits"
+            [routerLink]="['/notas']">
             Cancel
           </button>
           <!-- <button class="btn btn-outline-warning"
@@ -185,7 +146,5 @@
     </form>
   </div>
 
-  <div class="alert alert-danger" 
-      *ngIf="errorMessage">{{errorMessage}}
-  </div>
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
 </div>

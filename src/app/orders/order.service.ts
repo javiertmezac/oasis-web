@@ -59,7 +59,7 @@ export class OrderService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
-    } 
+    }
     return this.http.post<IOrder>(this.ordersUri, order, httpHeader)
     .pipe(catchError(this.handleHttpClientError.handleError))
   }
