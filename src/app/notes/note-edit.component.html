@@ -18,17 +18,14 @@
 
         <div class="form-group row mb-2">
           <label class="col-md-2 col-form-label" for="noteEmployeeId">Chofer:</label>
-          <div class="col-md-4">
+          <div class="col-md-10">
             <select id="noteEmployeeId" formControlName="noteEmployee" class="form-control">
               <option [ngValue]='null' disabled>Seleccionar Chofer</option>
               <option *ngFor="let e of employeeList" [ngValue]="e">
-                {{e.employeeName}}
+                {{e.employeeName}} ==== secuencia: {{e.note}}
               </option>
             </select>
           </div>
-
-          <div class="col-md-2">Nota Secuencia:</div>
-          <div class="col-md-4">something here</div>
         </div>
 
         <div class="form-group row mb-2">

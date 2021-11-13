@@ -20,17 +20,11 @@ export class ClientService {
 
   getClients(): Observable<any> {
     return this.http.get(this.clientsUrl)
-      .pipe(
-        tap(data => console.log('All: ', JSON.stringify(data))),
-        catchError(this.handleHttpClientError.handleError)
-      );
+      .pipe(catchError(this.handleHttpClientError.handleError));
   }
 
   getClient(clientId: number): Observable<IClient> {
     return this.http.get<IClient>(`${this.clientsUrl}/${clientId}`)
-    .pipe(
-      tap(data => console.log('Client-Detail: ', JSON.stringify(data))),
-      catchError(this.handleHttpClientError.handleError)
-    );
+    .pipe(catchError(this.handleHttpClientError.handleError));
   };
 }

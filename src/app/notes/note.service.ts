@@ -36,7 +36,7 @@ export class NoteService {
       note: '',
       orderId: 0,
       employeeId: 0,
-      noteEmployee: { employeeId : 0, employeeName: ''},
+      noteEmployee: { employeeId : 0, employeeName: '', note: ''},
       registration: new Date(),
       registrationDate: '',
       liters: 0,

@@ -60,7 +60,7 @@
             <td>{{order.comments}}</td>
             <td>
               <button class="btn btn-danger btn-sm"
-                      (click)='deleteOrder(order.orderId)'>Eliminar</button>
+                      (click)='deleteOrder(order.orderId)' *ngIf="!order.note">Eliminar</button>
             </td>
           </tr>
         </tbody>

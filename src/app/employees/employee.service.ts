@@ -17,4 +17,8 @@ export class EmployeeService {
     return this.http.get(this.employeesApi)
   }
 
+  getEmployeesWithBlockNumber(): Observable<any> {
+    return this.http.get(`${this.employeesApi}?listBlockNumber=true`)
+  }
+
 }

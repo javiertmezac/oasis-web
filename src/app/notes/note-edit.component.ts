@@ -80,6 +80,7 @@ export class NoteEditComponent implements OnInit {
         n.liters = this.totalData;
         n.total = this.total;
         n.price = this.client.clientPrice;
+        n.note = n.noteEmployee.note;
 
         if(this.note.noteId === 0) {
           this.noteService.insertNote(n).subscribe({
@@ -151,7 +152,7 @@ export class NoteEditComponent implements OnInit {
   }
 
   loadEmployees() {
-    this.employeeService.getEmployees().subscribe({
+    this.employeeService.getEmployeesWithBlockNumber().subscribe({
       next: data => {
         this.employeeList = data.employeeList;
       },
