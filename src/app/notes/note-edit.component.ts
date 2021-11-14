@@ -145,7 +145,6 @@ export class NoteEditComponent implements OnInit {
         this.client = response
       },
       error: err => {
-        console.log("getClient:" , err)
         this.errorMessage = err
       }
     });
