@@ -1,0 +1,147 @@
+<div class="card container">
+  <div class="card-header">
+    <h3>
+      <strong>
+        {{pageTitle}}
+      </strong>
+    </h3>
+  </div>
+
+  <div class="card-body">
+    <form novalidate (ngSubmit)="saveNote()" [formGroup]="noteForm" >
+
+      <div *ngIf="client">
+        <div class="row align-items-center mb-2">
+          <h5 class="col">Pedido:{{order.orderId}}</h5>
+          <h5 class="col">Empresa: {{client.clientName}}</h5>
+        </div>
+
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteEmployeeId">Chofer:</label>
+          <div class="col-md-10">
+            <select id="noteEmployeeId" formControlName="noteEmployee" class="form-control">
+              <option [ngValue]='null' disabled>Seleccionar Chofer</option>
+              <option *ngFor="let e of employeeList" [ngValue]="e">
+                {{e.employeeName}} ==== secuencia: {{e.note}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteRegistrationId">Registro:</label>
+          <div class="col-md-6">
+            <input class="form-control" id="noteRegistrationId" type="date" formControlName="registrationDate" />
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-check form-switch">
+              <input class="form-check-input form-control" type="checkbox" formControlName="credit" id="noteCreditId">
+              <label class="form-check-label" for="noteCreditId">
+                Crédito
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteInitialDataId">Lectura Inicial:</label>
+          <div class="col-md-4">
+            <input class="form-control" id="noteInitialDataId" type="text" placeholder="Lectura Inicial (requerido)"
+              (change)="onInitialData()" formControlName="initialData" [ngClass]="{'is-invalid': (noteForm.get('initialData')?.touched ||
+                                noteForm.get('initialData')?.dirty) &&
+                                !noteForm.get('initialData')?.valid }" />
+            <span class="invalid-feedback">
+              <span *ngIf="noteForm.controls['initialData'].errors?.required">
+                Lectura Inicial requerido
+              </span>
+              <span *ngIf="noteForm.controls['initialData'].errors?.number">
+                Solo numeros
+              </span>
+              <span *ngIf="noteForm.controls['initialData'].errors?.invalidinitialdata">
+                Lectura inicial no puede ser mayor que la final
+              </span>
+            </span>
+          </div>
+
+          <label class="col-md-2 col-form-label" for="noteFinalDataId">Lectura Final:</label>
+          <div class="col-md-4">
+            <input class="form-control" id="noteFinalDataId" type="text" placeholder="Lectura Final (requerido)"
+              formControlName="finalData" (change)="onFinalData()" [ngClass]="{'is-invalid': (noteForm.get('finalData')?.touched ||
+                                noteForm.get('finalData')?.dirty) &&
+                                !noteForm.get('finalData')?.valid }" />
+            <span class="invalid-feedback">
+              <span *ngIf="noteForm.controls['finalData'].errors?.required">
+                Lectura Final requerido
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="row mb-2 align-items-center">
+          <p class="col">Galones: {{totalData == null ? 0 : totalData}}</p>
+          <p class="col">Total: {{total == null ? 0 : total}}</p>
+          <div class="col">Empresa Precio: {{client.clientPrice}}</div>
+        </div>
+
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteDiscountId">Galones Descontados:</label>
+          <div class="col-md-8">
+            <input class="form-control" id="noteDiscountId" type="text" placeholder="cuantos galones?"
+              (change)="onNoteDiscount()" formControlName="discount" />
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteDiscountDescriptionId">Por qué se descuenta?:</label>
+          <div class="col-md-8">
+            <input class="form-control" id="noteDiscountDescriptionId" type="text"
+              formControlName="discountDescription" />
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteArrivalId">Llegada:</label>
+          <div class="col-md-8">
+            <input class="form-control" id="noteArrivalId" type="text" formControlName="arrival" />
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteLoadId">Descarga:</label>
+          <div class="col-md-8">
+            <input class="form-control" id="noteLoadId" type="text" formControlName="load" />
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="noteDepartureId">Salida:</label>
+          <div class="col-md-8">
+            <input class="form-control" id="noteDepartureId" type="text" formControlName="departure" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-primary mr-3" style="width:80px;" type="submit"
+            [title]="noteForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+            [disabled]="!noteForm.valid">
+            Save
+          </button>
+          <button class="btn btn-outline-secondary mr-3" style="width:80px;" type="button" title="Cancel your edits"
+            [routerLink]="['/notas']">
+            Cancel
+          </button>
+          <!-- <button class="btn btn-outline-warning"
+                  style="width:80px"
+                  type="button"
+                  title="Delete this Note"
+                  (click)="deleteNote()">
+            Delete
+          </button> -->
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+</div>

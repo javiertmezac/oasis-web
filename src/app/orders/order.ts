@@ -1,5 +1,3 @@
-import { Employee } from "../employees/employee";
-
 export interface IOrder{
   orderId: number;
   employeeId: number;
@@ -16,4 +14,6 @@ export interface IOrder{
   notificationDescr: string;
   priority: number;
   priorityDescr: string;
+  note: string;
+  noteId: number;
 }

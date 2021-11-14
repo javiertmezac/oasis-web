@@ -12,6 +12,7 @@ clientNoOut: string,
 clientCp: string,
 clientStatus: boolean,
 clientRegistration: Date,
-clientPrice: string,
+clientPrice: number,
+clientPriceId: number,
 clientNextClean: Date
 }

@@ -48,7 +48,9 @@ export class OrderService {
       notification: 0,
       notificationDescr: '',
       priority: 0,
-      priorityDescr: ''
+      priorityDescr: '',
+      note: '',
+      noteId: 0
     }
   }
 
@@ -57,7 +59,7 @@ export class OrderService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
-    } 
+    }
     return this.http.post<IOrder>(this.ordersUri, order, httpHeader)
     .pipe(catchError(this.handleHttpClientError.handleError))
   }

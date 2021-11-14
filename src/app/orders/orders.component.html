@@ -21,7 +21,7 @@
       <table class="table">
         <thead>
           <tr>
-            <!-- <th></th> -->
+            <th></th>
             <th>Pedido</th>
             <th>Empresa</th>
             <th>Chofer</th>
@@ -35,14 +35,16 @@
         </thead>
         <tbody>
           <tr *ngFor='let order of filteredOrders'>
-            <!-- <td>
-              <button *ngIf="order.orderId > 40300"
-                      class="btn btn-outline-primary btn-sm">
+            <td>
+              <button *ngIf="!order.note"
+                      class="btn btn-outline-primary btn-sm"
+                      [routerLink]="['/pedidos', order.orderId, 'notas', 0, 'editar']">
               Crear Nota </button>
-              <button *ngIf="order.orderId < 40300"
-                      class="btn btn-link btn-sm">
-              Ir Nota</button>
-            </td> -->
+              <button *ngIf="order.note"
+                      class="btn btn-link btn-sm"
+                      [routerLink]="['/pedidos', order.orderId, 'notas', order.noteId]">
+              {{order.note}} </button>
+            </td>
             <td>
               {{order.orderId}}
               <!-- <a [routerLink]="['/pedidos',order.orderId]"> -->
@@ -58,7 +60,7 @@
             <td>{{order.comments}}</td>
             <td>
               <button class="btn btn-danger btn-sm"
-                      (click)='deleteOrder(order.orderId)'>Eliminar</button>
+                      (click)='deleteOrder(order.orderId)' *ngIf="!order.note">Eliminar</button>
             </td>
           </tr>
         </tbody>
