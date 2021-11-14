@@ -26,4 +26,9 @@ export class EmployeeService {
     .pipe(catchError(this.handleHttpError.handleError))
   }
 
+  deleteEmployee(employeeId: number): Observable<any> {
+    return this.http.delete(`${this.employeesApi}/${employeeId}`)
+    .pipe(catchError(this.handleHttpError.handleError))
+  }
+
 }

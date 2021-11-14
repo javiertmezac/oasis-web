@@ -1,35 +1,45 @@
 <div class="card container">
   <div class="card-header">
-    {{ pageTitle }}
+    <h3>
+      {{ pageTitle }}
+    </h3>
   </div>
 
-  <div class="card-body">
+  <div class="card-body" *ngIf="!errorMessage">
     <div class="row">
       <div class="col-md-2">
-        <button class="btn btn-primary" (click)='onAddClick()'>Agregar Trabajador</button>
+        <button class="btn btn-primary" (click)='onAddClick()'>+ Trabajador</button>
       </div>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive" *ngIf="employeeList.length > 0">
       <table class="table">
         <thead>
           <tr>
-            <th>Código</th>
             <th>Nombre</th>
             <th>Teléfono</th>
             <th>Dirección</th>
             <th>Registro</th>
             <th>Bloque</th>
             <th>Serie</th>
-            <th>btn eliminar</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr *ngFor="let e of employeeList">
+            <td>{{e.employeeName}}</td>
+            <td>{{e.tel}}</td>
             <td></td>
+            <td></td>
+            <td>{{e.note}}</td>
+            <td>{{e.note}}</td>
+            <td><button class="btn btn-danger btn-sm"
+              (click)="deleteEmployee(e.employeeId, e.employeeName)">Eliminar</button></td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
 </div>
