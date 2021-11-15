@@ -7,7 +7,6 @@ import { Block } from './block';
 import { BlockService } from './block.service';
 
 @Component({
-  selector: 'xj-block-edit',
   templateUrl: './block-edit.component.html',
   styleUrls: ['./block-edit.component.css']
 })
