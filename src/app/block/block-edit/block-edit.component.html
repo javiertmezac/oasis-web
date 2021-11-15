@@ -1,0 +1,82 @@
+<div class="card container">
+  <div class="card-header">
+    <h3>
+      <strong>
+        {{pageTitle}}
+      </strong>
+    </h3>
+  </div>
+
+  <div class="card-body">
+    <form novalidate (ngSubmit)="saveBlock()" [formGroup]="blockForm" *ngIf="employee">
+
+      <h4>{{employee.employeeName}}</h4>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="letterId">Letra:</label>
+        <div class="col-md-4">
+          <input class="form-control" id="letterId" type="text" placeholder="Letra (requerido)" formControlName="letter"
+            [ngClass]="{'is-invalid': (blockForm.get('letter')?.touched ||
+                                blockForm.get('letter')?.dirty) &&
+                                !blockForm.get('letter')?.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="blockForm.controls['letter'].errors?.required">
+              Letra requerido
+            </span>
+            <span *ngIf="blockForm.controls['letter'].errors?.maxlength">
+              Máximo un caracter
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="startNumberId">Número Inicial:</label>
+        <div class="col-md-4">
+          <input class="form-control" id="startNumberId" type="text" placeholder="Número Inicial (requerido)"
+            formControlName="startNumber" [ngClass]="{'is-invalid': (blockForm.get('startNumber')?.touched ||
+                                blockForm.get('startNumber')?.dirty) &&
+                                !blockForm.get('startNumber')?.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="blockForm.controls['startNumber'].errors?.required">
+              Número Inicial requerido
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="endNumberId">Número Final:</label>
+        <div class="col-md-4">
+          <input class="form-control" id="endNumberId" type="text"
+          placeholder="Número Final (requerido)"
+            formControlName="endNumber" [ngClass]="{'is-invalid': (blockForm.get('endNumber')?.touched ||
+                                blockForm.get('endNumber')?.dirty) &&
+                                !blockForm.get('endNumber')?.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="blockForm.controls['endNumber'].errors?.required">
+              Número Final requerido
+            </span>
+          </span>
+        </div>
+      </div>
+
+        <div class="form-group row mb-2">
+          <div class="offset-md-2 col-md-4">
+            <button class="btn btn-primary mr-3" style="width:80px;" type="submit"
+              [title]="blockForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+              [disabled]="!blockForm.valid">
+              Save
+            </button>
+            <button class="btn btn-outline-secondary mr-3" style="width:80px;" type="button" title="Cancel your edits"
+              [routerLink]="['/empleados']">
+              Cancel
+            </button>
+          </div>
+        </div>
+    </form>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="card container">
+  <div class="card-header">
+    <h3>
+      <strong>
+        {{pageTitle}}
+      </strong>
+    </h3>
+  </div>
+
+  <div class="card-body">
+    <form novalidate (ngSubmit)="saveEmployee()" [formGroup]="employeeForm">
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="employeeNameId">Nombre:</label>
+        <div class="col-md-4">
+          <input class="form-control" id="employeeNameId"
+                 type="text"
+                 placeholder="Nombre completo (requerido)"
+                 formControlName="employeeName"
+            [ngClass]="{'is-invalid': (employeeForm.get('employeeName')?.touched ||
+                                employeeForm.get('employeeName')?.dirty) &&
+                                !employeeForm.get('employeeName')?.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="employeeForm.controls['employeeName'].errors?.required">
+              Nombre requerido
+            </span>
+            <span *ngIf="employeeForm.controls['employeeName'].errors?.minlength">
+              Almenos 3 caracteres
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="addressId">Dirrección:</label>
+        <div class="col-md-4">
+          <input class="form-control" id="addressId" type="text" placeholder="Dirrección"
+            formControlName="address"/>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="telId">Teléfono:</label>
+        <div class="col-md-4">
+          <input class="form-control" id="telId" type="text" placeholder="tel o cel"
+          formControlName="tel" />
+        </div>
+      </div>
+
+        <div class="form-group row mb-2">
+          <div class="offset-md-2 col-md-4">
+            <button class="btn btn-primary mr-3" style="width:80px;" type="submit"
+              [title]="employeeForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+              [disabled]="!employeeForm.valid">
+              Save
+            </button>
+            <button class="btn btn-outline-secondary mr-3" style="width:80px;" type="button" title="Cancel your edits"
+              [routerLink]="['/empleados']">
+              Cancel
+            </button>
+          </div>
+        </div>
+    </form>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}
+  </div>
+</div>
