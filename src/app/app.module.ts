@@ -27,6 +27,7 @@ import { OrderEditComponent } from './orders/order-edit.component';
 import { NoteEditComponent } from './notes/note-edit.component';
 import { BlockEditComponent } from './block/block-edit/block-edit.component';
 import { EmployeeEditComponent } from './employees/employee-edit.component';
+import { PaidEditComponent } from './paid/paid-edit/paid-edit.component';
 
 @NgModule({
   providers: [
@@ -68,6 +69,11 @@ import { EmployeeEditComponent } from './employees/employee-edit.component';
       { path: 'pedidos/:idPedido/notas/:id', canActivate: [AuthGuard], component: NoteDetailComponent },
       { path: 'notas', canActivate: [AuthGuard], component: NotesComponent },
       { path: 'notas/:id', canActivate: [AuthGuard], component: NoteDetailComponent },
+      {
+        path: 'notas/:idNota/abonos/:idAbono/editar',
+        canActivate: [AuthGuard], 
+        component: PaidEditComponent
+      },
       { path: 'precios', canActivate:[AuthGuard], component: PricesComponent },
       { path: 'precios/:id', canActivate: [AuthGuard], component: PriceDetailComponent },
       { path: 'empleados', canActivate:[AuthGuard], component: EmployeesComponent },
@@ -104,6 +110,7 @@ import { EmployeeEditComponent } from './employees/employee-edit.component';
     NoteEditComponent,
     BlockEditComponent,
     EmployeeEditComponent,
+    PaidEditComponent,
   ],
   bootstrap: [AppComponent]
 })

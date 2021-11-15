@@ -26,8 +26,7 @@ export class OrdersComponent implements OnInit {
     this.filteredOrders = this.performFilter(value);
   } 
 
-  constructor(private route: Router,
-    private orderService: OrderService) { }
+  constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.getOrders();
@@ -60,7 +59,8 @@ export class OrdersComponent implements OnInit {
       (order: IOrder) => 
         order.clientName.toLocaleLowerCase().includes(filterBy) ||
         order.employeeName.toLocaleLowerCase().includes(filterBy) ||
-        String(order.orderId).includes(filterBy)
+        String(order.orderId).includes(filterBy) ||
+        order.note?.toLocaleLowerCase().includes(filterBy)
     );
   }
 }

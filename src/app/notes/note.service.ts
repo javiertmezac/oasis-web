@@ -60,7 +60,8 @@ export class NoteService {
       status: false,
       discount: 0,
       discountDescription: '',
-      paid: false
+      paid: false,
+      debt: 0
     }
   }
 
