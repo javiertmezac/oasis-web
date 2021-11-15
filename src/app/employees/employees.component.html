@@ -8,7 +8,8 @@
   <div class="card-body" *ngIf="!errorMessage">
     <div class="row">
       <div class="col-md-2">
-        <button class="btn btn-primary" (click)='onAddClick()'>+ Trabajador</button>
+        <button class="btn btn-primary"
+                [routerLink]="['/empleados', 0, 'editar']">+ Trabajador</button>
       </div>
     </div>
 
@@ -23,18 +24,30 @@
             <th>Bloque</th>
             <th>Serie</th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let e of employeeList">
-            <td>{{e.employeeName}}</td>
+            <td><a [routerLink]="['/empleados', e.employeeId, 'editar']">
+                {{e.employeeName}}
+              </a>
+            </td>
             <td>{{e.tel}}</td>
-            <td></td>
-            <td></td>
-            <td>{{e.note}}</td>
-            <td>{{e.note}}</td>
+            <td>{{e.address}}</td>
+            <td>{{e.registration | date }}</td>
+            <td>{{e.block}}</td>
+            <td>{{e.blockNumber}}</td>
             <td><button class="btn btn-danger btn-sm"
-              (click)="deleteEmployee(e.employeeId, e.employeeName)">Eliminar</button></td>
+              *ngIf="e.block == 'n/a'"
+              (click)="deleteEmployee(e.employeeId, e.employeeName)">Eliminar</button>
+            </td>
+            <td><button class="btn btn-outline-success btn-sm"
+              *ngIf="e.block == 'n/a'"
+              [routerLink]="['/empleados', e.employeeId, 'bloques', 0, 'editar']">
+              + Bloque</button>
+            </td>
+
           </tr>
         </tbody>
       </table>
