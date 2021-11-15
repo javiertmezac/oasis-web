@@ -36,7 +36,16 @@ export class NoteService {
       note: '',
       orderId: 0,
       employeeId: 0,
-      noteEmployee: { employeeId : 0, employeeName: '', note: ''},
+      noteEmployee: {
+        employeeId: 0,
+        employeeName: '',
+        note: '',
+        tel: '',
+        address: '',
+        registration: new Date(),
+        block: '',
+        blockNumber: ''
+      },
       registration: new Date(),
       registrationDate: '',
       liters: 0,

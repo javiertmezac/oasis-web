@@ -151,7 +151,7 @@ export class NoteEditComponent implements OnInit {
   }
 
   loadEmployees() {
-    this.employeeService.getEmployeesWithBlockNumber().subscribe({
+    this.employeeService.getEmployees().subscribe({
       next: data => {
         this.employeeList = data.employeeList;
       },

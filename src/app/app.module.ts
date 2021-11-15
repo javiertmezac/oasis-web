@@ -23,9 +23,10 @@ import { AuthInterceptor } from './shared/auth.interceptor';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { ContactEditComponent } from './contacts/contact-edit.component';
-import { AuthService } from './login/auth.service';
 import { OrderEditComponent } from './orders/order-edit.component';
 import { NoteEditComponent } from './notes/note-edit.component';
+import { BlockEditComponent } from './block/block-edit/block-edit.component';
+import { EmployeeEditComponent } from './employees/employee-edit.component';
 
 @NgModule({
   providers: [
@@ -71,6 +72,12 @@ import { NoteEditComponent } from './notes/note-edit.component';
       { path: 'precios/:id', canActivate: [AuthGuard], component: PriceDetailComponent },
       { path: 'empleados', canActivate:[AuthGuard], component: EmployeesComponent },
       { path: 'empleados/:id', canActivate:[AuthGuard], component: EmployeeDetailComponent },
+      { path: 'empleados/:id/editar', canActivate:[AuthGuard], component: EmployeeEditComponent },
+      {
+        path: 'empleados/:idEmpleado/bloques/:idBloque/editar',
+        canActivate:[AuthGuard],
+        component: BlockEditComponent
+      },
       { path: 'login', component: LoginComponent },
       { path:'', redirectTo: 'inicio', pathMatch:'full' },
       { path: '**', redirectTo: 'inicio', pathMatch:'full'}
@@ -95,6 +102,8 @@ import { NoteEditComponent } from './notes/note-edit.component';
     LoginComponent,
     OrderEditComponent,
     NoteEditComponent,
+    BlockEditComponent,
+    EmployeeEditComponent,
   ],
   bootstrap: [AppComponent]
 })
