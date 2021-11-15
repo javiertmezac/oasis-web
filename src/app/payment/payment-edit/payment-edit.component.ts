@@ -6,19 +6,19 @@ import { Employee } from 'src/app/employees/employee';
 import { EmployeeService } from 'src/app/employees/employee.service';
 import { INoteBase } from 'src/app/notes/note-base';
 import { NoteService } from 'src/app/notes/note.service';
-import { Paid } from './paid';
-import { PaidService } from './paid.service';
+import { Payment } from './payment';
+import { PaymentService } from './payment.service';
 
 @Component({
-  templateUrl: './paid-edit.component.html',
-  styleUrls: ['./paid-edit.component.css']
+  templateUrl: './Payment-edit.component.html',
+  styleUrls: ['./Payment-edit.component.css']
 })
-export class PaidEditComponent implements OnInit {
+export class PaymentEditComponent implements OnInit {
 
   pageTitle = 'Abonar!';
   errorMessage = ''
-  paidForm!: FormGroup;
-  paid!: Paid
+  paymentForm!: FormGroup;
+  payment!: Payment
   employee!: Employee
   note!: INoteBase
   registration!: Date
@@ -27,7 +27,7 @@ export class PaidEditComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private paidService: PaidService,
+    private paymentService: PaymentService,
     private noteService: NoteService,
     private employeeService: EmployeeService) { }
 
@@ -36,7 +36,7 @@ export class PaidEditComponent implements OnInit {
     const noteId = Number(this.route.snapshot.paramMap.get("idNota"));
     this.getNote(noteId);
 
-    this.paidForm = this.fb.group({
+    this.paymentForm = this.fb.group({
       total: ['', Validators.required]
     });
 
@@ -47,7 +47,7 @@ export class PaidEditComponent implements OnInit {
     this.noteService.getNote(id).subscribe({
       next: response => { 
         this.note = response
-        this.paidForm.patchValue({
+        this.paymentForm.patchValue({
           total : this.note.debt
         });
 
@@ -65,17 +65,17 @@ export class PaidEditComponent implements OnInit {
     });
   }
 
-  savePaid(): void{
-    if(this.paidForm.valid) {
-      const p = {...this.paid, ...this.paidForm.value}
+  savePayment(): void{
+    if(this.paymentForm.valid) {
+      const p = {...this.payment, ...this.paymentForm.value}
       p.payment = 0;
       p.noteId = this.note.noteId;
       p.registration = this.registration;
       p.employeeId = this.employee.employeeId;
 
-      this.paidService.insertPaid(p).subscribe({
+      this.paymentService.insertPayment(p).subscribe({
         next: () => {
-          this.paidForm.reset();
+          this.paymentForm.reset();
           this.router.navigateByUrl('/notas')
         },
         error: err => this.errorMessage = err

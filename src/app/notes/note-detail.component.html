@@ -103,7 +103,7 @@
 
   <div class="card-footer">
     <div class='row'>
-      <div class="col-md-2" *ngIf="note">
+      <div class="col-md-2" *ngIf="note && !note.paid">
         <button class="btn btn-outline-success" [routerLink]="['/notas', note.noteId, 'abonos', 0, 'editar']">Abonar</button>
       </div>
       <div class="col-md-2">

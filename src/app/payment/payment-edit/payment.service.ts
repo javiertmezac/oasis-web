@@ -4,21 +4,21 @@ import { Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { HandleHttpClientError } from "src/app/shared/handle-error";
 import { environment } from "src/environments/environment";
-import { Paid } from "./paid";
+import { Payment } from "./payment";
 
 @Injectable({
   providedIn: 'root'
 })
-export class PaidService {
+export class PaymentService {
 
   private baseUri = environment.baseUri;
-  private paidsUri: string = `${this.baseUri}/v1/payments`;
+  private paymentsUri: string = `${this.baseUri}/v1/payments`;
 
 
   constructor(private http: HttpClient,
     private httpError: HandleHttpClientError){}
 
-  insertPaid(paid: Paid): Observable<any> {
+  insertPayment(payment: Payment): Observable<any> {
 
     const httpHeaders = {
       headers: new HttpHeaders({
@@ -26,7 +26,7 @@ export class PaidService {
       })
     }
 
-    return this.http.post<Paid>(this.paidsUri, paid, httpHeaders)
+    return this.http.post<Payment>(this.paymentsUri, payment, httpHeaders)
     .pipe(catchError(this.httpError.handleError))
   }
 

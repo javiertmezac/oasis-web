@@ -1,4 +1,4 @@
-export interface Paid{
+export interface Payment{
   paymentId: number,
   total: number,
   noteId: number,

@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { PaymentEditComponent } from '../payment-edit/payment-edit.component'
 
-import { PaidEditComponent } from './paid-edit.component';
-
-describe('PaidEditComponent', () => {
-  let component: PaidEditComponent;
-  let fixture: ComponentFixture<PaidEditComponent>;
+describe('PaymentEditComponent', () => {
+  let component: PaymentEditComponent;
+  let fixture: ComponentFixture<PaymentEditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PaidEditComponent ]
+      declarations: [ PaymentEditComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PaidEditComponent);
+    fixture = TestBed.createComponent(PaymentEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

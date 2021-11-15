@@ -8,7 +8,7 @@
   </div>
 
   <div class="card-body">
-    <form novalidate (ngSubmit)="savePaid()" [formGroup]="paidForm" >
+    <form novalidate (ngSubmit)="savePayment()" [formGroup]="paymentForm" >
 
       <div *ngIf="employee">
         <h2>Nota: {{note.note}}</h2>
@@ -21,11 +21,11 @@
             <input class="form-control" id="totalId" 
                    type="text" placeholder="$$$ (requerido)" 
                    formControlName="total"
-              [ngClass]="{'is-invalid': (paidForm.get('total')?.touched ||
-                                paidForm.get('total')?.dirty) &&
-                                !paidForm.get('total')?.valid }" />
+              [ngClass]="{'is-invalid': (paymentForm.get('total')?.touched ||
+                                paymentForm.get('total')?.dirty) &&
+                                !paymentForm.get('total')?.valid }" />
             <span class="invalid-feedback">
-              <span *ngIf="paidForm.controls['total'].errors?.required">
+              <span *ngIf="paymentForm.controls['total'].errors?.required">
                 Cantidad requerido
               </span>
             </span>
@@ -36,8 +36,8 @@
       <div class="form-group row mb-2">
         <div class="offset-md-2 col-md-4">
           <button class="btn btn-primary mr-3" style="width:80px;" type="submit"
-            [title]="paidForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
-            [disabled]="!paidForm.valid">
+            [title]="paymentForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+            [disabled]="!paymentForm.valid">
             Save
           </button>
           <button class="btn btn-outline-secondary mr-3" style="width:80px;" type="button" title="Cancel your edits"
