@@ -10,6 +10,7 @@ import { ContactService } from './contact.service';
 })
 export class ContactsComponent implements OnInit {
   pageTitle: string = 'Contactos'
+  errorMessage = '';
   filteredContacts: IContact[] = [];
   contacts: IContact[] = [];
   sub!: Subscription
@@ -32,7 +33,8 @@ export class ContactsComponent implements OnInit {
       next: contactResponse => {
         this.contacts = contactResponse.contactsList;
         this.filteredContacts = this.contacts; 
-      }
+      },
+      error: err => this.errorMessage = err
     });
   }
 

@@ -5,7 +5,7 @@
     </h3>
   </div>
 
-  <div class="card-body">
+  <div class="card-body" *ngIf="notesList.length > 0">
 
     <div class="table-responsive">
       <table class="table">
@@ -20,12 +20,18 @@
             <th>Total</th>
             <th>Crédito</th>
             <th>Deuda</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let n of notesList">
-            <td>
+            <!-- <td>
               <a [routerLink]="['/notas', n.noteId]">{{ n.note }}</a>
+            </td> -->
+            <td >
+              <strong>
+                {{n.note}}
+              </strong>
             </td>
             <td>{{ n.orderId }}</td>
             <td>{{ n.clientName }}</td>
@@ -35,9 +41,20 @@
             <td>{{ n.total }}</td>
             <td>{{ n.credit }}</td>
             <td>{{ n.debt }}</td>
+            <td><button class="btn btn-outline-success btn-sm"
+                        [routerLink]="['/notas', n.noteId, 'abonos', 0, 'editar']">
+              Abonar
+            </button></td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+
+  <div class="alert alert-warning" *ngIf="!errorMessage && notesList.length == 0">
+    <p>No hay Notas!</p>
+    <p>Ir a <strong><a routerLink="/pedidos">Pedidos</a></strong> para crear Notas</p>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
 </div>

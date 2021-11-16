@@ -6,11 +6,15 @@
   </div>
 
   <div class="card-body" *ngIf="!errorMessage">
-    <div class="row">
+    <div class="row mb-2">
       <div class="col-md-2">
         <button class="btn btn-primary"
                 [routerLink]="['/empleados', 0, 'editar']">+ Trabajador</button>
       </div>
+    </div>
+
+    <div class="row alert alert-warning" *ngIf="employeeList.length == 0">
+      <p>No hay Trabajadores registrados!</p>
     </div>
 
     <div class="table-responsive" *ngIf="employeeList.length > 0">

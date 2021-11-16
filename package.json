@@ -1,6 +1,6 @@
 {
   "name": "oasis",
-  "version": "0.5.0-beta",
+  "version": "0.6.2-beta",
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",

@@ -26,7 +26,12 @@ export class EmployeesComponent implements OnInit {
   getEmployees(): void {
     this.employeeService.getEmployees().subscribe({
       next: response => this.employeeList = response.employeeList,
-      error: err => this.errorMessage = err
+      error: err => {
+        const emptyListError = "Could not fetch Lista Trabajadores";
+        if (!err.includes(emptyListError)) {
+          this.errorMessage = err
+        }
+      }
     })
   }
 

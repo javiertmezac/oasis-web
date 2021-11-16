@@ -16,6 +16,7 @@ registerLocaleData(localePy, 'es');
 export class ClientComponent implements OnInit {
 
   pageTitle: string = 'Empresas';
+  errorMessage = '';
   private _listFilter = '';
   sub!: Subscription
 
@@ -45,7 +46,7 @@ export class ClientComponent implements OnInit {
         this.clients = this.responseClients;
         this.filteredClients = this.clients;
       },
-      error: err => console.log("Error fetching client-list: ", err)
+      error: err => this.errorMessage = err
     });
 
   }

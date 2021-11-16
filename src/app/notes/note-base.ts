@@ -21,4 +21,5 @@ export interface INoteBase {
   discount: number;
   discountDescription: string;
   paid: boolean;
+  debt: number;
 }

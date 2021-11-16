@@ -8,6 +8,7 @@ import { NoteService } from './note.service';
 })
 export class NotesComponent implements OnInit {
   pageTitle: string = 'Notas';
+  errorMessage = '';
 
   notesList: INote[] = []
 
@@ -15,7 +16,8 @@ export class NotesComponent implements OnInit {
 
   ngOnInit(): void {
     this.noteService.getNotes().subscribe({
-      next: response => this.notesList = response.notesResponse
+      next: response => this.notesList = response.notesResponse,
+      error: err => this.errorMessage = err
     })
   }
 
