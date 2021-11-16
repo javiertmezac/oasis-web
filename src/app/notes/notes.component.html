@@ -5,7 +5,7 @@
     </h3>
   </div>
 
-  <div class="card-body">
+  <div class="card-body" *ngIf="notesList.length > 0">
 
     <div class="table-responsive">
       <table class="table">
@@ -49,5 +49,10 @@
         </tbody>
       </table>
     </div>
+  </div>
+
+  <div class="alert alert-warning" *ngIf="notesList.length == 0">
+    <p>No hay Notas!</p>
+    <p>Ir a <strong><a routerLink="/pedidos">Pedidos</a></strong> para crear Notas</p>
   </div>
 </div>

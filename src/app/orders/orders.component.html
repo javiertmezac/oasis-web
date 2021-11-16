@@ -5,7 +5,7 @@
     </h3>
   </div>
 
-  <div class="card-body">
+  <div class="card-body" *ngIf="filteredOrders.length > 0">
 
     <div class="row">
       <div class="col-md-2">Filtart por: </div>
@@ -66,5 +66,12 @@
         </tbody>
       </table>
     </div>
+  </div>
+
+  <div class="alert alert-warning" *ngIf="filteredOrders.length == 0">
+    <p>No Hay Pedidos</p>
+    <p>
+      Ir a <strong><a routerLink="/empresas">Empresas</a></strong> para crear pedidos!
+    </p>
   </div>
 </div>
