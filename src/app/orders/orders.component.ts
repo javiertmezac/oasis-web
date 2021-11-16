@@ -38,7 +38,8 @@ export class OrdersComponent implements OnInit {
         this.responseOrder = orderResponse.ordersList;
         this.orderList = this.responseOrder;
         this.filteredOrders = this.orderList;
-      }
+      },
+      error: err => this.errorMessage = err
     });
   }
 

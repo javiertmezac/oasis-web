@@ -51,8 +51,10 @@
     </div>
   </div>
 
-  <div class="alert alert-warning" *ngIf="notesList.length == 0">
+  <div class="alert alert-warning" *ngIf="!errorMessage && notesList.length == 0">
     <p>No hay Notas!</p>
     <p>Ir a <strong><a routerLink="/pedidos">Pedidos</a></strong> para crear Notas</p>
   </div>
+
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
 </div>

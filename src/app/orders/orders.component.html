@@ -68,10 +68,12 @@
     </div>
   </div>
 
-  <div class="alert alert-warning" *ngIf="filteredOrders.length == 0">
+  <div class="alert alert-warning" *ngIf="!errorMessage && filteredOrders.length == 0">
     <p>No Hay Pedidos</p>
     <p>
       Ir a <strong><a routerLink="/empresas">Empresas</a></strong> para crear pedidos!
     </p>
   </div>
+
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
 </div>
