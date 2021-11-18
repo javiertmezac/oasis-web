@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 import { catchError, map, tap } from 'rxjs/operators';
 import { IClient } from "./client";
 import { environment } from "../../environments/environment"
@@ -24,7 +24,56 @@ export class ClientService {
   }
 
   getClient(clientId: number): Observable<IClient> {
+    if (clientId === 0) {
+      return of(this.newClient());
+    }
     return this.http.get<IClient>(`${this.clientsUrl}/${clientId}`)
     .pipe(catchError(this.handleHttpClientError.handleError));
   };
+
+  newClient(): IClient {
+    const datePick = new Date();
+    return {
+      clientId: 0,
+      clientCode: '',
+      clientInvoice: '',
+      clientName: '',
+      clientRfc: '',
+      clientTel: '',
+      clientNeighborhood: '',
+      clientStreet: '',
+      clientNoInt: '',
+      clientNoOut: '',
+      clientCp: '',
+      clientStatus: false,
+      clientRegistration: datePick,
+      clientInstantRegistration: 0,
+      clientPrice: 0,
+      selectedPrice: { priceId: 0, price: 0},
+      clientPriceId: 0,
+      clientNextClean: datePick,
+      clientInstantNextClean: 0
+    }
+  }
+
+  insertClient(client: IClient): Observable<any> {
+    return this.http.post<IClient>(this.clientsUrl, client, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).pipe(catchError(this.handleHttpClientError.handleError))
+  }
+
+  updateClient(client: IClient): Observable<any> {
+    return this.http.put<IClient>(this.clientsUrl, client, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).pipe(catchError(this.handleHttpClientError.handleError))
+  }
+
+  deleteClient(id: number): Observable<any> {
+    return this.http.delete(`${this.clientsUrl}/${id}`)
+    .pipe(catchError(this.handleHttpClientError.handleError))
+  }
 }

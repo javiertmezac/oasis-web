@@ -28,6 +28,7 @@ import { NoteEditComponent } from './notes/note-edit.component';
 import { BlockEditComponent } from './block/block-edit/block-edit.component';
 import { EmployeeEditComponent } from './employees/employee-edit.component';
 import { PaymentEditComponent } from './payment/payment-edit/payment-edit.component';
+import { ClientEditComponent } from './clients/client-edit.component';
 
 @NgModule({
   providers: [
@@ -47,6 +48,7 @@ import { PaymentEditComponent } from './payment/payment-edit/payment-edit.compon
       { path: 'inicio', canActivate:[AuthGuard], component: HomeComponent },
       { path: 'empresas', canActivate:[AuthGuard], component: ClientComponent },
       { path: 'empresas/:id', canActivate: [AuthGuard], component: ClientDetailComponent },
+      { path: 'empresas/:id/editar', canActivate: [AuthGuard], component: ClientEditComponent },
       { 
         path: 'empresas/:idEmpresa/pedidos/:idPedido/editar',
         canActivate: [AuthGuard],
@@ -110,7 +112,8 @@ import { PaymentEditComponent } from './payment/payment-edit/payment-edit.compon
     NoteEditComponent,
     BlockEditComponent,
     EmployeeEditComponent,
-    PaymentEditComponent
+    PaymentEditComponent,
+    ClientEditComponent
   ],
   bootstrap: [AppComponent]
 })

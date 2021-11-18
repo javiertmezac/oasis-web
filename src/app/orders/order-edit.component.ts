@@ -5,6 +5,7 @@ import { IClient } from '../clients/client';
 import { ClientService } from '../clients/client.service';
 import { Employee } from '../employees/employee';
 import { EmployeeService } from '../employees/employee.service';
+import { DateTimeHandler } from '../shared/datetime-handler';
 import { OrderNotification } from '../shared/order/order-notification';
 import { OrderPriority } from '../shared/order/order-priority';
 import { IOrder } from './order';
@@ -85,27 +86,18 @@ export class OrderEditComponent implements OnInit {
   }
 
   private convertOrderFromValue(o: any): any {
-    // todo: fix date time
     const newDeliveryDate = new Date(o.orderDelivery);
-    newDeliveryDate.setHours(newDeliveryDate.getHours() + 7);
 
     return {
       orderId: 0,
       employeeId: o.orderEmployee.employeeId,
       clientId: this.client.clientId,
       registrationDate : Math.floor(o.orderRegistration.getTime() / 1000),
-      deliveryDate : Math.floor(newDeliveryDate.getTime() / 1000),
+      deliveryDate : Math.floor((newDeliveryDate.getTime() + DateTimeHandler.getDateTimeOffSet()) / 1000),
       comments: o.orderComments,
       status: true,
       notification: o.orderNotification.id,
       priority: o.orderPriority.id,
-    }
-  }
-
-
-  deleteContact(): void { 
-    if (this.order.orderId == 0) {
-      this.router.navigateByUrl('/pedidos')
     }
   }
 

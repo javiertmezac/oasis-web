@@ -1,0 +1,219 @@
+<div class="card container">
+  <div class="card-header">
+    <h3>
+      <strong>
+        {{pageTitle}}
+      </strong>
+    </h3>
+  </div>
+
+  <div class="card-body">
+    <form novalidate 
+          (ngSubmit)="saveClient()"
+          [formGroup]="clientForm">
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="clientNameId">Nombre:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="clientNameId"
+                 type="text"
+                 placeholder="Nombre (requerido)"
+                 formControlName="clientName"
+                 [ngClass]="{'is-invalid': (clientForm.get('clientName')?.touched ||
+                                clientForm.get('clientName')?.dirty) &&
+                                !clientForm.get('clientName')?.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="clientForm.controls['clientName'].errors?.required">
+              Nombre requerido
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="clientTankId">Número de Tanque:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="clientTankId"
+                 type="text"
+                 placeholder="Tanque (requerido)"
+                 formControlName="clientCode"
+                 [ngClass]="{'is-invalid': (clientForm.get('clientCode')?.touched ||
+                                clientForm.get('clientCode')?.dirty) &&
+                                !clientForm.get('clientCode')?.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="clientForm.controls['clientCode'].errors?.required">
+              Número de Tanque requerido
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="clientInvoiceId">Número de Factura:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="clientInvoiceId"
+                 type="text"
+                 placeholder="Factura"
+                 formControlName="clientInvoice" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="clientRfcId">RFC:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="clientRfcId"
+                 type="text"
+                 placeholder="RFC (requerido)"
+                 formControlName="clientRfc"
+                 [ngClass]="{'is-invalid': (clientForm.get('clientRfc')?.touched ||
+                     clientForm.get('clientRfc')?.dirty) &&
+                     !clientForm.get('clientRfc')?.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="clientForm.controls['clientRfc'].errors?.required">
+              RFC requerido
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="clientTelId">Tel:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="clientTelId"
+                 type="text"
+                 placeholder="Teléfono"
+                 formControlName="clientTel" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="clientNeighborhoodId">Colonia:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="clientNeighborhoodId"
+                 type="text"
+                 placeholder="Colonia"
+                 formControlName="clientNeighborhood"
+                 [ngClass]="{'is-invalid': (clientForm.get('clientNeighborhood')?.touched ||
+                 clientForm.get('clientNeighborhood')?.dirty) &&
+                 !clientForm.get('clientNeighborhood')?.valid }"/>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="clientStreetId">Calle:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="clientStreetId"
+                 type="text"
+                 placeholder="Calle"
+                 formControlName="clientStreet"
+                 [ngClass]="{'is-invalid': (clientForm.get('clientStreet')?.touched ||
+                 clientForm.get('clientStreet')?.dirty) &&
+                 !clientForm.get('clientStreet')?.valid }"/>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="clientNoIntId">Número Interior:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="clientNoIntId"
+                 type="text"
+                 formControlName="clientNoInt"/>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="clientNoOutId">Número Exterior:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="clientNoOutId"
+                 type="text"
+                 formControlName="clientNoOut"/>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="clientCpId">Código Postal:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="clientCpId"
+                 type="text"
+                 formControlName="clientCp"/>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="clientPriceId">Precio:</label>
+        <div class="col-md-8">
+        <select id="clientPriceId"
+                formControlName="selectedPrice"
+                class="form-control">
+            <option [ngValue]="" disabled selected >Seleccionar Precio</option>
+            <option *ngFor="let p of priceList" [ngValue]="p">
+              {{p.price}}
+            </option>
+        </select>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="clientNextCleanId">Siguiente Lavado:</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="clientNextCleanId"
+                 type="date"
+                 formControlName="clientNextClean" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-primary mr-3"
+                  style="width:80px;"
+                  type="submit"
+                  [title]="clientForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                  [disabled]="!clientForm.valid">
+            Save
+          </button>
+          <button class="btn btn-outline-secondary mr-3"
+                  style="width:80px;"
+                  type="button"
+                  title="Cancel your edits"
+                  [routerLink]="['/empresas']">
+            Cancel
+          </button>
+          <!-- <button class="btn btn-outline-warning"
+                  style="width:80px"
+                  type="button"
+                  title="Delete this Client"
+                  (click)="deleteClient()">
+            Delete
+          </button> -->
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="alert alert-danger" 
+      *ngIf="errorMessage">{{errorMessage}}
+  </div>
+</div>
