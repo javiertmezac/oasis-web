@@ -46,7 +46,17 @@ export class PricesComponent implements OnInit {
         error: err => this.errorMessage = err
       });
     }
+  }
 
+  deletePrice(priceId: number): void {
+    if(confirm(`Seguro de proceder con el borrado del precio con id: ${priceId}`)) {
+      this.priceService.deletePrice(priceId).subscribe({
+        next: () => {
+          this.getPrices();
+        },
+        error: err => this.errorMessage = err
+      });
+    }
   }
 
 }

@@ -29,4 +29,9 @@ export class PriceService {
         }
       }).pipe(catchError(this.handleHttpClientError.handleError))
     }
+
+    deletePrice(id: number): Observable<any> {
+      return this.http.delete(`${this.pricesUrl}/${id}`)
+      .pipe(catchError(this.handleHttpClientError.handleError))
+    }
 }

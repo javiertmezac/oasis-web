@@ -38,14 +38,16 @@
           <tr>
             <th>Clave</th>
             <th>Precio</th>
-            <!-- <th>btn eliminar</th> -->
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let p of priceList">
             <td>{{p.priceId}}</td>
             <td>{{p.price}}</td>
-            <!-- <td></td> -->
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="deletePrice(p.priceId)">Eliminar</button>
+            </td>
           </tr>
         </tbody>
       </table>
