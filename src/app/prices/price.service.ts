@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { HandleHttpClientError } from "../shared/handle-error";
+import { Price } from "./price";
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,13 @@ export class PriceService {
     getPriceList(): Observable<any> {
       return this.http.get(this.pricesUrl)
       .pipe(catchError(this.handleHttpClientError.handleError))
+    }
+
+    insertPrice(price: Price): Observable<any> {
+      return this.http.post<Price>(this.pricesUrl,price, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).pipe(catchError(this.handleHttpClientError.handleError))
     }
 }

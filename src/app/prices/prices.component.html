@@ -5,26 +5,52 @@
 
   <div class="card-body">
     <div class="row">
-      <div class="col-md-2">
-        <button class="btn btn-primary" (click)='onAddClick()'>Agregar Precio</button>
-      </div>
+      <form novalidate (ngSubmit)="savePrice()" [formGroup]="priceForm">
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="priceId">Precio:</label>
+          <div class="col-md-4">
+            <input class="form-control"
+                   id="priceId"
+                   type="text"
+                   placeholder="precio"
+                   formControlName="price"
+                   [ngClass]="{'is-invalid': priceForm.get('price')?.touched && 
+                   !priceForm.get('price')?.valid}"/>
+          <span class="invalid-feedback">
+            <span *ngIf="priceForm.controls['price'].errors?.required">
+              Precio requerido
+            </span>
+          </span>
+          </div>
+
+          <button class="col-md-2 btn btn-primary" type="submit" 
+                  [disabled]="!priceForm.valid">Guardar Precio</button>
+        </div>
+        <!-- <div class="form-group row col-md-2">
+          <button class="btn btn-primary" type="submit" >Guardar Precio</button>
+        </div> -->
+      </form>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive" *ngIf="priceList">
       <table class="table">
         <thead>
           <tr>
             <th>Clave</th>
             <th>Precio</th>
-            <th>btn eliminar</th>
+            <!-- <th>btn eliminar</th> -->
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
+          <tr *ngFor="let p of priceList">
+            <td>{{p.priceId}}</td>
+            <td>{{p.price}}</td>
+            <!-- <td></td> -->
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
 </div>

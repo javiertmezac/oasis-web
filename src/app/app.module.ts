@@ -77,7 +77,7 @@ import { ClientEditComponent } from './clients/client-edit.component';
         component: PaymentEditComponent
       },
       { path: 'precios', canActivate:[AuthGuard], component: PricesComponent },
-      { path: 'precios/:id', canActivate: [AuthGuard], component: PriceDetailComponent },
+      { path: 'precios/:id/editar', canActivate: [AuthGuard], component: PriceDetailComponent },
       { path: 'empleados', canActivate:[AuthGuard], component: EmployeesComponent },
       { path: 'empleados/:id', canActivate:[AuthGuard], component: EmployeeDetailComponent },
       { path: 'empleados/:id/editar', canActivate:[AuthGuard], component: EmployeeEditComponent },
