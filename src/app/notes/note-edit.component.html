@@ -19,7 +19,8 @@
         <div class="form-group row mb-2">
           <label class="col-md-2 col-form-label" for="noteEmployeeId">Chofer:</label>
           <div class="col-md-10">
-            <select id="noteEmployeeId" formControlName="noteEmployee" class="form-control">
+            <select id="noteEmployeeId" formControlName="noteEmployee" class="form-control"
+                    (change)="onChangeEmployee()">
               <option [ngValue]='null' disabled>Seleccionar Chofer</option>
               <option *ngFor="let e of employeeList" [ngValue]="e">
                 {{e.employeeName}} ==== secuencia: {{e.note}}
@@ -130,6 +131,10 @@
           <button class="btn btn-outline-secondary mr-3" style="width:80px;" type="button" title="Cancel your edits"
             [routerLink]="['/pedidos']">
             Cancel
+          </button>
+          <button class="btn btn-outline-danger mr-3" style="width:140px;" type="button" title="Cancel Nota"
+            (click)="deleteNote()">
+            Cancelar Nota
           </button>
         </div>
       </div>

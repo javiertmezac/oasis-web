@@ -83,9 +83,7 @@ export class NoteEditComponent implements OnInit {
 
         if(this.note.noteId === 0) {
           this.noteService.insertNote(n).subscribe({
-            next: response => {
-              return this.onSaveComplete();
-            },
+            next: () => this.onSaveComplete(),
             error: err => this.errorMessage = err
           });
         } else {
@@ -204,5 +202,17 @@ export class NoteEditComponent implements OnInit {
   calculateTotal(initial: number, final:number, discount: number): void {
     this.totalData = !isNaN(discount) ? final - (initial + discount) : final - initial;
     this.total = this.totalData * this.client.clientPrice;
+  }
+
+  onChangeEmployee(): void {
+    this.selectedEmployee = this.noteForm.get('noteEmployee')?.value
+  }
+
+  deleteNote(): void {
+    if (this.selectedEmployee && this.selectedEmployee.blockId != 0) {
+      this.router.navigateByUrl(`/empleados/${this.selectedEmployee.employeeId}/bloques/${this.selectedEmployee.blockId}/eliminar`)
+    } else {
+      this.errorMessage = "Error en la selección del chofer y la nota a eliminar";
+    }
   }
 }

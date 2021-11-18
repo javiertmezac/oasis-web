@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { catchError } from "rxjs/operators";
@@ -39,7 +39,8 @@ export class EmployeeService {
       note: '',
       registration: new Date(),
       blockNumber: '',
-      block: ''
+      block: '',
+      blockId: 0
     }
   }
 
@@ -60,4 +61,17 @@ export class EmployeeService {
     .pipe(catchError(this.handleHttpError.handleError))
   }
 
+  deleteEmployeeCurrentBlockNumber(employeeId: number,
+    blockId: number, currentBlockNumber: string, description: string): Observable<any> {
+    const httpHeader = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    }
+    let body = `description=${description}`;
+      return this.http
+      .post(`${this.employeesApi}/${employeeId}/blocks/${blockId}?currentBlockNumber=${currentBlockNumber}`,
+      body, httpHeader)
+      .pipe(catchError(this.handleHttpError.handleError))
+    }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from 'src/app/employees/employee';
 import { EmployeeService } from 'src/app/employees/employee.service';
@@ -24,8 +24,8 @@ export class BlockEditComponent implements OnInit {
     private blockService: BlockService,
     private employeeService: EmployeeService) {
 
-      const employeeId = Number(this.route.snapshot.paramMap.get('idEmpleado'))
-      this.getEmployee(employeeId);
+    const employeeId = Number(this.route.snapshot.paramMap.get('idEmpleado'))
+    this.getEmployee(employeeId);
 
   }
 
