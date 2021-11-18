@@ -88,11 +88,14 @@
   <div class="card-footer">
     <div class='row'>
       <div class="col-md-2" *ngIf="client">
-        <button class="btn btn-primary"
+        <button class="btn btn-outline-primary"
                 [routerLink]="['/empresas', client.clientId, 'editar']">Editar</button>
       </div>
       <div class="col-md-2">
         <button class="btn btn-secondary" routerLink="/empresas">Regresar</button>
+      </div>
+      <div class="col-md-2" *ngIf="client">
+        <button class="btn btn-outline-warning" (click)="deleteClient()">Borrar</button>
       </div>
     </div>
   </div>

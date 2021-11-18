@@ -13,7 +13,8 @@ export class ClientDetailComponent implements OnInit {
   errorMessage = '';
 
   constructor(private route: ActivatedRoute,
-              private clientService: ClientService) {
+    private router: Router,
+    private clientService: ClientService) {
 
     const clientId = Number(this.route.snapshot.paramMap.get('id'));
 
@@ -28,5 +29,14 @@ export class ClientDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  deleteClient(): void {
+    if(confirm(`Seguro de proceder con el borrado para el cliente: ${this.client.clientName}`)) {
+      this.clientService.deleteClient(this.client.clientId).subscribe({
+        next: () => this.router.navigateByUrl('/empresas'),
+        error: err => this.errorMessage = err
+      });
+    }
   }
 }

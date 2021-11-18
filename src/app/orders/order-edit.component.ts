@@ -101,13 +101,6 @@ export class OrderEditComponent implements OnInit {
     }
   }
 
-
-  deleteContact(): void { 
-    if (this.order.orderId == 0) {
-      this.router.navigateByUrl('/pedidos')
-    }
-  }
-
   onSaveComplete(): void {
     this.orderForm.reset();
     this.router.navigateByUrl('/pedidos');
