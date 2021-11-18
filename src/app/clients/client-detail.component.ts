@@ -10,6 +10,7 @@ import { IClient } from './client';
 export class ClientDetailComponent implements OnInit {
   pageTitle: string = 'Detalle Empresa';
   client!: IClient;
+  errorMessage = '';
 
   constructor(private route: ActivatedRoute,
               private clientService: ClientService) {
@@ -19,9 +20,9 @@ export class ClientDetailComponent implements OnInit {
     if (clientId && clientId != 0) {
       this.clientService.getClient(clientId).subscribe({
         next: clientResponse => {
-          console.log(clientResponse)
           this.client = clientResponse;
-        }
+        },
+        error: err => this.errorMessage = err
       });
     }
   }

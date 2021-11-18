@@ -8,9 +8,10 @@
   <div class='card-body' *ngIf="!errorMessage">
     <div class="row">
 
-      <!-- <div class="col-md-2">
-        <button class="btn btn-primary" >Agregar Empresa</button>
-      </div> -->
+      <div class="col-md-2">
+        <button class="btn btn-primary"
+                [routerLink]="['/empresas', 0, 'editar']" >+ Empresa</button>
+      </div>
 
       <div class="col-md-2">Filtrar por:</div>
       <div class="col-md-4">
@@ -23,7 +24,7 @@
         <thead>
           <tr>
             <th></th>
-            <th>Código</th>
+            <th>Código/Tanque</th>
             <th>Nombre</th>
             <th>Factura</th>
             <th>RFC</th>
@@ -52,7 +53,8 @@
             <td>{{ client.clientInvoice }} </td>
             <td>{{ client.clientRfc }} </td>
             <td>{{ client.clientTel }} </td>
-            <td>{{ client.clientNeighborhood + ', ' + client.clientStreet + ', ' + client.clientNoInt + ', ' + client.clientNoOut}} </td>
+            <td>{{ client.clientNeighborhood + ', ' + client.clientStreet + ', ' + 
+              client.clientNoInt + ', ' + client.clientNoOut}} </td>
             <td>{{ client.clientCp }} </td>
             <td>{{ client.clientRegistration | date:'mediumDate':'':'es' }} </td>
             <td>{{ client.clientPrice }} </td>

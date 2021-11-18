@@ -87,13 +87,16 @@
 
   <div class="card-footer">
     <div class='row'>
-      <!-- <div class="col-md-2">
-        <button class="btn btn-primary" >Editar</button> -->
-      <!-- </div> -->
+      <div class="col-md-2" *ngIf="client">
+        <button class="btn btn-primary"
+                [routerLink]="['/empresas', client.clientId, 'editar']">Editar</button>
+      </div>
       <div class="col-md-2">
         <button class="btn btn-secondary" routerLink="/empresas">Regresar</button>
       </div>
     </div>
   </div>
+
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
 
 </div>
