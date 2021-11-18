@@ -16,8 +16,13 @@ export class NotesComponent implements OnInit {
 
   ngOnInit(): void {
     this.noteService.getNotes().subscribe({
-      next: response => this.notesList = response.notesResponse,
-      error: err => this.errorMessage = err
+      next: response => this.notesList =response.notesResponse,
+      error: err => {
+        const emptyNotesError = "Could not fetch Notes";
+        if (!err.includes(emptyNotesError)) {
+          this.errorMessage = err
+        }
+      }
     })
   }
 

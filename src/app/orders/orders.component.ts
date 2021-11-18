@@ -39,7 +39,12 @@ export class OrdersComponent implements OnInit {
         this.orderList = this.responseOrder;
         this.filteredOrders = this.orderList;
       },
-      error: err => this.errorMessage = err
+      error: err => {
+        const emptyListError = "Could not fetch Orders";
+        if (!err.includes(emptyListError)) {
+          this.errorMessage = err
+        }
+      }
     });
   }
 
