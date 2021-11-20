@@ -3,4 +3,6 @@ export interface Block{
   startNumber: number,
   endNumber: number
   employeeId: number
+  nextBlockNumber: string,
+  blockId: number
 }

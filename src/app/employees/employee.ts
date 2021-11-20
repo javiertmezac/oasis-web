@@ -6,5 +6,6 @@ export interface Employee {
   address: string,
   registration: Date,
   block: string,
-  blockNumber: string
+  blockNumber: string,
+  blockId: number
 }

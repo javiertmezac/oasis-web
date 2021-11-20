@@ -29,6 +29,7 @@ import { BlockEditComponent } from './block/block-edit/block-edit.component';
 import { EmployeeEditComponent } from './employees/employee-edit.component';
 import { PaymentEditComponent } from './payment/payment-edit/payment-edit.component';
 import { ClientEditComponent } from './clients/client-edit.component';
+import { NextblockDeleteComponent } from './block/nextblock-delete.component';
 
 @NgModule({
   providers: [
@@ -86,6 +87,11 @@ import { ClientEditComponent } from './clients/client-edit.component';
         canActivate:[AuthGuard],
         component: BlockEditComponent
       },
+      {
+        path: 'empleados/:idEmpleado/bloques/:idBloque/eliminar',
+        canActivate:[AuthGuard],
+        component: NextblockDeleteComponent 
+      },
       { path: 'login', component: LoginComponent },
       { path:'', redirectTo: 'inicio', pathMatch:'full' },
       { path: '**', redirectTo: 'inicio', pathMatch:'full'}
@@ -113,7 +119,8 @@ import { ClientEditComponent } from './clients/client-edit.component';
     BlockEditComponent,
     EmployeeEditComponent,
     PaymentEditComponent,
-    ClientEditComponent
+    ClientEditComponent,
+    NextblockDeleteComponent
   ],
   bootstrap: [AppComponent]
 })

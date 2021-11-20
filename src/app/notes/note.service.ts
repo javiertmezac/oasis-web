@@ -44,7 +44,8 @@ export class NoteService {
         address: '',
         registration: new Date(),
         block: '',
-        blockNumber: ''
+        blockNumber: '',
+        blockId: 0
       },
       registration: new Date(),
       registrationDate: '',

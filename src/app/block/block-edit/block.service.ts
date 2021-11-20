@@ -27,7 +27,12 @@ export class BlockService {
     }
 
     return this.http.post<Block>(this.blocksUri, block, httpHeaders)
-    .pipe(catchError(this.httpError.handleError))
+    .pipe(catchError(this.httpError.handleError));
+  }
+
+  getBlock(id: number): Observable<Block> {
+    return this.http.get<Block>(`${this.blocksUri}/${id}`)
+    .pipe(catchError(this.httpError.handleError));
   }
 
 }
