@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
 import { IOrder } from './order';
 import { OrderService } from './order.service';
 
@@ -15,7 +13,6 @@ export class OrdersComponent implements OnInit {
 
   orderList: IOrder[] = []
   filteredOrders: IOrder[] = [];
-  responseOrder: any[] = [];
 
   get listFilter(): string {
     return this._listFilter;
@@ -35,14 +32,15 @@ export class OrdersComponent implements OnInit {
   getOrders(): void {
     this.orderService.getOrders().subscribe({
       next: orderResponse => {
-        this.responseOrder = orderResponse.ordersList;
-        this.orderList = this.responseOrder;
+        this.orderList = orderResponse.ordersList;
         this.filteredOrders = this.orderList;
       },
       error: err => {
         const emptyListError = "Could not fetch Orders";
         if (!err.includes(emptyListError)) {
           this.errorMessage = err
+        } else {
+          this.filteredOrders = [];
         }
       }
     });

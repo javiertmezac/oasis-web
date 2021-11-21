@@ -28,9 +28,9 @@ export class ClientEditComponent implements OnInit {
   ngOnInit(): void {
     this.clientForm = this.fb.group({
       clientName: ['', Validators.required],
-      clientCode: ['', Validators.required],
+      clientCode: '',
       clientInvoice: '',
-      clientRfc: [ '', Validators.required],
+      clientRfc: '',
       clientTel: '',
       clientNeighborhood: '',
       clientStreet: '',

@@ -31,11 +31,7 @@ export class OrderEditComponent implements OnInit {
     private router: Router,
     private clientService: ClientService,
     private orderService: OrderService,
-    private employeeService: EmployeeService) { 
-
-      const orderId = Number(this.route.snapshot.paramMap.get('idPedido'));
-      this.getOrder(orderId);
-    }
+    private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     this.orderForm = this.fb.group({
@@ -47,12 +43,10 @@ export class OrderEditComponent implements OnInit {
       orderComments: '',
     });
 
+    this.loadEmployees();
+
     const clientId = Number(this.route.snapshot.paramMap.get('idEmpresa'));
     this.getClient(clientId);
-
-    this.loadNotifications();
-    this.loadPriorities();
-    this.loadEmployees();
   }
 
   getClient(id:number): void {
@@ -60,7 +54,6 @@ export class OrderEditComponent implements OnInit {
       next: clientResponse => this.client = clientResponse,
       error: error => this.errorMessage = error
     });
-
   }
 
   saveOrder():void {
@@ -72,9 +65,10 @@ export class OrderEditComponent implements OnInit {
 
           this.orderService.insertOrder(o)
           .subscribe({
-            next: x => {
+            next: () => {
               return this.onSaveComplete();
-            }
+            },
+            error: err => this.errorMessage = err
           });
         }
       } else {
@@ -108,18 +102,35 @@ export class OrderEditComponent implements OnInit {
 
   getOrder(id: number) {
     this.orderService.getOrder(id).subscribe({
-      next: data => {
-        this.order = data;
-      }
+      next: data => this.displayOrderData(data),
+      error: err => this.errorMessage = err
     });
   }
 
+  displayOrderData(order: IOrder): void {
+    if (this.orderForm) {
+      this.orderForm.reset();
+    }
+
+    this.order = order;
+
+    console.log(this.priorityList.length)
+
+    let pickDate = new Date();
+    this.orderForm.patchValue({
+      orderRegistration : pickDate,
+      orderDelivery: pickDate.toJSON().split('T')[0],
+      orderPriority: this.priorityList[0],
+      orderNotification: this.notificationList[0]
+    });
+  }
 
   loadNotifications() {
     this.orderService.getOrderNotifications().subscribe({
       next: data => {
         this.notificationList = data;
-      }
+      },
+      error: err => this.errorMessage = err
     });
   }
 
@@ -127,7 +138,12 @@ export class OrderEditComponent implements OnInit {
     this.orderService.getOrderPriorities().subscribe({
       next: data => {
         this.priorityList = data;
-      }
+
+        const orderId = Number(this.route.snapshot.paramMap.get('idPedido'));
+        this.getOrder(orderId);
+
+      },
+      error: err => this.errorMessage = err
     });
   }
 
@@ -135,7 +151,12 @@ export class OrderEditComponent implements OnInit {
     this.employeeService.getEmployees().subscribe({
       next: data => {
         this.employeeList = data.employeeList;
-      }
+
+        this.loadNotifications();
+        this.loadPriorities();
+
+      },
+      error: err => this.errorMessage = err
     });
   }
 }

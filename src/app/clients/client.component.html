@@ -24,10 +24,7 @@
         <thead>
           <tr>
             <th></th>
-            <th>Código/Tanque</th>
             <th>Nombre</th>
-            <th>Factura</th>
-            <th>RFC</th>
             <th>Telefono</th>
             <th>Dirección</th>
             <th>Código Postal</th>
@@ -44,17 +41,16 @@
                 Crear Pedido
               </button>
             </td>
-            <td>{{ client.clientCode }}</td>
             <td>
               <a [routerLink]="['/empresas', client.clientId]">
                 {{ client.clientName }}
               </a>
             </td>
-            <td>{{ client.clientInvoice }} </td>
-            <td>{{ client.clientRfc }} </td>
             <td>{{ client.clientTel }} </td>
-            <td>{{ client.clientNeighborhood + ', ' + client.clientStreet + ', ' + 
-              client.clientNoInt + ', ' + client.clientNoOut}} </td>
+            <td>{{ (client.clientNeighborhood == "" ? "--" : client.clientNeighborhood) + ', '
+              + (client.clientStreet == "" ? "--" : client.clientStreet) + ', '
+              + (client.clientNoInt == "" ? "--" : client.clientNoInt) + ', '
+              + (client.clientNoOut == "" ? "--" : client.clientNoOut) }} </td>
             <td>{{ client.clientCp }} </td>
             <td>{{ client.clientRegistration | date:'mediumDate':'':'es' }} </td>
             <td>{{ client.clientPrice }} </td>

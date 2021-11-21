@@ -6,6 +6,9 @@
         {{pageTitle + ": " + client.clientName}}
       </strong>
     </h3>
+    <h4>
+      Registro: {{client.clientRegistration | date }}
+    </h4>
   </div>
 
   <div class='card-body' *ngIf="client">
@@ -13,7 +16,7 @@
     <div style="text-align: left;">
 
       <div class="row">
-        <div class="col-md-3">Código</div>
+        <div class="col-md-3">Código / Tanque:</div>
         <div class="col-md-6">{{client.clientCode}}</div>
       </div>
 
@@ -62,15 +65,10 @@
         <div class="col-md-6">{{client.clientCp}}</div>
       </div>
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-3">Fecha de Registro:</div>
         <div class="col-md-6">{{client.clientRegistration | date}}</div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-3">Status:</div>
-        <div class="col-md-6">{{client.clientStatus}}</div>
-      </div>
+      </div> -->
 
       <div class="row">
         <div class="col-md-3">Tipo de Precio:</div>
