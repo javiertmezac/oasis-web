@@ -114,17 +114,24 @@ export class ClientEditComponent implements OnInit {
         if (c.clientId === 0) {
           c.clientInstantRegistration = Math.floor(c.clientRegistration.getTime() / 1000);
 
+          console.log("from object: ", c.clientNextClean)
+          const utcDate = new Date(Date.UTC(2021, 11, 20))
+          console.log(utcDate)
+
           const clientNextClean = new Date(c.clientNextClean)
+          console.log("from text into new Date(): ", clientNextClean)
+          console.log(clientNextClean.getTime())
+
           const timeOffset = DateTimeHandler.getDateTimeOffSet();
           const tempTime = new Date(clientNextClean.getTime() + timeOffset);
           c.clientInstantNextClean = Math.floor(tempTime.getTime() / 1000);
 
           c.clientPriceId = c.selectedPrice.priceId;
 
-          this.clientService.insertClient(c).subscribe({
-            next: () => this.onSaveComplete(),
-            error: err => this.errorMessage = err
-          });
+          // this.clientService.insertClient(c).subscribe({
+          //   next: () => this.onSaveComplete(),
+          //   error: err => this.errorMessage = err
+          // });
         } else {
 
           c.clientPriceId = c.selectedPrice.priceId;
@@ -132,10 +139,10 @@ export class ClientEditComponent implements OnInit {
           const nextClean = new Date(clientNextClean.getTime() + DateTimeHandler.getDateTimeOffSet())
           c.clientInstantNextClean = Math.floor(nextClean.getTime() / 1000);
          
-          this.clientService.updateClient(c).subscribe({
-            next: () => this.onSaveComplete(),
-            error: err => this.errorMessage = err
-          });
+          // this.clientService.updateClient(c).subscribe({
+          //   next: () => this.onSaveComplete(),
+          //   error: err => this.errorMessage = err
+          // });
         }
         
       }else{
