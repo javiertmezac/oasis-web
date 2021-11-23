@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientService } from './client.service';
 import { IClient } from './client';
+import localePy from '@angular/common/locales/es';
+import { registerLocaleData } from "@angular/common";
+
+registerLocaleData(localePy, 'es');
+
 
 @Component({
   templateUrl: './client-detail.component.html',
