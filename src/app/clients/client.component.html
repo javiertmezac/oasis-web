@@ -60,7 +60,7 @@
             <td>{{ client.clientCp }} </td>
             <td>{{ client.clientRegistration | date:'mediumDate':'':'es' }} </td>
             <td>{{ client.clientPrice }} </td>
-            <td>{{ client.clientNextClean  | date:'mediumDate':'':'es' }} </td>
+            <td>{{ client.clientNextClean == null ? "--" : client.clientNextClean  | date:'mediumDate':'':'es' }} </td>
           </tr>
         </tbody>
       </table>
