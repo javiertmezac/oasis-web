@@ -19,6 +19,12 @@
       </div>
     </div>
 
+    <div class="row" style="margin-top: 50px;" *ngIf="clients.length == 0">
+      <h5>
+        Cargando...
+      </h5>
+    </div>
+
     <div class="table-responsive" *ngIf='clients.length'>
       <table class="table" >
         <thead>
