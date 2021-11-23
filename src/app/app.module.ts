@@ -63,7 +63,7 @@ import { NextblockDeleteComponent } from './block/nextblock-delete.component';
         component: ContactEditComponent
       },
       { path: 'pedidos', canActivate: [AuthGuard], component: OrdersComponent },
-      { path: 'pedidos/:id', canActivate: [AuthGuard], component: OrderDetailComponent },
+      { path: 'pedidos/:idPedido', canActivate: [AuthGuard], component: OrderEditComponent },
       {
         path: 'pedidos/:idPedido/notas/:idNota/editar',
         canActivate: [AuthGuard],

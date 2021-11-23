@@ -35,7 +35,7 @@
         </thead>
         <tbody>
           <tr *ngFor='let order of filteredOrders'>
-            <td>
+            <td style="width: 115px;">
               <button *ngIf="!order.note"
                       class="btn btn-outline-primary btn-sm"
                       [routerLink]="['/pedidos', order.orderId, 'notas', 0, 'editar']">
@@ -46,15 +46,14 @@
               {{order.note}} </button>
             </td>
             <td>
-              {{order.orderId}}
-              <!-- <a [routerLink]="['/pedidos',order.orderId]"> -->
-                <!-- {{order.orderId}} -->
-              <!-- </a> -->
+              <a [routerLink]="['/empresas', order.clientId, 'pedidos', order.orderId, 'editar']">
+                {{order.orderId}}
+              </a>
             </td>
-            <td>{{order.clientName}}</td>
-            <td>{{order.employeeName}}</td>
-            <td>{{order.registration | date: 'medium' }}</td>
-            <td>{{order.delivery | date: 'mediumDate'}}</td>
+            <td style="width: 220px;">{{order.clientName}}</td>
+            <td style="width: 220px;">{{order.employeeName}}</td>
+            <td style="width: 150px;">{{order.registration | date: 'medium': '': 'es' }}</td>
+            <td style="width: 110px;">{{order.delivery | date: 'mediumDate': '': 'es'}}</td>
             <td>{{order.notificationDescr}}</td>
             <td>{{order.priorityDescr}}</td>
             <td>{{order.comments}}</td>

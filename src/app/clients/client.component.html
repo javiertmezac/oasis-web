@@ -41,7 +41,7 @@
         </thead>
         <tbody>
           <tr *ngFor='let client of filteredClients'>
-            <td>
+            <td style="width: 200px;">
               <button class="btn btn-outline-secondary btn-sm"
                       [routerLink]="['/empresas', client.clientId, 'pedidos', 0, 'editar']">
                 Crear Pedido
