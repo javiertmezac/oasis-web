@@ -39,16 +39,8 @@
           <input class="form-control"
                  id="clientTankId"
                  type="text"
-                 placeholder="Tanque (requerido)"
-                 formControlName="clientCode"
-                 [ngClass]="{'is-invalid': (clientForm.get('clientCode')?.touched ||
-                                clientForm.get('clientCode')?.dirty) &&
-                                !clientForm.get('clientCode')?.valid }" />
-          <span class="invalid-feedback">
-            <span *ngIf="clientForm.controls['clientCode'].errors?.required">
-              Número de Tanque requerido
-            </span>
-          </span>
+                 placeholder="Tanque"
+                 formControlName="clientCode" />
         </div>
       </div>
 
@@ -71,16 +63,8 @@
           <input class="form-control"
                  id="clientRfcId"
                  type="text"
-                 placeholder="RFC (requerido)"
-                 formControlName="clientRfc"
-                 [ngClass]="{'is-invalid': (clientForm.get('clientRfc')?.touched ||
-                     clientForm.get('clientRfc')?.dirty) &&
-                     !clientForm.get('clientRfc')?.valid }" />
-          <span class="invalid-feedback">
-            <span *ngIf="clientForm.controls['clientRfc'].errors?.required">
-              RFC requerido
-            </span>
-          </span>
+                 placeholder="RFC"
+                 formControlName="clientRfc"/>
         </div>
       </div>
 
@@ -104,10 +88,7 @@
                  id="clientNeighborhoodId"
                  type="text"
                  placeholder="Colonia"
-                 formControlName="clientNeighborhood"
-                 [ngClass]="{'is-invalid': (clientForm.get('clientNeighborhood')?.touched ||
-                 clientForm.get('clientNeighborhood')?.dirty) &&
-                 !clientForm.get('clientNeighborhood')?.valid }"/>
+                 formControlName="clientNeighborhood"/>
         </div>
       </div>
 
@@ -119,10 +100,7 @@
                  id="clientStreetId"
                  type="text"
                  placeholder="Calle"
-                 formControlName="clientStreet"
-                 [ngClass]="{'is-invalid': (clientForm.get('clientStreet')?.touched ||
-                 clientForm.get('clientStreet')?.dirty) &&
-                 !clientForm.get('clientStreet')?.valid }"/>
+                 formControlName="clientStreet"/>
         </div>
       </div>
 
@@ -188,18 +166,18 @@
       <div class="form-group row mb-2">
         <div class="offset-md-2 col-md-4">
           <button class="btn btn-primary mr-3"
-                  style="width:80px;"
+                  style="width:100px;"
                   type="submit"
                   [title]="clientForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
                   [disabled]="!clientForm.valid">
-            Save
+            Guardar
           </button>
           <button class="btn btn-outline-secondary mr-3"
-                  style="width:80px;"
+                  style="width:100px;"
                   type="button"
                   title="Cancel your edits"
                   [routerLink]="['/empresas']">
-            Cancel
+            Cancelar
           </button>
           <!-- <button class="btn btn-outline-warning"
                   style="width:80px"

@@ -30,6 +30,8 @@ export class EmployeesComponent implements OnInit {
         const emptyListError = "Could not fetch Lista Trabajadores";
         if (!err.includes(emptyListError)) {
           this.errorMessage = err
+        } else {
+          this.employeeList = [];
         }
       }
     })

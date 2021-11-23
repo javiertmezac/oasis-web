@@ -17,9 +17,12 @@
         </div>
 
         <div class="form-group row mb-2">
-          <label class="col-md-2 col-form-label" for="noteEmployeeId">Chofer:</label>
+          <label class="col-md-2 col-form-label"
+                 for="noteEmployeeId">Chofer:</label>
           <div class="col-md-10">
-            <select id="noteEmployeeId" formControlName="noteEmployee" class="form-control"
+            <select id="noteEmployeeId"
+                    formControlName="noteEmployee" 
+                    class="form-control"
                     (change)="onChangeEmployee()">
               <option [ngValue]='null' disabled>Seleccionar Chofer</option>
               <option *ngFor="let e of employeeList" [ngValue]="e">
@@ -123,14 +126,14 @@
 
       <div class="form-group row mb-2">
         <div class="offset-md-2 col-md-4">
-          <button class="btn btn-primary mr-3" style="width:80px;" type="submit"
+          <button class="btn btn-primary mr-3" style="width:100px;" type="submit"
             [title]="noteForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
             [disabled]="!noteForm.valid">
-            Save
+           Guardar
           </button>
-          <button class="btn btn-outline-secondary mr-3" style="width:80px;" type="button" title="Cancel your edits"
+          <button class="btn btn-outline-secondary mr-3" style="width:100px;" type="button" title="Cancel your edits"
             [routerLink]="['/pedidos']">
-            Cancel
+            Cancelar
           </button>
           <button class="btn btn-outline-danger mr-3" style="width:140px;" type="button" title="Cancel Nota"
             (click)="deleteNote()">
