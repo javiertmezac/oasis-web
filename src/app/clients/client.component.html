@@ -41,7 +41,7 @@
         </thead>
         <tbody>
           <tr *ngFor='let client of filteredClients'>
-            <td>
+            <td style="width: 200px;">
               <button class="btn btn-outline-secondary btn-sm"
                       [routerLink]="['/empresas', client.clientId, 'pedidos', 0, 'editar']">
                 Crear Pedido
@@ -60,7 +60,7 @@
             <td>{{ client.clientCp }} </td>
             <td>{{ client.clientRegistration | date:'mediumDate':'':'es' }} </td>
             <td>{{ client.clientPrice }} </td>
-            <td>{{ client.clientNextClean  | date:'mediumDate':'':'es' }} </td>
+            <td>{{ client.clientNextClean == null ? "--" : client.clientNextClean  | date:'mediumDate':'':'es' }} </td>
           </tr>
         </tbody>
       </table>

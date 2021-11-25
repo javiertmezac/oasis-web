@@ -11,6 +11,7 @@ import { OrderPriority } from '../shared/order/order-priority';
 import { IOrder } from './order';
 import { OrderService } from './order.service';
 
+
 @Component({
   templateUrl: './order-edit.component.html',
   styleUrls: ['./order-edit.component.css']
@@ -70,6 +71,12 @@ export class OrderEditComponent implements OnInit {
             },
             error: err => this.errorMessage = err
           });
+        } else {
+          const newOrder = this.convertOrderFromValue(this.orderForm.value);
+          this.orderService.updateOrder(newOrder).subscribe({
+            next: () => this.onSaveComplete(),
+            error: err => this.errorMessage = err
+          });
         }
       } else {
         this.onSaveComplete();
@@ -83,7 +90,7 @@ export class OrderEditComponent implements OnInit {
     const newDeliveryDate = new Date(o.orderDelivery);
 
     return {
-      orderId: 0,
+      orderId: this.order.orderId != 0 ? this.order.orderId : 0,
       employeeId: o.orderEmployee.employeeId,
       clientId: this.client.clientId,
       registrationDate : Math.floor(o.orderRegistration.getTime() / 1000),
@@ -114,14 +121,35 @@ export class OrderEditComponent implements OnInit {
 
     this.order = order;
 
-    console.log(this.priorityList.length)
-
     let pickDate = new Date();
+    let deliveryDate = pickDate;
+    let selectedPriority = this.priorityList[0];
+    let selectedNotification = this.notificationList[0];
+    let selectedEmployee = this.employeeList[0];
+    
+    if(this.order.orderId != 0) {
+      this.pageTitle = "Editar Pedido: #" + this.order.orderId;
+      pickDate = new Date(this.order.registration)
+      deliveryDate = new Date(this.order.delivery)
+
+      selectedNotification = this.notificationList.filter(x => 
+        x.id == this.order.notification)[0];
+
+      selectedPriority = this.priorityList.filter(x =>
+        x.id == this.order.priority)[0];
+
+      selectedEmployee = this.employeeList.filter(x =>
+        x.employeeId == this.order.employeeId)[0]
+    }
+
+// .toLocaleDateString('es', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
     this.orderForm.patchValue({
       orderRegistration : pickDate,
-      orderDelivery: pickDate.toJSON().split('T')[0],
-      orderPriority: this.priorityList[0],
-      orderNotification: this.notificationList[0]
+      orderDelivery: deliveryDate.toJSON().split('T')[0],
+      orderPriority: selectedPriority,
+      orderNotification: selectedNotification,
+      orderEmployee: selectedEmployee,
+      orderComments: this.order.comments
     });
   }
 

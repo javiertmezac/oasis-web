@@ -82,7 +82,7 @@ export class ClientEditComponent implements OnInit {
     if(this.client.clientId != 0) {
       this.pageTitle = "Editar Empresa : " + this.client.clientName;
       selectedPrice = this.priceList.filter(x => x.priceId == this.client.clientPriceId);
-      selectedNextCleanDate = new Date(this.client.clientNextClean);
+      selectedNextCleanDate = this.client.clientNextClean != null ? new Date(this.client.clientNextClean): null;
     } else {
       selectedPrice = this.priceList;
       selectedNextCleanDate = new Date()
@@ -100,7 +100,7 @@ export class ClientEditComponent implements OnInit {
       clientNoOut: this.client.clientNoOut,
       clientCp: this.client.clientCp,
       selectedPrice: selectedPrice[0],
-      clientNextClean: selectedNextCleanDate.toJSON().split('T')[0]
+      clientNextClean: selectedNextCleanDate != null ? selectedNextCleanDate.toJSON().split('T')[0] : ''
    });
   }
 

@@ -71,12 +71,16 @@ export class OrderService {
   }
 
   getOrderNotifications(): Observable<any> {
-    return this.http.get("/api/order-notification.json")
-    .pipe(tap(data => console.log(data)))
+    return this.http.get("/api/order-notification.json");
   }
 
   getOrderPriorities(): Observable<any> {
-    return this.http.get("/api/order-priority.json")
-    .pipe(tap(data => console.log(data)))
+    return this.http.get("/api/order-priority.json");
+  }
+
+  updateOrder(order: IOrder): Observable<any> {
+    return this.http.put<IOrder>(this.ordersUri, order, {
+      headers: { 'Content-Type' : 'application/json'}
+    }).pipe(catchError(this.handleHttpClientError.handleError));
   }
 }

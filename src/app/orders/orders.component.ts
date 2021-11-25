@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { IOrder } from './order';
 import { OrderService } from './order.service';
+import localePy from '@angular/common/locales/es';
+import { registerLocaleData } from "@angular/common";
+
+registerLocaleData(localePy, 'es');
+
 
 @Component({
   templateUrl: './orders.component.html',
