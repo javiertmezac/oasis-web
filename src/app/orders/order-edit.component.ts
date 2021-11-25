@@ -121,11 +121,11 @@ export class OrderEditComponent implements OnInit {
 
     this.order = order;
 
-    let pickDate = new Date();
+    let pickDate = this.order.registrationDate
     let deliveryDate = pickDate;
     let selectedPriority = this.priorityList[0];
     let selectedNotification = this.notificationList[0];
-    let selectedEmployee = this.employeeList[0];
+    let selectedEmployee = null;
     
     if(this.order.orderId != 0) {
       this.pageTitle = "Editar Pedido: #" + this.order.orderId;

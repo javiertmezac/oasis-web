@@ -10,11 +10,25 @@
   <div class="card-body">
     <form novalidate (ngSubmit)="savePayment()" [formGroup]="paymentForm" >
 
-      <div *ngIf="employee">
+      <div *ngIf="note">
         <h2>Nota: {{note.note}}</h2>
-        <h3>Chofer: {{employee.employeeName}}</h3>
         <h4>Registro: {{registration | date}}</h4>
 
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="paymentEmployeeId">Chofer:</label>
+        <div class="col-md-8">
+        <select id="paymentEmployeeId"
+                formControlName="employeeList"
+                class="form-control">
+            <option [ngValue]='null' disabled>Seleccionar Chofer</option>
+            <option *ngFor="let e of employeeList" [ngValue]="e">
+              {{e.employeeName}}
+            </option>
+        </select>
+      </div>
+
+      </div>
         <div class="form-group row mb-2">
           <label class="col-md-2 col-form-label" for="totalId">Cantidad:</label>
           <div class="col-md-4">
