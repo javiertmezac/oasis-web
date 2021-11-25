@@ -5,6 +5,7 @@ import { catchError } from "rxjs/operators";
 import { environment } from "../../environments/environment"
 import { HandleHttpClientError } from "../shared/handle-error";
 import { INoteBase } from "./note-base";
+import { NotePaymentResponse } from "./note-payment";
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +75,11 @@ export class NoteService {
     }
     return this.http.post<INoteBase>(this.notesUri, note, httpHeaders)
     .pipe(catchError(this.handleHttpClientError.handleError))
+  }
+
+  fetchNotePaymentes(noteId: number): Observable<any> {
+    return this.http.get(`${this.notesUri}/${noteId}/payments`)
+    .pipe(catchError(this.handleHttpClientError.handleError));
   }
 
 }
