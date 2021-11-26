@@ -29,14 +29,24 @@
             <div class="col">{{note.registration | date: 'medium'}}</div>
           </div>
 
-          <div class="row row-cols-2">
-            <div class="col">Litros:</div>
-            <div class="col">{{note.liters}}</div>
+          <div class="row">
+            <div class="col">Chofer:</div>
+            <div class="col">{{note.employeeName}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col">Pedido:</div>
+            <div class="col">{{note.orderId}}</div>
           </div>
 
           <div class="row row-cols-2">
             <div class="col">Crédito o Contado:</div>
             <div class="col">{{note.credit ? "Crédito" : "Contado"}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col">Precio:</div>
+            <div class="col">{{note.price}}</div>
           </div>
 
           <div class="row">
@@ -47,6 +57,21 @@
           <div class="row">
             <div class="col">Lectura Final:</div>
             <div class="col">{{note.finalData}}</div>
+          </div>
+
+          <div class="row row-cols-2">
+            <div class="col">Litros:</div>
+            <div class="col">{{note.liters}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col">Descuento:</div>
+            <div class="col">{{note.discount}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col">Razón Descuento:</div>
+            <div class="col">{{note.discountDescription}}</div>
           </div>
 
           <div class="row">
@@ -62,31 +87,6 @@
           <div class="row">
             <div class="col">Salida:</div>
             <div class="col">{{note.departure}}</div>
-          </div>
-
-          <div class="row">
-            <div class="col">Precio:</div>
-            <div class="col">{{note.price}}</div>
-          </div>
-
-          <div class="row">
-            <div class="col">Descuento:</div>
-            <div class="col">{{note.discount}}</div>
-          </div>
-
-          <div class="row">
-            <div class="col">Razón Descuento:</div>
-            <div class="col">{{note.discountDescription}}</div>
-          </div>
-
-          <div class="row">
-            <div class="col">Pedido:</div>
-            <div class="col">{{note.orderId}}</div>
-          </div>
-
-          <div class="row">
-            <div class="col">Chofer:</div>
-            <div class="col">{{note.employeeId}}</div>
           </div>
 
           <div class="row row-cols-2" style="font-weight:bold">
@@ -112,10 +112,17 @@
               <tbody>
                 <tr *ngFor="let payment of paymentsList">
                   <td>{{payment.employeeName}}</td>
-                  <td>{{payment.registration | date}}</td>
+                  <td>{{payment.registration | date: 'medium'}}</td>
                   <td>{{payment.payment}}</td>
                 </tr>
               </tbody>
+              <tfoot style="font-weight: bold">
+                <tr>
+                  <td></td>
+                  <td>total</td>
+                  <td>{{paymentTotal}}</td>
+                </tr>
+              </tfoot>
             </table>
 
           </div>

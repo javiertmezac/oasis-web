@@ -37,6 +37,7 @@ export class NoteService {
       note: '',
       orderId: 0,
       employeeId: 0,
+      employeeName: '',
       noteEmployee: {
         employeeId: 0,
         employeeName: '',

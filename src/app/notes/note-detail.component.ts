@@ -15,6 +15,7 @@ export class NoteDetailComponent implements OnInit {
   pageTitle: string = "Nota"
   errorMessage! : string;
   paymentsList: NotePaymentResponse[] = []
+  paymentTotal: number = 0;
 
   constructor(private noteService: NoteService,
     private route: ActivatedRoute) { }
@@ -31,6 +32,9 @@ export class NoteDetailComponent implements OnInit {
     this.noteService.fetchNotePaymentes(noteId).subscribe({
       next: response => {
         this.paymentsList = response.notePayments;
+        this.paymentsList.forEach((value, index) => {
+          this.paymentTotal = this.paymentTotal + value.payment;
+        });
       },
       error: err => this.errorMessage = err
     })
