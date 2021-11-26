@@ -13,33 +13,33 @@
           <tr>
             <th>Nota</th>
             <th>Pedido</th>
-            <th>Tienda</th>
+            <th>Empresa / Tienda</th>
             <th>Chofer</th>
             <th>Registro</th>
+            <th>Crédito</th>
             <th>Galones</th>
             <th>Total</th>
-            <th>Crédito</th>
             <th>Deuda</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let n of notesList">
-            <!-- <td>
-              <a [routerLink]="['/notas', n.noteId]">{{ n.note }}</a>
-            </td> -->
-            <td >
+            <td>
+              <a [routerLink]="['/pedidos', n.orderId, 'notas', n.noteId]">{{ n.note }}</a>
+            </td>
+            <!-- <td >
               <strong>
                 {{n.note}}
               </strong>
-            </td>
+            </td> -->
             <td>{{ n.orderId }}</td>
             <td>{{ n.clientName }}</td>
             <td>{{ n.employeeName }}</td>
             <td>{{ n.registration | date: 'medium' }}</td>
+            <td>{{ n.credit ? "Crédito" : "Contado" }}</td>
             <td>{{ n.liters }}</td>
             <td>{{ n.total }}</td>
-            <td>{{ n.credit }}</td>
             <td>{{ n.debt }}</td>
             <td><button class="btn btn-outline-success btn-sm"
                         [routerLink]="['/notas', n.noteId, 'abonos', 0, 'editar']">

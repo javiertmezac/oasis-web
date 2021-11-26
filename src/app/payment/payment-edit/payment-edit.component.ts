@@ -19,7 +19,7 @@ export class PaymentEditComponent implements OnInit {
   errorMessage = ''
   paymentForm!: FormGroup;
   payment!: Payment
-  employee!: Employee
+  employeeList!: Employee[]
   note!: INoteBase
   registration!: Date
   debt!: Observable<number>
@@ -33,34 +33,36 @@ export class PaymentEditComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const noteId = Number(this.route.snapshot.paramMap.get("idNota"));
-    this.getNote(noteId);
-
     this.paymentForm = this.fb.group({
-      total: ['', Validators.required]
+      total: ['', Validators.required],
+      employeeList: [null, Validators.required]
     });
 
     this.registration = new Date();
+
+    const noteId = Number(this.route.snapshot.paramMap.get("idNota"));
+    this.getNote(noteId);
+    this.getEmployees();
   }
 
   getNote(id:number) {
     this.noteService.getNote(id).subscribe({
       next: response => { 
         this.note = response
+
         this.paymentForm.patchValue({
           total : this.note.debt
         });
-
-        this.getEmployee(this.note.employeeId);
       },
       error: err => this.errorMessage = err
-    })
-
+    });
   }
 
-  getEmployee(employeeId: number): void {
-    this.employeeService.getEmployee(employeeId).subscribe({
-      next: response => this.employee = response,
+  getEmployees(): void {
+    this.employeeService.getEmployees().subscribe({
+      next: response => {
+        this.employeeList = response.employeeList;
+      },
       error: err => this.errorMessage = err
     });
   }
@@ -71,7 +73,7 @@ export class PaymentEditComponent implements OnInit {
       p.payment = 0;
       p.noteId = this.note.noteId;
       p.registration = this.registration;
-      p.employeeId = this.employee.employeeId;
+      p.employeeId = p.employeeList.employeeId;
 
       this.paymentService.insertPayment(p).subscribe({
         next: () => {

@@ -5,6 +5,7 @@ export interface INoteBase {
   note: string;
   orderId: number;
   employeeId: number;
+  employeeName: string,
   noteEmployee: Employee,
   registration: Date;
   registrationDate: string;
