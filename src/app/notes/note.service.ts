@@ -78,6 +78,16 @@ export class NoteService {
     .pipe(catchError(this.handleHttpClientError.handleError))
   }
 
+  updateNote(note: INoteBase) : Observable<any> {
+    const httpHeaders = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.put<INoteBase>(this.notesUri, note, httpHeaders)
+    .pipe(catchError(this.handleHttpClientError.handleError))
+  }
+
   fetchNotePaymentes(noteId: number): Observable<any> {
     return this.http.get(`${this.notesUri}/${noteId}/payments`)
     .pipe(catchError(this.handleHttpClientError.handleError));

@@ -20,8 +20,10 @@
           <label class="col-md-2 col-form-label"
                  for="noteEmployeeId">Chofer:</label>
           <div class="col-md-10">
+            <div class="aler alert-warning" *ngIf="editNote == true">{{note.employeeName}}</div>
             <select id="noteEmployeeId"
-                    formControlName="noteEmployee" 
+                    *ngIf="editNote == false"
+                    formControlName="noteEmployee"
                     class="form-control"
                     (change)="onChangeEmployee()">
               <option [ngValue]='null' disabled>Seleccionar Chofer</option>
@@ -136,7 +138,8 @@
             Cancelar
           </button>
           <button class="btn btn-outline-danger mr-3" style="width:140px;" type="button" title="Cancel Nota"
-            (click)="deleteNote()">
+            (click)="deleteNote()"
+            *ngIf="editNote == false">
             Cancelar Nota
           </button>
         </div>

@@ -1,3 +1,4 @@
+import { JsonpClientBackend, JsonpInterceptor } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,6 +31,7 @@ export class NoteEditComponent implements OnInit {
   totalData!: number;
 
   selectedEmployee!: Employee;
+  editNote: boolean = false
 
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -41,7 +43,7 @@ export class NoteEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.noteForm = this.fb.group({
-      noteEmployee: [''],
+      noteEmployee: ['', Validators.required],
       registrationDate : ['', Validators.required],
       credit: '',
       initialData: ['', [NumberValidators.number,Validators.required]],
@@ -53,41 +55,48 @@ export class NoteEditComponent implements OnInit {
       departure: ''
     });
 
+    this.loadEmployees();
+  }
+
+  loadFromPathParams(): void {
     const orderId = Number(this.route.snapshot.paramMap.get("idPedido"));
     this.getOrder(orderId);
 
     const noteId  = Number(this.route.snapshot.paramMap.get("idNota"));
     this.getNote(noteId);
-
-    this.loadEmployees();
   }
 
   saveNote(): void {
-    if(this.noteForm.valid) {
-      if(this.noteForm.dirty) {
+    if (this.noteForm.valid) {
+      if (this.noteForm.dirty) {
 
         const n = { ...this.note, ...this.noteForm.value }
+          const actualPick = new Date(n.registrationDate)
+          const actualPickMil = new Date(actualPick.getTime() +
+            DateTimeHandler.getDateTimeOffSet() +
+            DateTimeHandler.getCurrentTimeMil());
+          n.registrationDate = Math.floor(actualPickMil.getTime() / 1000);
+          n.liters = this.totalData;
+          n.total = this.total;
+          n.price = this.client.clientPrice;
 
-        const actualPick = new Date(n.registrationDate)
-        const actualPickMil = new Date(actualPick.getTime() +
-          DateTimeHandler.getDateTimeOffSet() +
-          DateTimeHandler.getCurrentTimeMil());
-        n.registrationDate = Math.floor( actualPickMil.getTime() / 1000);
+        if (this.note.noteId === 0) {
 
-        n.employeeId = n.noteEmployee.employeeId;
-        n.orderId = this.order.orderId;
-        n.liters = this.totalData;
-        n.total = this.total;
-        n.price = this.client.clientPrice;
-        n.note = n.noteEmployee.note;
+          n.employeeId = n.noteEmployee.employeeId;
+          n.orderId = this.order.orderId;
+          n.note = n.noteEmployee.note;
 
-        if(this.note.noteId === 0) {
           this.noteService.insertNote(n).subscribe({
             next: () => this.onSaveComplete(),
             error: err => this.errorMessage = err
           });
         } else {
-          console.log("update should go here!")
+          // n.registrationDate  = Math.floor(n.registration / 1000);
+          console.log(n)
+          this.noteService.updateNote(n).subscribe({
+            next: () => this.onSaveComplete(),
+            error: err => this.errorMessage = err
+          });
         }
       } else {
         this.onSaveComplete();
@@ -125,15 +134,32 @@ export class NoteEditComponent implements OnInit {
     }
 
     this.note = note;
+    let regDate = this.note.registration;
+    let employee = null;
+
     if(this.note.noteId != 0) {
       this.pageTitle = "Editar Nota" + ": " + this.note.note;
+      this.editNote = true;
+      this.total = this.note.total;
+      this.totalData = this.note.liters;
+      regDate = new Date(this.note.registration)
+      employee = this.employeeList.filter(x => x.employeeId == this.note.employeeId)[0];
     }
 
-    // this.noteForm.patchValue({
-    //   // registrationDate : this.note.registrationDate.toLocaleString().substring(0,16)
-    //   registrationDate : this.note.registrationDate.getTime()
-    // })
+    console.log("display: ", this.note)
 
+    this.noteForm.patchValue({
+      noteEmployee : employee,
+      registrationDate: regDate.toLocaleDateString('fr-CA'),
+      credit: this.note.credit,
+      initialData: this.note.initialData,
+      finalData: this.note.finalData,
+      discount: this.note.discount,
+      discountDescription: this.note.discountDescription,
+      arrival: this.note.arrival,
+      load: this.note.load,
+      departure: this.note.departure
+    });
   }
 
   getClient(clientId: number) : void {
@@ -151,6 +177,7 @@ export class NoteEditComponent implements OnInit {
     this.employeeService.getEmployees().subscribe({
       next: data => {
         this.employeeList = data.employeeList;
+        this.loadFromPathParams();
       },
       error: err => this.errorMessage = err
     });
