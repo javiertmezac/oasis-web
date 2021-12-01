@@ -109,19 +109,43 @@
         <div class="form-group row mb-2">
           <label class="col-md-2 col-form-label" for="noteArrivalId">Llegada:</label>
           <div class="col-md-8">
-            <input class="form-control" id="noteArrivalId" type="text" formControlName="arrival" />
+            <input class="form-control" id="noteArrivalId" type="text" formControlName="arrival"
+            [ngClass]="{'is-invalid': (noteForm.get('arrival')?.touched ||
+                                noteForm.get('arrival')?.dirty) &&
+                                !noteForm.get('arrival')?.valid }"/>
+            <span class="invalid-feedback">
+              <span *ngIf="noteForm.controls['arrival'].errors?.maxlength">
+                No se permite mas de 5 caracteres
+              </span>
+            </span>
           </div>
         </div>
         <div class="form-group row mb-2">
           <label class="col-md-2 col-form-label" for="noteLoadId">Descarga:</label>
           <div class="col-md-8">
-            <input class="form-control" id="noteLoadId" type="text" formControlName="load" />
+            <input class="form-control" id="noteLoadId" type="text" formControlName="load"
+                        [ngClass]="{'is-invalid': (noteForm.get('load')?.touched ||
+                                noteForm.get('load')?.dirty) &&
+                                !noteForm.get('load')?.valid }"/>
+            <span class="invalid-feedback">
+              <span *ngIf="noteForm.controls['load'].errors?.maxlength">
+                No se permite mas de 5 caracteres
+              </span>
+            </span>
           </div>
         </div>
         <div class="form-group row mb-2">
           <label class="col-md-2 col-form-label" for="noteDepartureId">Salida:</label>
           <div class="col-md-8">
-            <input class="form-control" id="noteDepartureId" type="text" formControlName="departure" />
+            <input class="form-control" id="noteDepartureId" type="text" formControlName="departure"
+                                   [ngClass]="{'is-invalid': (noteForm.get('departure')?.touched ||
+                                noteForm.get('departure')?.dirty) &&
+                                !noteForm.get('departure')?.valid }"/>
+            <span class="invalid-feedback">
+              <span *ngIf="noteForm.controls['departure'].errors?.maxlength">
+                No se permite mas de 5 caracteres
+              </span>
+            </span>
           </div>
         </div>
       </div>

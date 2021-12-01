@@ -50,9 +50,9 @@ export class NoteEditComponent implements OnInit {
       finalData: ['', Validators.required],
       discount: '',
       discountDescription: '',
-      arrival: '',
-      load: '',
-      departure: ''
+      arrival: ['', Validators.maxLength(5)],
+      load: ['', Validators.maxLength(5)],
+      departure: ['', Validators.maxLength(5)]
     });
 
     this.loadEmployees();
@@ -146,8 +146,6 @@ export class NoteEditComponent implements OnInit {
       employee = this.employeeList.filter(x => x.employeeId == this.note.employeeId)[0];
     }
 
-    console.log("display: ", this.note)
-
     this.noteForm.patchValue({
       noteEmployee : employee,
       registrationDate: regDate.toLocaleDateString('fr-CA'),
@@ -189,9 +187,9 @@ export class NoteEditComponent implements OnInit {
     const discount = Number(this.noteForm.get("discount")?.value)
 
     if (final != 0) {
-      if (initial > final) {
+      if (initial >= final) {
         // this.noteForm.get("noteInitialData")?.setErrors({invalidinitialdata: true})
-        alert("inital cannot be more than final")
+        alert("Lectura Final no puede ser mayor o igual a Lectura Final")
         this.total = 0;
         this.totalData = 0;
         return
@@ -205,8 +203,8 @@ export class NoteEditComponent implements OnInit {
     const final = Number(this.noteForm.get("finalData")?.value)
     const discount = Number(this.noteForm.get("discount")?.value)
 
-    if (final < initial) {
-      alert("final cannot be less than initial")
+    if (final <= initial) {
+      alert("Lectura Final no puede ser menor o igual a Lectura Inicial")
       this.total = 0;
       this.totalData = 0;
       return
