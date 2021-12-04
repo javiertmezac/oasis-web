@@ -137,14 +137,25 @@
   </div>
 
   <div class="card-footer">
-    <div class='row'>
-      <div class="col-md-2" *ngIf="note && !note.paid">
-        <button class="btn btn-outline-success"
-          [routerLink]="['/notas', note.noteId, 'abonos', 0, 'editar']">Abonar</button>
-      </div>
-      <div class="col-md-2">
-        <button class="btn btn-secondary" routerLink="/notas">Regresar</button>
-      </div>
-    </div>
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-outline-primary mr-3"
+                  *ngIf="note && !note.paid"
+                  style="width:100px;"
+                  [routerLink]="['/pedidos', note.orderId, 'notas', note.noteId, 'editar']">
+           Editar
+          </button>
+          <button class="btn btn-outline-secondary mr-3"
+                  style="width:100px;"
+                  type="button"
+                  routerLink="/notas">
+           Regresar
+          </button>
+          <button class="btn btn-success mr-3"
+                  *ngIf="note && !note.paid"
+                  style="width:100px;"
+                  [routerLink]="['/notas', note.noteId, 'abonos', 0, 'editar']">
+           Abonar
+          </button>
+        </div>
   </div>
 </div>
