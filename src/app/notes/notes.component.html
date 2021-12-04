@@ -5,9 +5,9 @@
     </h3>
   </div>
 
-  <div class="card-body" *ngIf="notesList.length > 0">
+  <div class="card-body">
 
-    <div class="table-responsive">
+    <div class="table-responsive" *ngIf="notesList.length > 0">
       <table class="table">
         <thead>
           <tr>
@@ -21,6 +21,7 @@
             <th>Total</th>
             <th>Deuda</th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -28,11 +29,6 @@
             <td>
               <a [routerLink]="['/pedidos', n.orderId, 'notas', n.noteId]">{{ n.note }}</a>
             </td>
-            <!-- <td >
-              <strong>
-                {{n.note}}
-              </strong>
-            </td> -->
             <td>{{ n.orderId }}</td>
             <td>{{ n.clientName }}</td>
             <td>{{ n.employeeName }}</td>
@@ -45,6 +41,9 @@
                         [routerLink]="['/notas', n.noteId, 'abonos', 0, 'editar']">
               Abonar
             </button></td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="deleteNote(n.noteId)">Eliminar</button>
+            </td>
           </tr>
         </tbody>
       </table>
