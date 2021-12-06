@@ -50,10 +50,19 @@
     </div>
   </div>
 
-  <div class="alert alert-warning" *ngIf="!errorMessage && notesList.length == 0">
-    <p>No hay Notas!</p>
-    <p>Ir a <strong><a routerLink="/pedidos">Pedidos</a></strong> para crear Notas</p>
+  <!-- todo: improve alert and info message -->
+  <div *ngIf="!errorMessage">
+    <div class="row" style="margin-top: 50px;" *ngIf="notesList.length == 0 && notesNotFound == false">
+      <h5>
+        Cargando...
+      </h5>
+    </div>
+    <div class="alert alert-warning" *ngIf="notesList.length == 0 && notesNotFound == true">
+      <p>No hay Notas!</p>
+      <p>Ir a <strong><a routerLink="/pedidos">Pedidos</a></strong> para crear Notas</p>
+    </div>
   </div>
+
 
   <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
 </div>

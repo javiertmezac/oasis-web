@@ -10,7 +10,8 @@ export class NotesComponent implements OnInit {
   pageTitle: string = 'Notas';
   errorMessage = '';
 
-  notesList: INote[] = []
+  notesList: INote[] = [];
+  notesNotFound = false;
 
   constructor(private noteService: NoteService) { }
 
@@ -20,13 +21,14 @@ export class NotesComponent implements OnInit {
 
   loadNotes() : void {
     this.noteService.getNotes().subscribe({
-      next: response => this.notesList =response.notesResponse,
+      next: response => this.notesList = response.notesResponse,
       error: err => {
         const emptyNotesError = "Could not fetch Notes";
         if (!err.includes(emptyNotesError)) {
           this.errorMessage = err
         } else {
           this.notesList = [];
+          this.notesNotFound = true;
         }
       }
     });
