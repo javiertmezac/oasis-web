@@ -5,14 +5,16 @@
     </h3>
   </div>
 
-  <div class="card-body" *ngIf="notesList.length > 0">
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
 
-    <div class="table-responsive">
+  <div class="card-body">
+
+    <div class="table-responsive" *ngIf="notesList.length > 0">
       <table class="table">
         <thead>
           <tr>
             <th>Nota</th>
-            <th>Pedido</th>
+            <!-- <th>Pedido</th> -->
             <th>Empresa / Tienda</th>
             <th>Chofer</th>
             <th>Registro</th>
@@ -21,19 +23,15 @@
             <th>Total</th>
             <th>Deuda</th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let n of notesList">
-            <td>
+            <td style="width: 115px;">
               <a [routerLink]="['/pedidos', n.orderId, 'notas', n.noteId]">{{ n.note }}</a>
             </td>
-            <!-- <td >
-              <strong>
-                {{n.note}}
-              </strong>
-            </td> -->
-            <td>{{ n.orderId }}</td>
+            <!-- <td>{{ n.orderId }}</td> -->
             <td>{{ n.clientName }}</td>
             <td>{{ n.employeeName }}</td>
             <td>{{ n.registration | date: 'medium' }}</td>
@@ -45,16 +43,26 @@
                         [routerLink]="['/notas', n.noteId, 'abonos', 0, 'editar']">
               Abonar
             </button></td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="deleteNote(n.noteId)">Eliminar</button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <div class="alert alert-warning" *ngIf="!errorMessage && notesList.length == 0">
-    <p>No hay Notas!</p>
-    <p>Ir a <strong><a routerLink="/pedidos">Pedidos</a></strong> para crear Notas</p>
+  <!-- todo: improve alert and info message -->
+  <div *ngIf="!errorMessage">
+    <div class="row" style="margin-top: 50px;" *ngIf="notesList.length == 0 && notesNotFound == false">
+      <h5>
+        Cargando...
+      </h5>
+    </div>
+    <div class="alert alert-warning" *ngIf="notesList.length == 0 && notesNotFound == true">
+      <p>No hay Notas!</p>
+      <p>Ir a <strong><a routerLink="/pedidos">Pedidos</a></strong> para crear Notas</p>
+    </div>
   </div>
 
-  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
 </div>

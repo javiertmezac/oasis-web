@@ -7,7 +7,13 @@
     </h3>
   </div>
 
-  <div class="card-body">
+  <div class="row" style="margin-top: 50px;" *ngIf="!note">
+    <h5>
+      Cargando...
+    </h5>
+  </div>
+
+  <div class="card-body" *ngIf="note">
     <form novalidate (ngSubmit)="saveNote()" [formGroup]="noteForm" >
 
       <div *ngIf="client">
@@ -93,7 +99,7 @@
         <div class="form-group row mb-2">
           <label class="col-md-2 col-form-label" for="noteDiscountId">Galones Descontados:</label>
           <div class="col-md-8">
-            <input class="form-control" id="noteDiscountId" type="text" placeholder="cuantos galones?"
+            <input class="form-control" id="noteDiscountId" type="text" placeholder="cuantos galones? (opcional)"
               (change)="onNoteDiscount()" formControlName="discount" />
           </div>
         </div>

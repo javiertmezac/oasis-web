@@ -88,6 +88,11 @@ export class NoteService {
     .pipe(catchError(this.handleHttpClientError.handleError))
   }
 
+  deleteNote(noteId:number): Observable<any> {
+    return this.http.delete(`${this.notesUri}/${noteId}`)
+    .pipe(catchError(this.handleHttpClientError.handleError))
+  }
+
   fetchNotePaymentes(noteId: number): Observable<any> {
     return this.http.get(`${this.notesUri}/${noteId}/payments`)
     .pipe(catchError(this.handleHttpClientError.handleError));
