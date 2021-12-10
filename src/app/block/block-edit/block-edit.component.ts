@@ -31,7 +31,7 @@ export class BlockEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.blockForm = this.fb.group({
-      letter: ['', [Validators.required, Validators.maxLength(1)]],
+      letter: ['', [Validators.required, Validators.maxLength(10)]],
       startNumber: ['', Validators.required],
       endNumber: ['', Validators.required]
     });
