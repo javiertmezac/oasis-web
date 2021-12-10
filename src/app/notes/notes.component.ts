@@ -40,7 +40,13 @@ export class NotesComponent implements OnInit {
         if(confirm(`Seguro de proceder con el borrado de la nota "${response.note}" ?`)) {
           this.noteService.deleteNote(noteId).subscribe({
             next: () => this.loadNotes(),
-            error: err => this.errorMessage = err
+            error: err => {
+              if (err.includes("401 Unauthorized")) {
+                this.errorMessage = "NO tiene permisos de ADMINISTRADOR para borrar!"
+              } else {
+                this.errorMessage = err;
+              }
+            }
           })
         }
       },

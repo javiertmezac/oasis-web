@@ -5,6 +5,8 @@
     </h3>
   </div>
 
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+
   <div class="card-body">
 
     <div class="table-responsive" *ngIf="notesList.length > 0">
@@ -12,7 +14,7 @@
         <thead>
           <tr>
             <th>Nota</th>
-            <th>Pedido</th>
+            <!-- <th>Pedido</th> -->
             <th>Empresa / Tienda</th>
             <th>Chofer</th>
             <th>Registro</th>
@@ -26,10 +28,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let n of notesList">
-            <td>
+            <td style="width: 115px;">
               <a [routerLink]="['/pedidos', n.orderId, 'notas', n.noteId]">{{ n.note }}</a>
             </td>
-            <td>{{ n.orderId }}</td>
+            <!-- <td>{{ n.orderId }}</td> -->
             <td>{{ n.clientName }}</td>
             <td>{{ n.employeeName }}</td>
             <td>{{ n.registration | date: 'medium' }}</td>
@@ -63,6 +65,4 @@
     </div>
   </div>
 
-
-  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
 </div>
