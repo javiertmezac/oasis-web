@@ -58,4 +58,9 @@ export class AuthService {
     localStorage.setItem('id_token', authResult.id_token);
     this.subject.next(authResult)
   }
+
+  removeSession() {
+    localStorage.clear();
+    this.subject.next(ANONYMOUS_USER);
+  }
 }
