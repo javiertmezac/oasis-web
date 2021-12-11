@@ -1,15 +1,29 @@
 <div class="card">
   <div class="card-header">
     <h3>
-    {{ pageTitle }}
+      {{ pageTitle }}
     </h3>
   </div>
 
   <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
 
   <div class="card-body">
+    
+    <div class="row" *ngIf="!errorMessage">
+      <div class="col">
+        Filtart por:
+        <input type="text" [(ngModel)]='listFilter' />
+      </div>
+      <div class="col form-check form-switch">
+        <input class="form-check-input form-control" type="checkbox" id="paidNotesId" (click)="fetchPaidNotes($event)">
+        <label class="form-check-label" for="paidNotesId">
+          Cargar Notas Pagadas
+        </label>
+      </div>
 
-    <div class="table-responsive" *ngIf="notesList.length > 0">
+    </div>
+
+    <div class="table-responsive" *ngIf="filteredNotes.length > 0">
       <table class="table">
         <thead>
           <tr>
@@ -27,7 +41,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let n of notesList">
+          <tr *ngFor="let n of filteredNotes">
             <td style="width: 115px;">
               <a [routerLink]="['/pedidos', n.orderId, 'notas', n.noteId]">{{ n.note }}</a>
             </td>
@@ -39,10 +53,10 @@
             <td>{{ n.liters }}</td>
             <td>{{ n.total }}</td>
             <td>{{ n.debt }}</td>
-            <td><button class="btn btn-outline-success btn-sm"
-                        [routerLink]="['/notas', n.noteId, 'abonos', 0, 'editar']">
-              Abonar
-            </button></td>
+            <td *ngIf="n.debt != 0"><button class="btn btn-outline-success btn-sm"
+                [routerLink]="['/notas', n.noteId, 'abonos', 0, 'editar']">
+                Abonar
+              </button></td>
             <td>
               <button class="btn btn-danger btn-sm" (click)="deleteNote(n.noteId)">Eliminar</button>
             </td>
@@ -54,12 +68,12 @@
 
   <!-- todo: improve alert and info message -->
   <div *ngIf="!errorMessage">
-    <div class="row" style="margin-top: 50px;" *ngIf="notesList.length == 0 && notesNotFound == false">
+    <div class="row" style="margin-top: 50px;" *ngIf="filteredNotes.length == 0 && notesNotFound == false">
       <h5>
         Cargando...
       </h5>
     </div>
-    <div class="alert alert-warning" *ngIf="notesList.length == 0 && notesNotFound == true">
+    <div class="alert alert-warning" *ngIf="filteredNotes.length == 0 && notesNotFound == true">
       <p>No hay Notas!</p>
       <p>Ir a <strong><a routerLink="/pedidos">Pedidos</a></strong> para crear Notas</p>
     </div>

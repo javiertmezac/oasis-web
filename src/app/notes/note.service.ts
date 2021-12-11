@@ -5,7 +5,6 @@ import { catchError } from "rxjs/operators";
 import { environment } from "../../environments/environment"
 import { HandleHttpClientError } from "../shared/handle-error";
 import { INoteBase } from "./note-base";
-import { NotePaymentResponse } from "./note-payment";
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +17,12 @@ export class NoteService {
   constructor(private http: HttpClient,
     private handleHttpClientError: HandleHttpClientError) { }
 
-  getNotes(): Observable<any> {
-    return this.http.get(this.notesUri)
+  getNotes(selectPaidNotes: boolean): Observable<any> {
+    let tempUri = this.notesUri;
+    if (selectPaidNotes) {
+      tempUri = `${this.notesUri}?selectPaidNotes=true`
+    } 
+    return this.http.get(tempUri)
     .pipe(catchError(this.handleHttpClientError.handleError));
   }
 

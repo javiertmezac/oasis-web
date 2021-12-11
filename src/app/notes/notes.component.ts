@@ -9,9 +9,21 @@ import { NoteService } from './note.service';
 export class NotesComponent implements OnInit {
   pageTitle: string = 'Notas';
   errorMessage = '';
+  private _listFilter = '';
 
+  filteredNotes: INote[] = [];
   notesList: INote[] = [];
   notesNotFound = false;
+  selectPaidNotes = false;
+
+  get listFilter(): string {
+    return this._listFilter;
+  }
+
+  set listFilter(value: string) {
+    this._listFilter = value;
+    this.filteredNotes = this.performFilter(value);
+  }
 
   constructor(private noteService: NoteService) { }
 
@@ -20,14 +32,20 @@ export class NotesComponent implements OnInit {
   }
 
   loadNotes() : void {
-    this.noteService.getNotes().subscribe({
-      next: response => this.notesList = response.notesResponse,
+
+    this.notesList = [];
+
+    this.noteService.getNotes(this.selectPaidNotes).subscribe({
+      next: response => {
+        this.notesList = response.notesResponse;
+        this.filteredNotes = this.notesList;
+      },
       error: err => {
         const emptyNotesError = "Could not fetch Notes";
         if (!err.includes(emptyNotesError)) {
           this.errorMessage = err
         } else {
-          this.notesList = [];
+          this.filteredNotes = [];
           this.notesNotFound = true;
         }
       }
@@ -52,6 +70,19 @@ export class NotesComponent implements OnInit {
       },
       error: err => this.errorMessage = err
     });
+  }
+
+  fetchPaidNotes(e: any): void {
+    this.selectPaidNotes = !this.selectPaidNotes;
+    this.pageTitle = this.selectPaidNotes == false ? "Notas" : "Notas Pagadas";
+    this.loadNotes();
+  }
+
+  performFilter(filterBy: string): INote[] {
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.notesList.filter(
+      (note: INote) => note.note.toLocaleLowerCase().includes(filterBy)
+    )
   }
 
 }
