@@ -61,5 +61,6 @@ export class AuthService {
 
   removeSession() {
     localStorage.clear();
+    this.subject.next(ANONYMOUS_USER);
   }
 }

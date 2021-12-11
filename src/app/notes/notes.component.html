@@ -8,19 +8,17 @@
   <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
 
   <div class="card-body">
-    
     <div class="row" *ngIf="!errorMessage">
       <div class="col">
         Filtart por:
         <input type="text" [(ngModel)]='listFilter' />
       </div>
-      <div class="col form-check form-switch">
+      <div class="col form-check form-switch" style="text-align: left;">
         <input class="form-check-input form-control" type="checkbox" id="paidNotesId" (click)="fetchPaidNotes($event)">
         <label class="form-check-label" for="paidNotesId">
           Cargar Notas Pagadas
         </label>
       </div>
-
     </div>
 
     <div class="table-responsive" *ngIf="filteredNotes.length > 0">
@@ -28,7 +26,6 @@
         <thead>
           <tr>
             <th>Nota</th>
-            <!-- <th>Pedido</th> -->
             <th>Empresa / Tienda</th>
             <th>Chofer</th>
             <th>Registro</th>
@@ -43,9 +40,10 @@
         <tbody>
           <tr *ngFor="let n of filteredNotes">
             <td style="width: 115px;">
-              <a [routerLink]="['/pedidos', n.orderId, 'notas', n.noteId]">{{ n.note }}</a>
+              <button class="btn btn-link btn-sm"
+                      [routerLink]="['/pedidos', n.orderId, 'notas', n.noteId]">
+              {{n.note}} </button>
             </td>
-            <!-- <td>{{ n.orderId }}</td> -->
             <td>{{ n.clientName }}</td>
             <td>{{ n.employeeName }}</td>
             <td>{{ n.registration | date: 'medium' }}</td>
@@ -68,7 +66,7 @@
 
   <!-- todo: improve alert and info message -->
   <div *ngIf="!errorMessage">
-    <div class="row" style="margin-top: 50px;" *ngIf="filteredNotes.length == 0 && notesNotFound == false">
+    <div class="row" style="margin-top: 50px;" *ngIf="notesList.length == 0 && notesNotFound == false">
       <h5>
         Cargando...
       </h5>
