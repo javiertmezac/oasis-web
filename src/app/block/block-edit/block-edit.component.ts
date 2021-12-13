@@ -27,6 +27,9 @@ export class BlockEditComponent implements OnInit {
     const employeeId = Number(this.route.snapshot.paramMap.get('idEmpleado'))
     this.getEmployee(employeeId);
 
+    const blockId = Number(this.route.snapshot.paramMap.get('idBloque'))
+    this.getBlock(blockId);
+
   }
 
   ngOnInit(): void {
@@ -58,9 +61,48 @@ export class BlockEditComponent implements OnInit {
     });
   }
 
+  getBlock(blockId: number) {
+    this.blockService.getBlock(blockId).subscribe({
+      next: response => this.displaBlock(response),
+      error: err => this.errorMessage = err
+    });
+  }
+
+  displaBlock(block: Block) {
+    if(this.blockForm) {
+      this.blockForm.reset();
+    }
+
+    this.block = block;
+
+    if (this.block.blockId != 0) {
+      this.pageTitle = "Editar Bloque"
+    }
+
+    this.blockForm.patchValue({
+      letter: this.block.letter,
+      startNumber: this.block.startNumber,
+      endNumber: this.block.endNumber
+    });
+
+  }
+
   onSaveComplete():void {
     this.blockForm.reset();
     this.router.navigateByUrl('/empleados');
+  }
+
+  deleteEmployeeBlock(): void {
+    if (this.block.blockId == 0) {
+      this.errorMessage = "No hay bloque a eliminar";
+    }
+
+    if(confirm(`Seguro de proceder con el borrado del Bloque?`)) {
+      this.blockService.deleteBlock(this.block.blockId).subscribe({
+        next: () => this.onSaveComplete(),
+        error: err => this.errorMessage = err
+      });
+    }
   }
 
 }
