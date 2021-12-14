@@ -84,4 +84,13 @@ export class EmployeeEditComponent implements OnInit {
     this.employeeForm.reset();
     this.router.navigateByUrl('/empleados');
   }
+
+  deleteEmployee(): void {
+    if (confirm(`Seguro de proceder con el borrado para el Trabajador: ${this.employee.employeeName}?`)) {
+      this.employeeService.deleteEmployee(this.employee.employeeId).subscribe({
+        next: () => this.onSaveComplete(),
+        error: err => this.errorMessage = err
+      });
+    }
+  }
 }
