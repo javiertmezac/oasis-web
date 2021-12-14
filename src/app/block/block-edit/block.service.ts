@@ -54,4 +54,15 @@ export class BlockService {
     .pipe(catchError(this.httpError.handleError))
   }
 
+  updateBlock(block: Block): Observable<any> {
+    const httpHeaders = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    return this.http.put<Block>(this.blocksUri, block, httpHeaders)
+    .pipe(catchError(this.httpError.handleError));
+  }
+
 }

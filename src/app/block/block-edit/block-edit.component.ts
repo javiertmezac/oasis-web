@@ -36,19 +36,38 @@ export class BlockEditComponent implements OnInit {
     this.blockForm = this.fb.group({
       letter: ['', [Validators.required, Validators.maxLength(10)]],
       startNumber: ['', Validators.required],
-      endNumber: ['', Validators.required]
+      endNumber: ['', Validators.required],
+      blockNextNumber: ''
     });
   }
 
-  saveBlock():void {
-    if(this.blockForm.valid) {
-      const b = {...this.block, ...this.blockForm.value}
-      b.employeeId = this.employee.employeeId;
+  saveBlock(): void {
+    if (this.blockForm.valid) {
+      if (this.blockForm.dirty) {
 
-      this.blockService.insertBlock(b).subscribe({
-        next: () => this.onSaveComplete(),
-        error: err => this.errorMessage = err
-      })
+        const b = { ...this.block, ...this.blockForm.value }
+        b.employeeId = this.employee.employeeId;
+
+        if (b.blockId == 0) {
+
+          this.blockService.insertBlock(b).subscribe({
+            next: () => this.onSaveComplete(),
+            error: err => this.errorMessage = err
+          });
+
+        } else {
+          // update
+          b.nextBlockNumber = b.blockNextNumber;
+          this.blockService.updateBlock(b).subscribe({
+            next: () => this.onSaveComplete(),
+            error: err => this.errorMessage = err
+          });
+        }
+
+      } else {
+        this.onSaveComplete();
+      }
+
     } else {
       this.errorMessage = "Corregir Errores de Validación";
     }
@@ -82,7 +101,8 @@ export class BlockEditComponent implements OnInit {
     this.blockForm.patchValue({
       letter: this.block.letter,
       startNumber: this.block.startNumber,
-      endNumber: this.block.endNumber
+      endNumber: this.block.endNumber,
+      blockNextNumber: this.block.nextBlockNumber != '' ? this.block.nextBlockNumber : ''
     });
 
   }
