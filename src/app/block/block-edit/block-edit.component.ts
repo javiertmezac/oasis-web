@@ -82,12 +82,12 @@ export class BlockEditComponent implements OnInit {
 
   getBlock(blockId: number) {
     this.blockService.getBlock(blockId).subscribe({
-      next: response => this.displaBlock(response),
+      next: response => this.displayBlockData(response),
       error: err => this.errorMessage = err
     });
   }
 
-  displaBlock(block: Block) {
+  displayBlockData(block: Block) {
     if(this.blockForm) {
       this.blockForm.reset();
     }
