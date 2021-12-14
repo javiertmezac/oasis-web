@@ -46,10 +46,17 @@
               *ngIf="e.block == 'n/a'"
               (click)="deleteEmployee(e.employeeId, e.employeeName)">Eliminar</button>
             </td>
-            <td><button class="btn btn-outline-success btn-sm"
+            <td>
+              <button class="btn btn-outline-success btn-sm"
               *ngIf="e.block == 'n/a'"
               [routerLink]="['/empleados', e.employeeId, 'bloques', 0, 'editar']">
               + Bloque</button>
+
+              <button class="btn btn-outline-warning btn-sm"
+              *ngIf="e.block != 'n/a'"
+              [routerLink]="['/empleados', e.employeeId, 'bloques', e.blockId, 'editar']">
+              Editar Bloque</button>
+
             </td>
 
           </tr>
