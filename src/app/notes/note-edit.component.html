@@ -31,6 +31,7 @@
                     *ngIf="editNote == false"
                     formControlName="noteEmployee"
                     class="form-control"
+                    required
                     (change)="onChangeEmployee()">
               <option [ngValue]='null' disabled>Seleccionar Chofer</option>
               <option *ngFor="let e of employeeList" [ngValue]="e">

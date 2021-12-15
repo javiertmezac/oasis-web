@@ -43,7 +43,7 @@ export class NoteEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.noteForm = this.fb.group({
-      noteEmployee: ['', Validators.required],
+      noteEmployee: '',
       registrationDate : ['', Validators.required],
       credit: '',
       initialData: ['', [NumberValidators.number,Validators.required]],
