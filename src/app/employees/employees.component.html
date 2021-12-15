@@ -28,7 +28,6 @@
             <th>Bloque</th>
             <th>Serie</th>
             <th></th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -42,10 +41,6 @@
             <td>{{e.registration | date }}</td>
             <td>{{e.block}}</td>
             <td>{{e.blockNumber}}</td>
-            <td><button class="btn btn-danger btn-sm"
-              *ngIf="e.block == 'n/a'"
-              (click)="deleteEmployee(e.employeeId, e.employeeName)">Eliminar</button>
-            </td>
             <td>
               <button class="btn btn-outline-success btn-sm"
               *ngIf="e.block == 'n/a'"

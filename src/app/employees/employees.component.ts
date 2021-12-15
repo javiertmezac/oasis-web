@@ -36,14 +36,4 @@ export class EmployeesComponent implements OnInit {
       }
     })
   }
-
-  deleteEmployee(employeeId: number, employeeName: string): void {
-    if (confirm(`Seguro de proceder con el borrado para el Trabajador: ${employeeName}?`)) {
-      this.employeeService.deleteEmployee(employeeId).subscribe({
-        next: () => this.getEmployees(),
-        error: erro => this.errorMessage = erro
-      });
-    }
-  }
-
 }

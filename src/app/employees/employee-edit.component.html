@@ -58,6 +58,10 @@
               [routerLink]="['/empleados']">
               Cancelar
             </button>
+            <button class="btn btn-outline-danger mr-3" style="width:100px;" type="button" title="Borrar Trabajador"
+              *ngIf="employee && employee.employeeId != 0" (click)="deleteEmployee()">
+              Eliminar
+            </button>
           </div>
         </div>
     </form>
