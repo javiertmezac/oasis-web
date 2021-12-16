@@ -39,7 +39,8 @@ export class ClientEditComponent implements OnInit {
       clientCp: '',
       clientPriceId: '',
       selectedPrice: ['', Validators.required],
-      clientNextClean: new Date().toJSON().split('T')[0]
+      clientNextClean: new Date().toJSON().split('T')[0],
+      nextCleaningComments: ''
     });
 
     this.getPriceList();
@@ -100,7 +101,8 @@ export class ClientEditComponent implements OnInit {
       clientNoOut: this.client.clientNoOut,
       clientCp: this.client.clientCp,
       selectedPrice: selectedPrice[0],
-      clientNextClean: selectedNextCleanDate != null ? selectedNextCleanDate.toJSON().split('T')[0] : ''
+      clientNextClean: selectedNextCleanDate != null ? selectedNextCleanDate.toJSON().split('T')[0] : '',
+      nextCleaningComments: this.client.nextCleaningComments
    });
   }
 

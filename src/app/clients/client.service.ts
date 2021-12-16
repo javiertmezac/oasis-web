@@ -52,7 +52,8 @@ export class ClientService {
       selectedPrice: { priceId: 0, price: 0},
       clientPriceId: 0,
       clientNextClean: datePick,
-      clientInstantNextClean: 0
+      clientInstantNextClean: 0,
+      nextCleaningComments: ''
     }
   }
 
