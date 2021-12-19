@@ -18,6 +18,7 @@ clientInstantRegistration: number,
 clientPrice: number,
 selectedPrice: Price,
 clientPriceId: number,
-clientNextClean: Date, 
-clientInstantNextClean: number
+clientNextClean: Date,
+clientInstantNextClean: number,
+nextCleaningComments: string
 }

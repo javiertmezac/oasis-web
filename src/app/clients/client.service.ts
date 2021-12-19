@@ -52,7 +52,8 @@ export class ClientService {
       selectedPrice: { priceId: 0, price: 0},
       clientPriceId: 0,
       clientNextClean: datePick,
-      clientInstantNextClean: 0
+      clientInstantNextClean: 0,
+      nextCleaningComments: ''
     }
   }
 
@@ -76,4 +77,17 @@ export class ClientService {
     return this.http.delete(`${this.clientsUrl}/${id}`)
     .pipe(catchError(this.handleHttpClientError.handleError))
   }
+
+  getClientCleaningTankRecord(clientId: number): Observable<any> {
+    return this.http.get(`${this.clientsUrl}/${clientId}/cleaning-tanks`)
+    .pipe(catchError(this.handleHttpClientError.handleError));
+  }
+
+  deleteCleaningTankRecord(clientId: number,
+    cleaningTankId: number): Observable<any> {
+    return this.http.delete(
+      `${this.clientsUrl}/${clientId}/cleaning-tanks/${cleaningTankId}`
+      ).pipe(catchError(this.handleHttpClientError.handleError));
+  }
+
 }

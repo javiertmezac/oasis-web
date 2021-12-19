@@ -30,6 +30,7 @@ import { EmployeeEditComponent } from './employees/employee-edit.component';
 import { PaymentEditComponent } from './payment/payment-edit/payment-edit.component';
 import { ClientEditComponent } from './clients/client-edit.component';
 import { NextblockDeleteComponent } from './block/nextblock-delete.component';
+import { NextCleanComponent } from './clients/next-clean.component';
 
 @NgModule({
   providers: [
@@ -119,7 +120,8 @@ import { NextblockDeleteComponent } from './block/nextblock-delete.component';
     EmployeeEditComponent,
     PaymentEditComponent,
     ClientEditComponent,
-    NextblockDeleteComponent
+    NextblockDeleteComponent,
+    NextCleanComponent
   ],
   bootstrap: [AppComponent]
 })

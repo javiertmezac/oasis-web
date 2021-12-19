@@ -1,0 +1,30 @@
+<h3>{{pageTitle}}</h3>
+
+<div *ngIf="cleaningTank.length == 0"> no hay registros!</div>
+
+<div class="table-responsive" *ngIf="cleaningTank.length > 0">
+  {{cleaningTank.length}}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Comentarios</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of cleaningTank">
+        <td>{{c.cleaningDate | date: 'mediumDate'}}</td>
+        <td>{{c.comments}}</td>
+        <td>
+          <button class="btn btn-outline-danger btn-sm"
+                  (click)="deleteCleaningTank(c.id)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="alert alert-danger" *ngIf="errorMessage"> {{errorMessage}}</div>

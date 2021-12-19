@@ -74,23 +74,38 @@
         <div class="col-md-3">Fecha sig. lavado (Tanque) :</div>
         <div class="col-md-6">{{client.clientNextClean == null ? "--" : client.clientNextClean | date: 'mediumDate': '': 'es'}}</div>
       </div>
-    </div>
 
+      <div class="row">
+        <div class="col-md-3">Comentarios sig. lavado (Tanque) :</div>
+        <div class="col-md-6">{{client.nextCleaningComments}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="client">
+    <xj-next-clean [clientId]="client.clientId"></xj-next-clean>
   </div>
 
   <div class="card-footer">
-    <div class='row'>
-      <div class="col-md-2" *ngIf="client">
-        <button class="btn btn-outline-primary"
-                [routerLink]="['/empresas', client.clientId, 'editar']">Editar</button>
-      </div>
-      <div class="col-md-2">
-        <button class="btn btn-secondary" routerLink="/empresas">Regresar</button>
-      </div>
-      <div class="col-md-2" *ngIf="client">
-        <button class="btn btn-outline-warning" (click)="deleteClient()">Borrar</button>
-      </div>
-    </div>
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-outline-primary mr-3"
+                  style="width:100px;"
+                  *ngIf="client"
+                  [routerLink]="['/empresas', client.clientId, 'editar']">
+           Editar
+          </button>
+          <button class="btn btn-outline-secondary mr-3"
+                  style="width:100px;"
+                  routerLink="/empresas">
+           Regresar
+          </button>
+          <button class="btn btn-danger mr-3"
+                  *ngIf="client"
+                  style="width:100px;"
+                  (click)="deleteClient()">
+           Elminar
+          </button>
+        </div>
   </div>
 
   <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
