@@ -77,8 +77,8 @@
     </div>
   </div>
 
-  <div>
-    <xj-next-clean></xj-next-clean>
+  <div *ngIf="client">
+    <xj-next-clean [clientId]="client.clientId"></xj-next-clean>
   </div>
 
   <div class="card-footer">
