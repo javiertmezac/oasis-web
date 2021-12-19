@@ -74,6 +74,11 @@
         <div class="col-md-3">Fecha sig. lavado (Tanque) :</div>
         <div class="col-md-6">{{client.clientNextClean == null ? "--" : client.clientNextClean | date: 'mediumDate': '': 'es'}}</div>
       </div>
+
+      <div class="row">
+        <div class="col-md-3">Comentarios sig. lavado (Tanque) :</div>
+        <div class="col-md-6">{{client.nextCleaningComments}}</div>
+      </div>
     </div>
   </div>
 
