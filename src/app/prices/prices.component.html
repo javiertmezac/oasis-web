@@ -14,8 +14,7 @@
                    type="text"
                    placeholder="precio"
                    formControlName="price"
-                   [ngClass]="{'is-invalid': priceForm.get('price')?.touched && 
-                   !priceForm.get('price')?.valid}"/>
+                   [ngClass]="{'is-invalid': (priceForm.get('price')?.touched && !priceForm.get('price')?.valid) }" />
           <span class="invalid-feedback">
             <span *ngIf="priceForm.controls['price'].errors?.required">
               Precio requerido
