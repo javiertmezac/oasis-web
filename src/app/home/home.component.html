@@ -1,1 +1,39 @@
-<h4>{{pageTitle}}</h4>
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-2" style="width:400px; height:400px">
+      <canvas id="canvas">{{chart}}</canvas>
+    </div>
+
+    <div class="col-md-6">
+      <h5># {{clients.length}} clientes sin pedido en los últimos 30 días</h5>
+      <button class="btn btn-outline-warning btn-sm"
+      (click)="toggleDisplayNoRecentOrderReport()">{{btnDisplay}}</button>
+
+      <div class="table-responsive" *ngIf='clients.length && toggle == true'>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Dirección</th>
+              <th>Registro</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor='let client of clients'>
+              <td>
+                <a [routerLink]="['/empresas', client.clientId]">
+                  {{ client.clientName }}
+                </a>
+              </td>
+              <td>{{ (client.clientNeighborhood == "" ? "--" : client.clientNeighborhood) + ', '
+                + (client.clientStreet == "" ? "--" : client.clientStreet) + ', '
+                + (client.clientNoInt == "" ? "--" : client.clientNoInt) + ', '
+                + (client.clientNoOut == "" ? "--" : client.clientNoOut) }} </td>
+              <td>{{ client.clientRegistration | date:'mediumDate':'':'es' }} </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
