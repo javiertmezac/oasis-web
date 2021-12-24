@@ -44,6 +44,8 @@ export class HomeComponent implements OnInit {
     this.toggle = !this.toggle;
     if (this.toggle == true) {
       this.btnDisplay = "Ocultar Listado"
+    } else {
+      this.btnDisplay = "Ver Listado"
     }
   }
 
