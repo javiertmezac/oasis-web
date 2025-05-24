@@ -1,7 +1,7 @@
 <div class='card'>
   <div class='card-header'>
     <h3>
-    {{pageTitle}}
+      {{pageTitle}}
     </h3>
   </div>
 
@@ -9,24 +9,25 @@
     <div class="row">
 
       <div class="col-md-2">
-        <button class="btn btn-primary"
-                [routerLink]="['/empresas', 0, 'editar']" >+ Empresa</button>
+        <button class="btn btn-primary" [routerLink]="['/empresas', 0, 'editar']">+ Empresa</button>
       </div>
 
       <div class="col-md-2">Filtrar por:</div>
       <div class="col-md-4">
-        <input type="text" [(ngModel)]='listFilter'/>
+        <input type="text" [(ngModel)]='listFilter' (keydown.enter)="performFilter()" />
+        <br>
+        <span><i>enter para buscar</i> </span>
       </div>
     </div>
 
     <div class="row" style="margin-top: 50px;" *ngIf="clients.length == 0">
       <h5>
-        Cargando...
+        {{ listFilter.length > 0 ? "No hay registros..." : "Cargando..." }}
       </h5>
     </div>
 
     <div class="table-responsive" *ngIf='clients.length'>
-      <table class="table" >
+      <table class="table">
         <thead>
           <tr>
             <th></th>
@@ -40,10 +41,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor='let client of filteredClients'>
+          <tr *ngFor='let client of clients'>
             <td style="width: 200px;">
               <button class="btn btn-outline-secondary btn-sm"
-                      [routerLink]="['/empresas', client.clientId, 'pedidos', 0, 'editar']">
+                [routerLink]="['/empresas', client.clientId, 'pedidos', 0, 'editar']">
                 Crear Pedido
               </button>
             </td>
@@ -60,10 +61,34 @@
             <td>{{ client.clientCp }} </td>
             <td>{{ client.clientRegistration | date:'mediumDate':'':'es' }} </td>
             <td>{{ client.clientPrice }} </td>
-            <td>{{ client.clientNextClean == null ? "--" : client.clientNextClean  | date:'mediumDate':'':'es' }} </td>
+            <td>{{ client.clientNextClean == null ? "--" : client.clientNextClean | date:'mediumDate':'':'es' }} </td>
           </tr>
         </tbody>
       </table>
+
+      <div class="pagination">
+        <button (click)="onPageChange(pagination.currentPage - 1)" [disabled]="pagination.currentPage === 0">
+          Prev
+        </button>
+
+        <span>
+          Page {{ pagination.currentPage + 1 }} of {{ pagination.totalPages }}
+        </span>
+
+        <button (click)="onPageChange(pagination.currentPage + 1)"
+          [disabled]="pagination.currentPage + 1 >= pagination.totalPages">
+          Next
+        </button>
+
+        <span style="margin-left: 1rem;">
+          Go to page:
+          <input type="number" [(ngModel)]="jumpToPage" [min]="1" [max]="pagination.totalPages" style="width: 60px;"
+            (keydown.enter)="goToPage()" />
+          <button (click)="goToPage()">Go</button>
+        </span>
+      </div>
+
+
     </div>
   </div>
 

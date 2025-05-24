@@ -20,9 +20,9 @@ export class ClientComponent implements OnInit {
   private _listFilter = '';
   sub!: Subscription
 
-  responseClients : any = [];
   clients: IClient[] = [];
-  filteredClients: IClient[] = [];
+  pagination = { currentPage: 0, pageSize: 20, totalPages: 0, totalItems: 0 };
+  jumpToPage = 1;
 
   get listFilter(): string {
     return this._listFilter;
@@ -30,34 +30,53 @@ export class ClientComponent implements OnInit {
 
   set listFilter(value: string) {
     this._listFilter = value;
-    this.filteredClients = this.performFilter(value);
-  } 
+  }
 
   constructor(private clientService: ClientService,
-              private router: Router) {}
+    private router: Router) { }
 
   ngOnInit(): void {
-    console.log("ngOnInit")
-
-    this.sub = this.clientService.getClients().subscribe({
-      next: clients => {
-        this.responseClients = clients.clientsResponses;
-
-        this.clients = this.responseClients;
-        this.filteredClients = this.clients;
-      },
-      error: err => this.errorMessage = err
-    });
-
+    this.loadClients();
   }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
 
-  performFilter(filterBy: string): IClient[] {
-    filterBy = filterBy.toLocaleLowerCase();
-    return this.clients.filter((client: IClient) =>
-      client.clientName.toLocaleLowerCase().includes(filterBy) || client.clientNeighborhood.toLocaleLowerCase().includes(filterBy));
+  onPageChange(newPage: number) {
+    this.loadClients(newPage, this._listFilter);
+  }
+
+  loadClients(page = 0, search = ''
+  ) {
+    this.sub = this.clientService.getClientsV2({
+      page,
+      size: this.pagination.pageSize,
+      search: search
+    }).subscribe({
+      next: r => {
+        this.clients = r.clients;
+        this.pagination = r.pagination;
+      },
+      error: e => this.errorMessage = e
+    })
+  }
+
+  goToPage() {
+    const pageIndex = this.jumpToPage - 1;
+
+    if (
+      pageIndex >= 0 &&
+      pageIndex < this.pagination.totalPages
+    ) {
+      this.onPageChange(pageIndex);
+    } else {
+      alert('Invalid page number');
+    }
+  }
+
+  performFilter() {
+    let filterBy = this._listFilter.toLocaleLowerCase();
+    this.loadClients(0, filterBy);
   }
 }

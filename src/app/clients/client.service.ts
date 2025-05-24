@@ -23,6 +23,22 @@ export class ClientService {
       .pipe(catchError(this.handleHttpClientError.handleError));
   }
 
+  getClientsV2(params: {
+    page: number;
+    size: number;
+    search?: string;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+  }): Observable<any> {
+// .set('sortBy', params.sortBy || 'createdAt')
+//       .set('sortOrder', params.sortOrder || 'asc');
+
+    let url = `${this.baseUri}/v2/clients?page=${params.page}&size=${params.size}&search=${params.search}`
+    return this.http.get(url)
+      .pipe(catchError(this.handleHttpClientError.handleError));
+  }
+
+
   getClient(clientId: number): Observable<IClient> {
     if (clientId === 0) {
       return of(this.newClient());
