@@ -12,7 +12,7 @@
         <button class="btn btn-primary" [routerLink]="['/empresas', 0, 'editar']">+ Empresa</button>
       </div>
 
-      <div class="col-md-2">Filtrar por:</div>
+      <div class="col-md-2">Filtrar por [ nombre or dirección ] </div>
       <div class="col-md-4">
         <input type="text" [(ngModel)]='listFilter' (keydown.enter)="performFilter()" />
         <br>
@@ -26,6 +26,7 @@
       </h5>
     </div>
 
+    <span><i>elementos encontrados: #{{pagination.totalItems}}</i> </span>
     <div class="table-responsive" *ngIf='clients.length'>
       <table class="table">
         <thead>
@@ -66,26 +67,51 @@
         </tbody>
       </table>
 
-      <div class="pagination">
-        <button (click)="onPageChange(pagination.currentPage - 1)" [disabled]="pagination.currentPage === 0">
-          Prev
+      <div class="d-flex align-items-center gap-3 flex-wrap pagination">
+
+        <!-- Prev Button -->
+        <button
+          class="btn btn-outline-secondary btn-sm"
+          (click)="onPageChange(pagination.currentPage - 1)"
+          [disabled]="pagination.currentPage === 0"
+          title="Previous Page">
+          <i class="fa fa-chevron-left"></i>
         </button>
 
-        <span>
+        <!-- Page Counter -->
+        <span class="text-muted small">
           Page {{ pagination.currentPage + 1 }} of {{ pagination.totalPages }}
         </span>
 
-        <button (click)="onPageChange(pagination.currentPage + 1)"
-          [disabled]="pagination.currentPage + 1 >= pagination.totalPages">
-          Next
+        <!-- Next Button -->
+        <button
+          class="btn btn-outline-secondary btn-sm"
+          (click)="onPageChange(pagination.currentPage + 1)"
+          [disabled]="pagination.currentPage + 1 >= pagination.totalPages"
+          title="Next Page">
+          <i class="fa fa-chevron-right"></i>
         </button>
 
-        <span style="margin-left: 1rem;">
-          Go to page:
-          <input type="number" [(ngModel)]="jumpToPage" [min]="1" [max]="pagination.totalPages" style="width: 60px;"
-            (keydown.enter)="goToPage()" />
-          <button (click)="goToPage()">Go</button>
-        </span>
+        <!-- Go to Page Input -->
+        <div class="d-flex align-items-center ms-3">
+          <label class="me-2 small text-muted mb-0">Go to:</label>
+          <input
+            type="number"
+            [(ngModel)]="jumpToPage"
+            [min]="1"
+            [max]="pagination.totalPages"
+            (keydown.enter)="goToPage()"
+            class="form-control form-control-sm"
+            style="width: 70px;" />
+
+          <button
+            class="btn btn-outline-primary btn-sm ms-2"
+            (click)="goToPage()"
+            title="Go to page">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+
       </div>
 
 
