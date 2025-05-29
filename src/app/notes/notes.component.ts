@@ -11,10 +11,12 @@ export class NotesComponent implements OnInit {
   errorMessage = '';
   private _listFilter = '';
 
-  filteredNotes: INote[] = [];
   notesList: INote[] = [];
-  notesNotFound = false;
   selectPaidNotes = false;
+  finishLoading = false;
+
+  pagination = { currentPage: 0, pageSize: 20, totalPages: 0, totalItems: 0 };
+  jumpToPage = 1;
 
   get listFilter(): string {
     return this._listFilter;
@@ -22,7 +24,6 @@ export class NotesComponent implements OnInit {
 
   set listFilter(value: string) {
     this._listFilter = value;
-    this.filteredNotes = this.performFilter(value);
   }
 
   constructor(private noteService: NoteService) { }
@@ -31,24 +32,19 @@ export class NotesComponent implements OnInit {
     this.loadNotes();
   }
 
-  loadNotes() : void {
+  loadNotes(page = 0, search = '') : void {
 
     this.notesList = [];
 
-    this.noteService.getNotes(this.selectPaidNotes).subscribe({
+    this.noteService.getNotesV2(this.selectPaidNotes, {page, size: this.pagination.pageSize, search: search}).subscribe({
       next: response => {
         this.notesList = response.notesResponse;
-        this.filteredNotes = this.notesList;
+        this.pagination = response.pagination;
       },
       error: err => {
-        const emptyNotesError = "Could not fetch Notes";
-        if (!err.includes(emptyNotesError)) {
-          this.errorMessage = err
-        } else {
-          this.filteredNotes = [];
-          this.notesNotFound = true;
-        }
-      }
+        this.errorMessage = err;
+      },
+      complete: () => this.finishLoading = true
     });
   }
 
@@ -78,11 +74,26 @@ export class NotesComponent implements OnInit {
     this.loadNotes();
   }
 
-  performFilter(filterBy: string): INote[] {
-    filterBy = filterBy.toLocaleLowerCase();
-    return this.notesList.filter(
-      (note: INote) => note.note.toLocaleLowerCase().includes(filterBy)
-    )
+  performFilter() {
+    let filterBy = this._listFilter.toLocaleLowerCase();
+    this.loadNotes(0, filterBy);
+  }
+
+  onPageChange(newPage: number) {
+    this.loadNotes(newPage, this._listFilter);
+  }
+
+  goToPage() {
+    const pageIndex = this.jumpToPage - 1;
+
+    if (
+      pageIndex >= 0 &&
+      pageIndex < this.pagination.totalPages
+    ) {
+      this.onPageChange(pageIndex);
+    } else {
+      alert('Invalid page number');
+    }
   }
 
 }

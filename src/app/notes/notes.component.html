@@ -5,23 +5,44 @@
     </h3>
   </div>
 
-  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
-
   <div class="card-body">
-    <div class="row" *ngIf="!errorMessage">
-      <div class="col">
-        Filtart por:
-        <input type="text" [(ngModel)]='listFilter' />
-      </div>
-      <div class="col form-check form-switch" style="text-align: left;">
-        <input class="form-check-input form-control" type="checkbox" id="paidNotesId" (click)="fetchPaidNotes($event)">
-        <label class="form-check-label" for="paidNotesId">
-          Cargar Notas Pagadas
-        </label>
+
+    <div class="row justify-content-center" *ngIf="!errorMessage">
+      <div class="col-auto">
+        <div class="form-check form-switch text-center">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="paidNotesId"
+            (click)="fetchPaidNotes($event)"
+          />
+          <label class="form-check-label" for="paidNotesId">
+            Cargar Notas Pagadas
+          </label>
+        </div>
       </div>
     </div>
 
-    <div class="table-responsive" *ngIf="filteredNotes.length > 0">
+    <div class="row" *ngIf="!errorMessage && selectPaidNotes == true">
+      <label> Filtar por [ nota o empresa]:</label>
+      <input type="text" [(ngModel)]='listFilter' (keydown.enter)="performFilter()" />
+      <span><i>enter para buscar</i></span>
+      <span><i>elementos encontrados: #{{pagination.totalItems}}</i> </span>
+    </div>
+
+    <div *ngIf="!errorMessage">
+      <div class="row" style="margin-top: 50px;" *ngIf="notesList.length == 0 && finishLoading == false">
+        <h5>
+          {{ "Cargando..." }}
+        </h5>
+      </div>
+      <div class="alert alert-warning" *ngIf="selectPaidNotes == false && notesList.length == 0 && finishLoading ">
+        <p>No hay Notas!</p>
+        <p>Ir a <strong><a routerLink="/pedidos">Pedidos</a></strong> para crear Notas</p>
+      </div>
+    </div>
+
+    <div class="table-responsive" *ngIf="notesList.length">
       <table class="table">
         <thead>
           <tr>
@@ -38,11 +59,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let n of filteredNotes">
+          <tr *ngFor="let n of notesList">
             <td style="width: 115px;">
-              <button class="btn btn-link btn-sm"
-                      [routerLink]="['/pedidos', n.orderId, 'notas', n.noteId]">
-              {{n.note}} </button>
+              <button class="btn btn-link btn-sm" [routerLink]="['/pedidos', n.orderId, 'notas', n.noteId]">
+                {{n.note}} </button>
             </td>
             <td>{{ n.clientName }}</td>
             <td>{{ n.employeeName }}</td>
@@ -61,20 +81,40 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="d-flex align-items-center gap-3 flex-wrap pagination">
+        <!-- Prev Button -->
+        <button class="btn btn-outline-secondary btn-sm" (click)="onPageChange(pagination.currentPage - 1)"
+          [disabled]="pagination.currentPage === 0" title="Previous Page">
+          <i class="fa fa-chevron-left"></i>
+        </button>
+
+        <!-- Page Counter -->
+        <span class="text-muted small">
+          Page {{ pagination.currentPage + 1 }} of {{ pagination.totalPages }}
+        </span>
+
+        <!-- Next Button -->
+        <button class="btn btn-outline-secondary btn-sm" (click)="onPageChange(pagination.currentPage + 1)"
+          [disabled]="pagination.currentPage + 1 >= pagination.totalPages" title="Next Page">
+          <i class="fa fa-chevron-right"></i>
+        </button>
+
+        <!-- Go to Page Input -->
+        <div class="d-flex align-items-center ms-3">
+          <label class="me-2 small text-muted mb-0">Go to:</label>
+          <input type="number" [(ngModel)]="jumpToPage" [min]="1" [max]="pagination.totalPages"
+            (keydown.enter)="goToPage()" class="form-control form-control-sm" style="width: 70px;" />
+
+          <button class="btn btn-outline-primary btn-sm ms-2" (click)="goToPage()" title="Go to page">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- todo: improve alert and info message -->
-  <div *ngIf="!errorMessage">
-    <div class="row" style="margin-top: 50px;" *ngIf="notesList.length == 0 && notesNotFound == false">
-      <h5>
-        Cargando...
-      </h5>
-    </div>
-    <div class="alert alert-warning" *ngIf="filteredNotes.length == 0 && notesNotFound == true">
-      <p>No hay Notas!</p>
-      <p>Ir a <strong><a routerLink="/pedidos">Pedidos</a></strong> para crear Notas</p>
-    </div>
-  </div>
+  <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
 
 </div>
