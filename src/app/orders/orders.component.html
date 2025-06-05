@@ -8,7 +8,7 @@
   <div class="card-body" >
 
     <div class="row" *ngIf="!errorMessage && orderList.length > 0">
-      <div class="col-md-2">Filtart por: </div>
+      <div class="col-md-2">Filtar por: </div>
       <div class="col-md-4">
         <input type="text" [(ngModel)]='listFilter'/>
       </div>
@@ -47,7 +47,11 @@
                 {{order.orderId}}
               </a>
             </td>
-            <td style="width: 220px;">{{order.clientName}}</td>
+            <td style="width: 220px;">
+              <a [routerLink]="['/empresas', order.clientId]">
+                {{order.clientName}}
+              </a>
+            </td>
             <td style="width: 220px;">{{order.employeeName}}</td>
             <td style="width: 150px;">{{order.registration | date: 'medium': '': 'es' }}</td>
             <td style="width: 110px;">{{order.delivery | date: 'mediumDate': '': 'es'}}</td>

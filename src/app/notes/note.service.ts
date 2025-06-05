@@ -21,9 +21,19 @@ export class NoteService {
     let tempUri = this.notesUri;
     if (selectPaidNotes) {
       tempUri = `${this.notesUri}?selectPaidNotes=true`
-    } 
+    }
     return this.http.get(tempUri)
-    .pipe(catchError(this.handleHttpClientError.handleError));
+      .pipe(catchError(this.handleHttpClientError.handleError));
+  }
+
+  getNotesV2(selectPaidNotes: boolean, params: {
+    page: number;
+    size: number;
+    search?: string;
+  }): Observable<any> {
+    let tempUri = `${this.baseUri}/v2/notes?selectPaidNotes=${selectPaidNotes}&page=${params.page}&size=${params.size}&search=${params.search}`;
+    return this.http.get(tempUri)
+      .pipe(catchError(this.handleHttpClientError.handleError));
   }
 
   getNote(noteId: number): Observable<INoteBase> {
@@ -31,7 +41,7 @@ export class NoteService {
       return of(this.newNote())
     }
     return this.http.get<INoteBase>(`${this.notesUri}/${noteId}`)
-    .pipe(catchError(this.handleHttpClientError.handleError));
+      .pipe(catchError(this.handleHttpClientError.handleError));
   }
 
   private newNote(): INoteBase {
@@ -78,27 +88,27 @@ export class NoteService {
       })
     }
     return this.http.post<INoteBase>(this.notesUri, note, httpHeaders)
-    .pipe(catchError(this.handleHttpClientError.handleError))
+      .pipe(catchError(this.handleHttpClientError.handleError))
   }
 
-  updateNote(note: INoteBase) : Observable<any> {
+  updateNote(note: INoteBase): Observable<any> {
     const httpHeaders = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
     return this.http.put<INoteBase>(this.notesUri, note, httpHeaders)
-    .pipe(catchError(this.handleHttpClientError.handleError))
+      .pipe(catchError(this.handleHttpClientError.handleError))
   }
 
-  deleteNote(noteId:number): Observable<any> {
+  deleteNote(noteId: number): Observable<any> {
     return this.http.delete(`${this.notesUri}/${noteId}`)
-    .pipe(catchError(this.handleHttpClientError.handleError))
+      .pipe(catchError(this.handleHttpClientError.handleError))
   }
 
   fetchNotePaymentes(noteId: number): Observable<any> {
     return this.http.get(`${this.notesUri}/${noteId}/payments`)
-    .pipe(catchError(this.handleHttpClientError.handleError));
+      .pipe(catchError(this.handleHttpClientError.handleError));
   }
 
 }
