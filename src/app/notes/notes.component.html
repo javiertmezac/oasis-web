@@ -25,7 +25,7 @@
 
     <div class="row" *ngIf="!errorMessage && selectPaidNotes == true">
       <label> Filtar por [ nota o empresa]:</label>
-      <input type="text" [(ngModel)]='listFilter' (keydown.enter)="performFilter()" />
+      <input type="text" [(ngModel)]='listFilter' (keydown.enter)="performFilter()" style="text-align: center;" />
       <span><i>enter para buscar</i></span>
       <span><i>elementos encontrados: #{{pagination.totalItems}}</i> </span>
     </div>
